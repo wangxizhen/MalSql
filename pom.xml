@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>MalSql</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <properties>
+        <antlr.version>4.9.2</antlr.version>
+        <lombok.version>1.16.16</lombok.version>
+        <commons-lang3.version>3.5</commons-lang3.version>
+        <guava.version>23.0</guava.version>
+        <fastjson.version>1.2.83</fastjson.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <commons-lang3.version>3.5</commons-lang3.version>
+        <junit.version>4.12</junit.version>
+
+
+
+    </properties>
+    <modules>
+        <module>Mal-Sql-Grammar</module>
+        <module>Mal-Sql-Parser</module>
+        <module>Mal-Sql-Common</module>
+    </modules>
+
+
+</project>

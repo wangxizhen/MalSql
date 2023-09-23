@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Mal-Sql-Common/Mal-Sql-Common.iml" filepath="$PROJECT_DIR$/Mal-Sql-Common/Mal-Sql-Common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Mal-Sql-Grammar/Mal-Sql-Grammar.iml" filepath="$PROJECT_DIR$/Mal-Sql-Grammar/Mal-Sql-Grammar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Mal-Sql-Parser/Mal-Sql-Parser.iml" filepath="$PROJECT_DIR$/Mal-Sql-Parser/Mal-Sql-Parser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/MalSql.iml" filepath="$PROJECT_DIR$/.idea/MalSql.iml" />
+    </modules>
+  </component>
+</project>
