@@ -19,7 +19,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 public class NameOperand implements Operand {
-    private final String streamName;
+    private final String tableName;
     private final String fieldName;
 
     @Override
@@ -30,7 +30,7 @@ public class NameOperand implements Operand {
     @Override
     public String toReadableString()
     {
-        return StringUtils.isEmpty(streamName) ? fieldName : String.format("%s.%s", streamName, fieldName);
+        return StringUtils.isEmpty(tableName) ? fieldName : String.format("%s.%s", tableName, fieldName);
     }
 
     @Override
@@ -60,5 +60,5 @@ public class NameOperand implements Operand {
         return result.orElse(null);
     }
 
-    private String getFullName() {return String.format("%s.%s", streamName, fieldName);}
+    private String getFullName() {return String.format("%s.%s", tableName, fieldName);}
 }

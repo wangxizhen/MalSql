@@ -178,13 +178,13 @@ FLOAT :DIGIT+ '.' DIGIT* | '.' DIGIT+;
 NEG_INT : SUB INT;
 NEG_FLOAT : SUB FLOAT;
 
-STRING:QUOTES (ID|INT|FLOAT)* QUOTES;
+STRING:QUOTES (LetterOrDigit|INT|FLOAT)* QUOTES;
 
 
-ID: (ID_LETTER | DIGIT) (ID_LETTER | DIGIT)*;
-PARENTHESIS: QUES ID;
+LetterOrDigit: (LETTER | DIGIT) (LETTER | DIGIT)*;
+PARENTHESIS: QUES LetterOrDigit;
 
-fragment ID_LETTER: [a-zA-Z] | '_' | '-' | '.' | ':' | '\\' | '/';
+fragment LETTER: [a-zA-Z] | '_' | '-' | '.' | ':' | '\\' | '/';
 fragment DIGIT: [0-9];
 fragment A: [aA];
 fragment B: [bB];

@@ -70,8 +70,8 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     @SuppressWarnings("unchecked")
     @Override
     public Boolean visitRoot(RootContext ctx) {
-        if (ctx.tableRef() != null) {
-            if (!visitTableRef(ctx.tableRef()))
+        if (ctx.tableName() != null) {
+            if (!visitTableName(ctx.tableName()))
                 return false;
             builder.tables((List<String>) stack.pop());
         }
@@ -131,8 +131,8 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     public Boolean visitNameOprand(NameOprandContext ctx) {
         // 每次都将默认的表名压入栈中
         stack.push(defaultTableName);
-        if (ctx.tableName != null) {
-            defaultTableName = ctx.tableName.getText();
+        if (ctx.actualTableName != null) {
+            defaultTableName = ctx.actualTableName.getText();
         }
         if (visitName(ctx.columnName)) {
             // 选择的列
@@ -152,8 +152,8 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitTableRef(TableRefContext ctx) {
-        this.defaultTableName = ctx.tableName.getText();
+    public Boolean visitTableName(TableNameContext ctx) {
+        this.defaultTableName = ctx.actualTableName.getText();
         //多数据源时进行扩展
         stack.push(Collections.singletonList(defaultTableName));
         return true;
@@ -174,12 +174,12 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     private Boolean visitBoolExpr(BoolExprContext ctx) {
-        if (ctx instanceof LrExprContext) {
-            return visitLrExpr((LrExprContext) ctx);
-        } else if (ctx instanceof AndOprContext) {
-            return visitAndOpr((AndOprContext) ctx);
-        } else if (ctx instanceof OrOprContext) {
-            return visitOrOpr((OrOprContext) ctx);
+        if (ctx instanceof InsideExpressionContext) {
+            return visitInsideExpression((InsideExpressionContext) ctx);
+        } else if (ctx instanceof AndOperationContext) {
+            return visitAndOperation((AndOperationContext) ctx);
+        } else if (ctx instanceof OrOperationContext) {
+            return visitOrOperation((OrOperationContext) ctx);
         } else if (ctx instanceof BasicExprContext) {
             return visitBasicExpr((BasicExprContext) ctx);
         }
@@ -187,12 +187,12 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitLrExpr(LrExprContext ctx) {
+    public Boolean visitInsideExpression(InsideExpressionContext ctx) {
         return visitBoolExpr(ctx.boolExpr());
     }
 
     @Override
-    public Boolean visitAndOpr(AndOprContext ctx) {
+    public Boolean visitAndOperation(AndOperationContext ctx) {
         if (visitBoolExpr(ctx.left)) {
             IBooleanExpression left = (IBooleanExpression) stack.pop();
             if (visitBoolExpr(ctx.right)) {
@@ -205,7 +205,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitOrOpr(OrOprContext ctx) {
+    public Boolean visitOrOperation(OrOperationContext ctx) {
         if (visitBoolExpr(ctx.left)) {
             IBooleanExpression left = (IBooleanExpression) stack.pop();
             if (visitBoolExpr(ctx.right)) {
@@ -343,40 +343,40 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
 
 
     @Override
-    public Boolean visitIdEle(IdEleContext ctx) {
-        stack.push(new NameOperand(defaultTableName, ctx.ID().getText()));
+    public Boolean visitLetterOrDigitElement(LetterOrDigitElementContext ctx) {
+        stack.push(new NameOperand(defaultTableName, ctx.LetterOrDigit().getText()));
         return true;
     }
 
 
     @Override
-    public Boolean visitIntEle(IntEleContext ctx) {
+    public Boolean visitIntElement(IntElementContext ctx) {
         stack.push(new IntegerOperand(Long.valueOf(ctx.getText())));
         return true;
     }
 
 
     @Override
-    public Boolean visitFloatEle(FloatEleContext ctx) {
+    public Boolean visitFloatElement(FloatElementContext ctx) {
         stack.push(new FloatOperand(Double.valueOf(ctx.getText())));
         return true;
     }
 
     @Override
-    public Boolean visitNegativeIntEle(NegativeIntEleContext ctx) {
+    public Boolean visitNegativeIntElement(NegativeIntElementContext ctx) {
         stack.push(new IntegerOperand(Long.valueOf(ctx.getText())));
         return true;
     }
 
     @Override
-    public Boolean visitNegativeFloatELe(NegativeFloatELeContext ctx) {
+    public Boolean visitNegativeFloatElement(NegativeFloatElementContext ctx) {
         stack.push(new FloatOperand(Double.valueOf(ctx.getText())));
         return true;
     }
 
 
     @Override
-    public Boolean visitStringEle(StringEleContext ctx) {
+    public Boolean visitStringElement(StringElementContext ctx) {
         String str = ctx.STRING().getText();
         stack.push(new StringOperand(str.substring(1, str.length() - 1)));
         return true;
@@ -386,7 +386,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     @Override
     public Boolean visitAggregationName(AggregationNameContext ctx) {
 
-        String aggFun = ctx.ID().getText();
+        String aggFun = ctx.LetterOrDigit().getText();
         // aggregate operand
         Function fun = FunctionManager.getFunction(aggFun);
         if (fun == null) {
@@ -434,7 +434,6 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
             //没有during,则获取所有事件
             builder.eventsFinder(AllEventsFinder.newInstance());
 
-            //布尔表达式，动态基线
             if (visitBoolExpr(ctx.boolExpr())) {
                 return visitFilterByExpr(ctx.filterByExpr());
             }
@@ -521,7 +520,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     @Override
     public Boolean visitFilterByExpr(FilterByExprContext ctx) {
         if (ctx != null) {
-            List<NameOperand> operands = ctx.ID().stream().map(id -> new NameOperand(defaultTableName, id.getText())).collect(toList());
+            List<NameOperand> operands = ctx.LetterOrDigit().stream().map(letterOrDigit -> new NameOperand(defaultTableName, letterOrDigit.getText())).collect(toList());
             builder.filterKeys(operands);
         }
         return true;
@@ -539,8 +538,8 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     private Boolean visitBasicBoolExpr(BasicBoolExprContext ctx) {
         if (ctx instanceof CompareExprContext) {
             return visitCompareExpr((CompareExprContext) ctx);
-        } else if (ctx instanceof InExprContext) {
-            return visitInExpr((InExprContext) ctx);
+        } else if (ctx instanceof InExpressionContext) {
+            return visitInExpression((InExpressionContext) ctx);
         }
         throw new RuleParseException("Parse basic boolean expression error.");
     }
@@ -585,7 +584,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitInExpr(InExprContext ctx) {
+    public Boolean visitInExpression(InExpressionContext ctx) {
         if (visitName(ctx.left)) {
             Operand left = (Operand) stack.pop();
             if (visitCollection(ctx.collection())) {
@@ -611,18 +610,18 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     private Boolean visitIdentity(IdentityContext identity) {
-        if (identity instanceof IdEleContext) {
-            return visitIdEle((IdEleContext) identity);
-        } else if (identity instanceof IntEleContext) {
-            return visitIntEle((IntEleContext) identity);
-        } else if (identity instanceof FloatEleContext) {
-            return visitFloatEle((FloatEleContext) identity);
-        } else if (identity instanceof StringEleContext) {
-            return visitStringEle((StringEleContext) identity);
-        } else if (identity instanceof NegativeIntEleContext) {
-            return visitNegativeIntEle((NegativeIntEleContext) identity);
-        } else if (identity instanceof NegativeFloatELeContext) {
-            return visitNegativeFloatELe((NegativeFloatELeContext) identity);
+        if (identity instanceof LetterOrDigitElementContext) {
+            return visitLetterOrDigitElement((LetterOrDigitElementContext) identity);
+        } else if (identity instanceof IntElementContext) {
+            return visitIntElement((IntElementContext) identity);
+        } else if (identity instanceof FloatElementContext) {
+            return visitFloatElement((FloatElementContext) identity);
+        } else if (identity instanceof StringElementContext) {
+            return visitStringElement((StringElementContext) identity);
+        } else if (identity instanceof NegativeIntElementContext) {
+            return visitNegativeIntElement((NegativeIntElementContext) identity);
+        } else if (identity instanceof NegativeFloatElementContext) {
+            return visitNegativeFloatElement((NegativeFloatElementContext) identity);
         }
 
         throw new RuleParseException("Parse identity error: " + identity.getText() + " .");

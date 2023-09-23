@@ -45,6 +45,7 @@ public class MalSqlParserEngineTest {
     public void testParserSqlByWhereOrAndAnd(){
         String sql="select name,age from parserSql where (name=1 or age=1) and type=one";
         sql="select name,age from parserSql where (name=1 or age=1) and type=one or hobby=eat";
+        sql="select name,age from parserSql where (name=1 or age=1) or type=one and hobby=eat";
         MalSqlParserTemplate template = engine.parse(sql);
         System.out.println(template.getWhereClause());
     }

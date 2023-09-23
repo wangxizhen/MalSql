@@ -5,7 +5,7 @@ options { tokenVocab=MalSqlLexer; }
 
 root
 :
-	SELECT columList FROM tableRef
+	SELECT columList FROM tableName
 	(whereCluaster)?
 	(durationExpr)?
 	(exportExpr)?
@@ -29,10 +29,10 @@ allColumn
 nameOprand
 :
 	(
-		tableName = ID DOT
+		actualTableName = LetterOrDigit DOT
 	)? columnName = name
 	(
-		AS alias = ID
+		AS alias = LetterOrDigit
 	)?
 ;
 
@@ -58,9 +58,9 @@ name
         | LTLT
         | GTGT
     ) right = name # BitwiseName
-	| ID LPAREN columnName = name RPAREN # AggregationName
-	| ID LPAREN columnName = name COMMA predicate = boolExpr RPAREN # AggregationName
-	| ID LPAREN predicate = boolExpr RPAREN # AggregationName
+	| LetterOrDigit LPAREN columnName = name RPAREN # AggregationName
+	| LetterOrDigit LPAREN columnName = name COMMA predicate = boolExpr RPAREN # AggregationName
+	| LetterOrDigit LPAREN predicate = boolExpr RPAREN # AggregationName
 	| identity # columnName
 	| parenthesis # parenthesisName
 ;
@@ -71,25 +71,25 @@ parenthesis
 
 identity
 :
-	ID # idEle
-	| INT # intEle
-	| FLOAT # floatEle
-	| NEG_INT # negativeIntEle
-	| NEG_FLOAT # negativeFloatELe
-	| STRING # stringEle
+	LetterOrDigit # letterOrDigitElement
+	| INT # intElement
+	| FLOAT # floatElement
+	| NEG_INT # negativeIntElement
+	| NEG_FLOAT # negativeFloatElement
+	| STRING # stringElement
 ;
 
-tableRef
+tableName
 :
-	tableName = ID
+	actualTableName = LetterOrDigit
 	(
-		AS alias = ID
+		AS alias = LetterOrDigit
 	)?
 ;
 
 exportExpr
 :
-    EXPORT fileName = ID
+    EXPORT fileName = LetterOrDigit
 ;
 
 whereCluaster
@@ -102,9 +102,9 @@ whereCluaster
 
 boolExpr
 :
-	LPAREN boolExpr RPAREN # lrExpr
-	| left = boolExpr AND right = boolExpr # andOpr
-	| left = boolExpr OR right = boolExpr # orOpr
+	LPAREN boolExpr RPAREN # insideExpression
+	| left = boolExpr AND right = boolExpr # andOperation
+	| left = boolExpr OR right = boolExpr # orOperation
 	| basicBoolExpr # basicExpr
 ;
 
@@ -119,7 +119,7 @@ left = name option =
 		| LTEQ
 		| NEQ
 	) right = name # compareExpr
-	| left = name option = IN right = collection # inExpr
+	| left = name option = IN right = collection # inExpression
 ;
 
 collection
@@ -139,7 +139,7 @@ duration
 
 filterByExpr
 :
-    FILTER BY ID (COMMA ID)*
+    FILTER BY LetterOrDigit (COMMA LetterOrDigit)*
 ;
 
 
