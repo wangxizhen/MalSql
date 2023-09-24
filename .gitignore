@@ -20,6 +20,5 @@ out/
 # OS X
 .DS_Store
 
-# Alert Engine
 logs/
 
