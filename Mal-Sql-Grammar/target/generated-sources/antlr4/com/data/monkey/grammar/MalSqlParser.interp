@@ -312,7 +312,7 @@ FLOAT
 NEG_INT
 NEG_FLOAT
 STRING
-ID
+LetterOrDigit
 PARENTHESIS
 WS
 
@@ -324,7 +324,7 @@ nameOprand
 name
 parenthesis
 identity
-tableRef
+tableName
 exportExpr
 whereCluaster
 boolExpr

@@ -160,85 +160,85 @@ public class MalSqlParserBaseListener implements MalSqlParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIdEle(MalSqlParserParser.IdEleContext ctx) { }
+	@Override public void enterLetterOrDigitElement(MalSqlParserParser.LetterOrDigitElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIdEle(MalSqlParserParser.IdEleContext ctx) { }
+	@Override public void exitLetterOrDigitElement(MalSqlParserParser.LetterOrDigitElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntEle(MalSqlParserParser.IntEleContext ctx) { }
+	@Override public void enterIntElement(MalSqlParserParser.IntElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntEle(MalSqlParserParser.IntEleContext ctx) { }
+	@Override public void exitIntElement(MalSqlParserParser.IntElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFloatEle(MalSqlParserParser.FloatEleContext ctx) { }
+	@Override public void enterFloatElement(MalSqlParserParser.FloatElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFloatEle(MalSqlParserParser.FloatEleContext ctx) { }
+	@Override public void exitFloatElement(MalSqlParserParser.FloatElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNegativeIntEle(MalSqlParserParser.NegativeIntEleContext ctx) { }
+	@Override public void enterNegativeIntElement(MalSqlParserParser.NegativeIntElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNegativeIntEle(MalSqlParserParser.NegativeIntEleContext ctx) { }
+	@Override public void exitNegativeIntElement(MalSqlParserParser.NegativeIntElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNegativeFloatELe(MalSqlParserParser.NegativeFloatELeContext ctx) { }
+	@Override public void enterNegativeFloatElement(MalSqlParserParser.NegativeFloatElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNegativeFloatELe(MalSqlParserParser.NegativeFloatELeContext ctx) { }
+	@Override public void exitNegativeFloatElement(MalSqlParserParser.NegativeFloatElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStringEle(MalSqlParserParser.StringEleContext ctx) { }
+	@Override public void enterStringElement(MalSqlParserParser.StringElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStringEle(MalSqlParserParser.StringEleContext ctx) { }
+	@Override public void exitStringElement(MalSqlParserParser.StringElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTableRef(MalSqlParserParser.TableRefContext ctx) { }
+	@Override public void enterTableName(MalSqlParserParser.TableNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTableRef(MalSqlParserParser.TableRefContext ctx) { }
+	@Override public void exitTableName(MalSqlParserParser.TableNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -280,37 +280,37 @@ public class MalSqlParserBaseListener implements MalSqlParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLrExpr(MalSqlParserParser.LrExprContext ctx) { }
+	@Override public void enterAndOperation(MalSqlParserParser.AndOperationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLrExpr(MalSqlParserParser.LrExprContext ctx) { }
+	@Override public void exitAndOperation(MalSqlParserParser.AndOperationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAndOpr(MalSqlParserParser.AndOprContext ctx) { }
+	@Override public void enterInsideExpression(MalSqlParserParser.InsideExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAndOpr(MalSqlParserParser.AndOprContext ctx) { }
+	@Override public void exitInsideExpression(MalSqlParserParser.InsideExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOrOpr(MalSqlParserParser.OrOprContext ctx) { }
+	@Override public void enterOrOperation(MalSqlParserParser.OrOperationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOrOpr(MalSqlParserParser.OrOprContext ctx) { }
+	@Override public void exitOrOperation(MalSqlParserParser.OrOperationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -328,13 +328,13 @@ public class MalSqlParserBaseListener implements MalSqlParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInExpr(MalSqlParserParser.InExprContext ctx) { }
+	@Override public void enterInExpression(MalSqlParserParser.InExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInExpr(MalSqlParserParser.InExprContext ctx) { }
+	@Override public void exitInExpression(MalSqlParserParser.InExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

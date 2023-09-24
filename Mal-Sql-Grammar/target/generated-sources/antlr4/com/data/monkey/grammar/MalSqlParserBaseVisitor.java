@@ -101,49 +101,49 @@ public class MalSqlParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIdEle(MalSqlParserParser.IdEleContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLetterOrDigitElement(MalSqlParserParser.LetterOrDigitElementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIntEle(MalSqlParserParser.IntEleContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIntElement(MalSqlParserParser.IntElementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFloatEle(MalSqlParserParser.FloatEleContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFloatElement(MalSqlParserParser.FloatElementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNegativeIntEle(MalSqlParserParser.NegativeIntEleContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNegativeIntElement(MalSqlParserParser.NegativeIntElementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNegativeFloatELe(MalSqlParserParser.NegativeFloatELeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNegativeFloatElement(MalSqlParserParser.NegativeFloatElementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStringEle(MalSqlParserParser.StringEleContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStringElement(MalSqlParserParser.StringElementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTableRef(MalSqlParserParser.TableRefContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTableName(MalSqlParserParser.TableNameContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -171,21 +171,21 @@ public class MalSqlParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLrExpr(MalSqlParserParser.LrExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAndOperation(MalSqlParserParser.AndOperationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAndOpr(MalSqlParserParser.AndOprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInsideExpression(MalSqlParserParser.InsideExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOrOpr(MalSqlParserParser.OrOprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOrOperation(MalSqlParserParser.OrOperationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -199,7 +199,7 @@ public class MalSqlParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInExpr(MalSqlParserParser.InExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInExpression(MalSqlParserParser.InExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

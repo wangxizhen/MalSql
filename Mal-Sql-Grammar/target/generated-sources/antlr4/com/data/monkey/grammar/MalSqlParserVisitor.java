@@ -90,53 +90,53 @@ public interface MalSqlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParenthesis(MalSqlParserParser.ParenthesisContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code idEle}
+	 * Visit a parse tree produced by the {@code letterOrDigitElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIdEle(MalSqlParserParser.IdEleContext ctx);
+	T visitLetterOrDigitElement(MalSqlParserParser.LetterOrDigitElementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code intEle}
+	 * Visit a parse tree produced by the {@code intElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIntEle(MalSqlParserParser.IntEleContext ctx);
+	T visitIntElement(MalSqlParserParser.IntElementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code floatEle}
+	 * Visit a parse tree produced by the {@code floatElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFloatEle(MalSqlParserParser.FloatEleContext ctx);
+	T visitFloatElement(MalSqlParserParser.FloatElementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code negativeIntEle}
+	 * Visit a parse tree produced by the {@code negativeIntElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNegativeIntEle(MalSqlParserParser.NegativeIntEleContext ctx);
+	T visitNegativeIntElement(MalSqlParserParser.NegativeIntElementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code negativeFloatELe}
+	 * Visit a parse tree produced by the {@code negativeFloatElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNegativeFloatELe(MalSqlParserParser.NegativeFloatELeContext ctx);
+	T visitNegativeFloatElement(MalSqlParserParser.NegativeFloatElementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code stringEle}
+	 * Visit a parse tree produced by the {@code stringElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStringEle(MalSqlParserParser.StringEleContext ctx);
+	T visitStringElement(MalSqlParserParser.StringElementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MalSqlParserParser#tableRef}.
+	 * Visit a parse tree produced by {@link MalSqlParserParser#tableName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTableRef(MalSqlParserParser.TableRefContext ctx);
+	T visitTableName(MalSqlParserParser.TableNameContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MalSqlParserParser#exportExpr}.
 	 * @param ctx the parse tree
@@ -157,26 +157,26 @@ public interface MalSqlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBasicExpr(MalSqlParserParser.BasicExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code lrExpr}
+	 * Visit a parse tree produced by the {@code andOperation}
 	 * labeled alternative in {@link MalSqlParserParser#boolExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLrExpr(MalSqlParserParser.LrExprContext ctx);
+	T visitAndOperation(MalSqlParserParser.AndOperationContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code andOpr}
+	 * Visit a parse tree produced by the {@code insideExpression}
 	 * labeled alternative in {@link MalSqlParserParser#boolExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAndOpr(MalSqlParserParser.AndOprContext ctx);
+	T visitInsideExpression(MalSqlParserParser.InsideExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code orOpr}
+	 * Visit a parse tree produced by the {@code orOperation}
 	 * labeled alternative in {@link MalSqlParserParser#boolExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOrOpr(MalSqlParserParser.OrOprContext ctx);
+	T visitOrOperation(MalSqlParserParser.OrOperationContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code compareExpr}
 	 * labeled alternative in {@link MalSqlParserParser#basicBoolExpr}.
@@ -185,12 +185,12 @@ public interface MalSqlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCompareExpr(MalSqlParserParser.CompareExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code inExpr}
+	 * Visit a parse tree produced by the {@code inExpression}
 	 * labeled alternative in {@link MalSqlParserParser#basicBoolExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInExpr(MalSqlParserParser.InExprContext ctx);
+	T visitInExpression(MalSqlParserParser.InExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MalSqlParserParser#collection}.
 	 * @param ctx the parse tree

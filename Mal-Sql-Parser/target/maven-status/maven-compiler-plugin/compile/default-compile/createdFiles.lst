@@ -19,14 +19,12 @@ com\data\monkey\grammar\parser\engine\operands\outlier\AnomListConfig.class
 com\data\monkey\grammar\parser\engine\function\FunctionManager.class
 com\data\monkey\grammar\parser\engine\function\Function.class
 com\data\monkey\grammar\parser\engine\MalSqlParser.class
-com\data\monkey\grammar\parser\engine\operands\outlier\single\AnomListOperand.class
 com\data\monkey\grammar\parser\engine\boundingBox\TimeBoundingBox.class
 com\data\monkey\grammar\parser\engine\operands\outlier\dataflow\DataFlowController.class
 com\data\monkey\grammar\parser\engine\booleanExprs\BooleanExprIN.class
 com\data\monkey\grammar\parser\engine\operands\aggregations\MinOperand.class
 com\data\monkey\grammar\parser\engine\operands\Operand.class
 com\data\monkey\grammar\parser\engine\processing\ReadableEvent.class
-com\data\monkey\grammar\parser\engine\operands\outlier\single\AnomListSizeOperand.class
 com\data\monkey\grammar\parser\engine\function\CommonFunction.class
 com\data\monkey\grammar\parser\engine\operands\aggregations\AggregationFunction.class
 com\data\monkey\grammar\parser\engine\util\TimeUtil.class
@@ -49,7 +47,6 @@ com\data\monkey\grammar\parser\engine\boundingBox\BoundingBox.class
 com\data\monkey\grammar\parser\engine\booleanExprs\numerical\AbstractNumericalBooleanExpr.class
 com\data\monkey\grammar\parser\engine\operands\aggregations\PeriodOperand.class
 com\data\monkey\grammar\parser\engine\operands\arithmetics\PlusOperand.class
-com\data\monkey\grammar\parser\engine\operands\outlier\single\DynaBLOperand.class
 com\data\monkey\grammar\parser\engine\MalSqlParserTemplate$MalSqlParserTemplateBuilder.class
 com\data\monkey\grammar\parser\engine\operands\arithmetics\DivideOperand.class
 com\data\monkey\grammar\parser\engine\booleanExprs\BooleanExprEXISTS.class

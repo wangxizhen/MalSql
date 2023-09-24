@@ -39,7 +39,7 @@ public class MalSqlLexer extends Lexer {
 		SUB=134, STAR=135, SLASH=136, AMP=137, BAR=138, CARET=139, PERCENT=140, 
 		LTLT=141, GTGT=142, MONKEYS_AT=143, POUND=144, DIV=145, MOD=146, UNDERLINE=147, 
 		QUOTES=148, INT=149, FLOAT=150, NEG_INT=151, NEG_FLOAT=152, STRING=153, 
-		ID=154, PARENTHESIS=155, WS=156;
+		LetterOrDigit=154, PARENTHESIS=155, WS=156;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
@@ -69,9 +69,10 @@ public class MalSqlLexer extends Lexer {
 			"BANGGT", "BANGLT", "AMPAMP", "BARBAR", "BARBARSLASH", "BARSLASH", "PLUS", 
 			"SUB", "STAR", "SLASH", "AMP", "BAR", "CARET", "PERCENT", "LTLT", "GTGT", 
 			"MONKEYS_AT", "POUND", "DIV", "MOD", "UNDERLINE", "QUOTES", "INT", "FLOAT", 
-			"NEG_INT", "NEG_FLOAT", "STRING", "ID", "PARENTHESIS", "ID_LETTER", "DIGIT", 
-			"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
-			"O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "WS"
+			"NEG_INT", "NEG_FLOAT", "STRING", "LetterOrDigit", "PARENTHESIS", "LETTER", 
+			"DIGIT", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", 
+			"M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", 
+			"WS"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -116,7 +117,7 @@ public class MalSqlLexer extends Lexer {
 			"BANGGT", "BANGLT", "AMPAMP", "BARBAR", "BARBARSLASH", "BARSLASH", "PLUS", 
 			"SUB", "STAR", "SLASH", "AMP", "BAR", "CARET", "PERCENT", "LTLT", "GTGT", 
 			"MONKEYS_AT", "POUND", "DIV", "MOD", "UNDERLINE", "QUOTES", "INT", "FLOAT", 
-			"NEG_INT", "NEG_FLOAT", "STRING", "ID", "PARENTHESIS", "WS"
+			"NEG_INT", "NEG_FLOAT", "STRING", "LetterOrDigit", "PARENTHESIS", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();

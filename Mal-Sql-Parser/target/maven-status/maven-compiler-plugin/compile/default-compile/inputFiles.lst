@@ -21,12 +21,10 @@ F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parse
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\booleanExprs\numerical\AbstractNumericalBooleanExpr.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\datasource\CassTimeWindowEventsFinder.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\operands\AliasOperand.java
-F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\operands\outlier\single\AnomListOperand.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\booleanExprs\BooleanExprIN.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\operands\primitives\FloatOperand.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\operands\arithmetics\BitwiseShrOperand.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\params\MoMDuration.java
-F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\operands\outlier\single\AnomListSizeOperand.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\operands\outlier\dataflow\DataFlowController.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\operands\ParenthesisOperand.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\boundingBox\SizeBoundingBox.java
@@ -58,7 +56,6 @@ F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parse
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\datasource\TimeWindowEventsFinder.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\DefaultEventsProvider.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\IParserEngine.java
-F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\operands\outlier\single\DynaBLOperand.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\operands\arithmetics\PlusOperand.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\operands\aggregations\AbstractSingleOperand.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\main\java\com\data\monkey\grammar\parser\engine\operands\arithmetics\BitwiseAndOperand.java

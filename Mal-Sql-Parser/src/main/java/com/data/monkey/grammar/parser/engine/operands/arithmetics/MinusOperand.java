@@ -36,7 +36,7 @@ public class MinusOperand extends AbstractArithmeticOperand
         return "-";
     }
 
-    protected static final BiFunction<Object, Object, Object> MINUS_OP = (num1, num2) -> {
+    public static final BiFunction<Object, Object, Object> MINUS_OP = (num1, num2) -> {
         Preconditions.checkNotNull(num1);
         Preconditions.checkNotNull(num2);
         Preconditions.checkArgument(num1 instanceof Number, "arguments need to be number");

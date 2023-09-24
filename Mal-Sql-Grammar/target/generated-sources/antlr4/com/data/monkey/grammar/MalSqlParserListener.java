@@ -142,87 +142,87 @@ public interface MalSqlParserListener extends ParseTreeListener {
 	 */
 	void exitParenthesis(MalSqlParserParser.ParenthesisContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code idEle}
+	 * Enter a parse tree produced by the {@code letterOrDigitElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 */
-	void enterIdEle(MalSqlParserParser.IdEleContext ctx);
+	void enterLetterOrDigitElement(MalSqlParserParser.LetterOrDigitElementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code idEle}
+	 * Exit a parse tree produced by the {@code letterOrDigitElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 */
-	void exitIdEle(MalSqlParserParser.IdEleContext ctx);
+	void exitLetterOrDigitElement(MalSqlParserParser.LetterOrDigitElementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code intEle}
+	 * Enter a parse tree produced by the {@code intElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 */
-	void enterIntEle(MalSqlParserParser.IntEleContext ctx);
+	void enterIntElement(MalSqlParserParser.IntElementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code intEle}
+	 * Exit a parse tree produced by the {@code intElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 */
-	void exitIntEle(MalSqlParserParser.IntEleContext ctx);
+	void exitIntElement(MalSqlParserParser.IntElementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code floatEle}
+	 * Enter a parse tree produced by the {@code floatElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 */
-	void enterFloatEle(MalSqlParserParser.FloatEleContext ctx);
+	void enterFloatElement(MalSqlParserParser.FloatElementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code floatEle}
+	 * Exit a parse tree produced by the {@code floatElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 */
-	void exitFloatEle(MalSqlParserParser.FloatEleContext ctx);
+	void exitFloatElement(MalSqlParserParser.FloatElementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code negativeIntEle}
+	 * Enter a parse tree produced by the {@code negativeIntElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 */
-	void enterNegativeIntEle(MalSqlParserParser.NegativeIntEleContext ctx);
+	void enterNegativeIntElement(MalSqlParserParser.NegativeIntElementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code negativeIntEle}
+	 * Exit a parse tree produced by the {@code negativeIntElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 */
-	void exitNegativeIntEle(MalSqlParserParser.NegativeIntEleContext ctx);
+	void exitNegativeIntElement(MalSqlParserParser.NegativeIntElementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code negativeFloatELe}
+	 * Enter a parse tree produced by the {@code negativeFloatElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 */
-	void enterNegativeFloatELe(MalSqlParserParser.NegativeFloatELeContext ctx);
+	void enterNegativeFloatElement(MalSqlParserParser.NegativeFloatElementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code negativeFloatELe}
+	 * Exit a parse tree produced by the {@code negativeFloatElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 */
-	void exitNegativeFloatELe(MalSqlParserParser.NegativeFloatELeContext ctx);
+	void exitNegativeFloatElement(MalSqlParserParser.NegativeFloatElementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code stringEle}
+	 * Enter a parse tree produced by the {@code stringElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 */
-	void enterStringEle(MalSqlParserParser.StringEleContext ctx);
+	void enterStringElement(MalSqlParserParser.StringElementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code stringEle}
+	 * Exit a parse tree produced by the {@code stringElement}
 	 * labeled alternative in {@link MalSqlParserParser#identity}.
 	 * @param ctx the parse tree
 	 */
-	void exitStringEle(MalSqlParserParser.StringEleContext ctx);
+	void exitStringElement(MalSqlParserParser.StringElementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MalSqlParserParser#tableRef}.
+	 * Enter a parse tree produced by {@link MalSqlParserParser#tableName}.
 	 * @param ctx the parse tree
 	 */
-	void enterTableRef(MalSqlParserParser.TableRefContext ctx);
+	void enterTableName(MalSqlParserParser.TableNameContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MalSqlParserParser#tableRef}.
+	 * Exit a parse tree produced by {@link MalSqlParserParser#tableName}.
 	 * @param ctx the parse tree
 	 */
-	void exitTableRef(MalSqlParserParser.TableRefContext ctx);
+	void exitTableName(MalSqlParserParser.TableNameContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MalSqlParserParser#exportExpr}.
 	 * @param ctx the parse tree
@@ -256,41 +256,41 @@ public interface MalSqlParserListener extends ParseTreeListener {
 	 */
 	void exitBasicExpr(MalSqlParserParser.BasicExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code lrExpr}
+	 * Enter a parse tree produced by the {@code andOperation}
 	 * labeled alternative in {@link MalSqlParserParser#boolExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterLrExpr(MalSqlParserParser.LrExprContext ctx);
+	void enterAndOperation(MalSqlParserParser.AndOperationContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code lrExpr}
+	 * Exit a parse tree produced by the {@code andOperation}
 	 * labeled alternative in {@link MalSqlParserParser#boolExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitLrExpr(MalSqlParserParser.LrExprContext ctx);
+	void exitAndOperation(MalSqlParserParser.AndOperationContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code andOpr}
+	 * Enter a parse tree produced by the {@code insideExpression}
 	 * labeled alternative in {@link MalSqlParserParser#boolExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterAndOpr(MalSqlParserParser.AndOprContext ctx);
+	void enterInsideExpression(MalSqlParserParser.InsideExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code andOpr}
+	 * Exit a parse tree produced by the {@code insideExpression}
 	 * labeled alternative in {@link MalSqlParserParser#boolExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitAndOpr(MalSqlParserParser.AndOprContext ctx);
+	void exitInsideExpression(MalSqlParserParser.InsideExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code orOpr}
+	 * Enter a parse tree produced by the {@code orOperation}
 	 * labeled alternative in {@link MalSqlParserParser#boolExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterOrOpr(MalSqlParserParser.OrOprContext ctx);
+	void enterOrOperation(MalSqlParserParser.OrOperationContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code orOpr}
+	 * Exit a parse tree produced by the {@code orOperation}
 	 * labeled alternative in {@link MalSqlParserParser#boolExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitOrOpr(MalSqlParserParser.OrOprContext ctx);
+	void exitOrOperation(MalSqlParserParser.OrOperationContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code compareExpr}
 	 * labeled alternative in {@link MalSqlParserParser#basicBoolExpr}.
@@ -304,17 +304,17 @@ public interface MalSqlParserListener extends ParseTreeListener {
 	 */
 	void exitCompareExpr(MalSqlParserParser.CompareExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code inExpr}
+	 * Enter a parse tree produced by the {@code inExpression}
 	 * labeled alternative in {@link MalSqlParserParser#basicBoolExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterInExpr(MalSqlParserParser.InExprContext ctx);
+	void enterInExpression(MalSqlParserParser.InExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code inExpr}
+	 * Exit a parse tree produced by the {@code inExpression}
 	 * labeled alternative in {@link MalSqlParserParser#basicBoolExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitInExpr(MalSqlParserParser.InExprContext ctx);
+	void exitInExpression(MalSqlParserParser.InExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MalSqlParserParser#collection}.
 	 * @param ctx the parse tree

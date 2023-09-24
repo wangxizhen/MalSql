@@ -2,8 +2,6 @@ package com.data.monkey.grammar.parser.engine.function;
 
 import com.data.monkey.grammar.parser.engine.exception.RuleParseException;
 import com.data.monkey.grammar.parser.engine.operands.aggregations.*;
-import com.data.monkey.grammar.parser.engine.operands.outlier.single.AnomListOperand;
-import com.data.monkey.grammar.parser.engine.operands.outlier.single.AnomListSizeOperand;
 import com.google.common.collect.Maps;
 
 
@@ -22,8 +20,6 @@ public class FunctionManager {
         funs.put("count", new CommonFunction(CountOperand.class, "count"));
         funs.put("previous", new CommonFunction(PreviousOperand.class, "previous"));
         funs.put("period", new CommonFunction(PeriodOperand.class, "period"));
-        funs.put("anomlist", new CommonFunction(AnomListOperand.class, "anomlist"));
-        funs.put("anomlistsize", new CommonFunction(AnomListSizeOperand.class, "anomlistsize"));
     }
 
 

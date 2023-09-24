@@ -39,16 +39,16 @@ public class MalSqlParserParser extends Parser {
 		SUB=134, STAR=135, SLASH=136, AMP=137, BAR=138, CARET=139, PERCENT=140, 
 		LTLT=141, GTGT=142, MONKEYS_AT=143, POUND=144, DIV=145, MOD=146, UNDERLINE=147, 
 		QUOTES=148, INT=149, FLOAT=150, NEG_INT=151, NEG_FLOAT=152, STRING=153, 
-		ID=154, PARENTHESIS=155, WS=156;
+		LetterOrDigit=154, PARENTHESIS=155, WS=156;
 	public static final int
 		RULE_root = 0, RULE_columList = 1, RULE_allColumn = 2, RULE_nameOprand = 3, 
-		RULE_name = 4, RULE_parenthesis = 5, RULE_identity = 6, RULE_tableRef = 7, 
+		RULE_name = 4, RULE_parenthesis = 5, RULE_identity = 6, RULE_tableName = 7, 
 		RULE_exportExpr = 8, RULE_whereCluaster = 9, RULE_boolExpr = 10, RULE_basicBoolExpr = 11, 
 		RULE_collection = 12, RULE_durationExpr = 13, RULE_duration = 14, RULE_filterByExpr = 15;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"root", "columList", "allColumn", "nameOprand", "name", "parenthesis", 
-			"identity", "tableRef", "exportExpr", "whereCluaster", "boolExpr", "basicBoolExpr", 
+			"identity", "tableName", "exportExpr", "whereCluaster", "boolExpr", "basicBoolExpr", 
 			"collection", "durationExpr", "duration", "filterByExpr"
 		};
 	}
@@ -94,7 +94,7 @@ public class MalSqlParserParser extends Parser {
 			"BANGGT", "BANGLT", "AMPAMP", "BARBAR", "BARBARSLASH", "BARSLASH", "PLUS", 
 			"SUB", "STAR", "SLASH", "AMP", "BAR", "CARET", "PERCENT", "LTLT", "GTGT", 
 			"MONKEYS_AT", "POUND", "DIV", "MOD", "UNDERLINE", "QUOTES", "INT", "FLOAT", 
-			"NEG_INT", "NEG_FLOAT", "STRING", "ID", "PARENTHESIS", "WS"
+			"NEG_INT", "NEG_FLOAT", "STRING", "LetterOrDigit", "PARENTHESIS", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -154,8 +154,8 @@ public class MalSqlParserParser extends Parser {
 			return getRuleContext(ColumListContext.class,0);
 		}
 		public TerminalNode FROM() { return getToken(MalSqlParserParser.FROM, 0); }
-		public TableRefContext tableRef() {
-			return getRuleContext(TableRefContext.class,0);
+		public TableNameContext tableName() {
+			return getRuleContext(TableNameContext.class,0);
 		}
 		public TerminalNode EOF() { return getToken(MalSqlParserParser.EOF, 0); }
 		public WhereCluasterContext whereCluaster() {
@@ -200,7 +200,7 @@ public class MalSqlParserParser extends Parser {
 			setState(34);
 			match(FROM);
 			setState(35);
-			tableRef();
+			tableName();
 			setState(37);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -293,7 +293,7 @@ public class MalSqlParserParser extends Parser {
 			case NEG_INT:
 			case NEG_FLOAT:
 			case STRING:
-			case ID:
+			case LetterOrDigit:
 			case PARENTHESIS:
 				enterOuterAlt(_localctx, 1);
 				{
@@ -382,17 +382,16 @@ public class MalSqlParserParser extends Parser {
 	}
 
 	public static class NameOprandContext extends ParserRuleContext {
-		public Token tableName;
-		public NameContext columnName;
+		public Token actualTableName;
 		public Token alias;
 		public NameContext name() {
 			return getRuleContext(NameContext.class,0);
 		}
 		public TerminalNode DOT() { return getToken(MalSqlParserParser.DOT, 0); }
 		public TerminalNode AS() { return getToken(MalSqlParserParser.AS, 0); }
-		public List<TerminalNode> ID() { return getTokens(MalSqlParserParser.ID); }
-		public TerminalNode ID(int i) {
-			return getToken(MalSqlParserParser.ID, i);
+		public List<TerminalNode> LetterOrDigit() { return getTokens(MalSqlParserParser.LetterOrDigit); }
+		public TerminalNode LetterOrDigit(int i) {
+			return getToken(MalSqlParserParser.LetterOrDigit, i);
 		}
 		public NameOprandContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -426,14 +425,14 @@ public class MalSqlParserParser extends Parser {
 			case 1:
 				{
 				setState(60);
-				((NameOprandContext)_localctx).tableName = match(ID);
+				((NameOprandContext)_localctx).actualTableName = match(LetterOrDigit);
 				setState(61);
 				match(DOT);
 				}
 				break;
 			}
 			setState(64);
-			((NameOprandContext)_localctx).columnName = name(0);
+			name(0);
 			setState(67);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -442,7 +441,7 @@ public class MalSqlParserParser extends Parser {
 				setState(65);
 				match(AS);
 				setState(66);
-				((NameOprandContext)_localctx).alias = match(ID);
+				((NameOprandContext)_localctx).alias = match(LetterOrDigit);
 				}
 			}
 
@@ -499,14 +498,13 @@ public class MalSqlParserParser extends Parser {
 		}
 	}
 	public static class AggregationNameContext extends NameContext {
-		public NameContext columnName;
 		public BoolExprContext predicate;
-		public TerminalNode ID() { return getToken(MalSqlParserParser.ID, 0); }
+		public TerminalNode LetterOrDigit() { return getToken(MalSqlParserParser.LetterOrDigit, 0); }
 		public TerminalNode LPAREN() { return getToken(MalSqlParserParser.LPAREN, 0); }
-		public TerminalNode RPAREN() { return getToken(MalSqlParserParser.RPAREN, 0); }
 		public NameContext name() {
 			return getRuleContext(NameContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(MalSqlParserParser.RPAREN, 0); }
 		public TerminalNode COMMA() { return getToken(MalSqlParserParser.COMMA, 0); }
 		public BoolExprContext boolExpr() {
 			return getRuleContext(BoolExprContext.class,0);
@@ -682,11 +680,11 @@ public class MalSqlParserParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(74);
-				match(ID);
+				match(LetterOrDigit);
 				setState(75);
 				match(LPAREN);
 				setState(76);
-				((AggregationNameContext)_localctx).columnName = name(0);
+				name(0);
 				setState(77);
 				match(RPAREN);
 				}
@@ -697,11 +695,11 @@ public class MalSqlParserParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(79);
-				match(ID);
+				match(LetterOrDigit);
 				setState(80);
 				match(LPAREN);
 				setState(81);
-				((AggregationNameContext)_localctx).columnName = name(0);
+				name(0);
 				setState(82);
 				match(COMMA);
 				setState(83);
@@ -716,7 +714,7 @@ public class MalSqlParserParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(86);
-				match(ID);
+				match(LetterOrDigit);
 				setState(87);
 				match(LPAREN);
 				setState(88);
@@ -895,105 +893,105 @@ public class MalSqlParserParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class IdEleContext extends IdentityContext {
-		public TerminalNode ID() { return getToken(MalSqlParserParser.ID, 0); }
-		public IdEleContext(IdentityContext ctx) { copyFrom(ctx); }
+	public static class LetterOrDigitElementContext extends IdentityContext {
+		public TerminalNode LetterOrDigit() { return getToken(MalSqlParserParser.LetterOrDigit, 0); }
+		public LetterOrDigitElementContext(IdentityContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterIdEle(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterLetterOrDigitElement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitIdEle(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitLetterOrDigitElement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitIdEle(this);
+			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitLetterOrDigitElement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class NegativeFloatELeContext extends IdentityContext {
-		public TerminalNode NEG_FLOAT() { return getToken(MalSqlParserParser.NEG_FLOAT, 0); }
-		public NegativeFloatELeContext(IdentityContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterNegativeFloatELe(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitNegativeFloatELe(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitNegativeFloatELe(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class NegativeIntEleContext extends IdentityContext {
-		public TerminalNode NEG_INT() { return getToken(MalSqlParserParser.NEG_INT, 0); }
-		public NegativeIntEleContext(IdentityContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterNegativeIntEle(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitNegativeIntEle(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitNegativeIntEle(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class StringEleContext extends IdentityContext {
+	public static class StringElementContext extends IdentityContext {
 		public TerminalNode STRING() { return getToken(MalSqlParserParser.STRING, 0); }
-		public StringEleContext(IdentityContext ctx) { copyFrom(ctx); }
+		public StringElementContext(IdentityContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterStringEle(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterStringElement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitStringEle(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitStringElement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitStringEle(this);
+			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitStringElement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class FloatEleContext extends IdentityContext {
-		public TerminalNode FLOAT() { return getToken(MalSqlParserParser.FLOAT, 0); }
-		public FloatEleContext(IdentityContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterFloatEle(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitFloatEle(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitFloatEle(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class IntEleContext extends IdentityContext {
+	public static class IntElementContext extends IdentityContext {
 		public TerminalNode INT() { return getToken(MalSqlParserParser.INT, 0); }
-		public IntEleContext(IdentityContext ctx) { copyFrom(ctx); }
+		public IntElementContext(IdentityContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterIntEle(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterIntElement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitIntEle(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitIntElement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitIntEle(this);
+			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitIntElement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class NegativeFloatElementContext extends IdentityContext {
+		public TerminalNode NEG_FLOAT() { return getToken(MalSqlParserParser.NEG_FLOAT, 0); }
+		public NegativeFloatElementContext(IdentityContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterNegativeFloatElement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitNegativeFloatElement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitNegativeFloatElement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class NegativeIntElementContext extends IdentityContext {
+		public TerminalNode NEG_INT() { return getToken(MalSqlParserParser.NEG_INT, 0); }
+		public NegativeIntElementContext(IdentityContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterNegativeIntElement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitNegativeIntElement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitNegativeIntElement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class FloatElementContext extends IdentityContext {
+		public TerminalNode FLOAT() { return getToken(MalSqlParserParser.FLOAT, 0); }
+		public FloatElementContext(IdentityContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterFloatElement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitFloatElement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitFloatElement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1005,16 +1003,16 @@ public class MalSqlParserParser extends Parser {
 			setState(117);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case ID:
-				_localctx = new IdEleContext(_localctx);
+			case LetterOrDigit:
+				_localctx = new LetterOrDigitElementContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(111);
-				match(ID);
+				match(LetterOrDigit);
 				}
 				break;
 			case INT:
-				_localctx = new IntEleContext(_localctx);
+				_localctx = new IntElementContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(112);
@@ -1022,7 +1020,7 @@ public class MalSqlParserParser extends Parser {
 				}
 				break;
 			case FLOAT:
-				_localctx = new FloatEleContext(_localctx);
+				_localctx = new FloatElementContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(113);
@@ -1030,7 +1028,7 @@ public class MalSqlParserParser extends Parser {
 				}
 				break;
 			case NEG_INT:
-				_localctx = new NegativeIntEleContext(_localctx);
+				_localctx = new NegativeIntElementContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(114);
@@ -1038,7 +1036,7 @@ public class MalSqlParserParser extends Parser {
 				}
 				break;
 			case NEG_FLOAT:
-				_localctx = new NegativeFloatELeContext(_localctx);
+				_localctx = new NegativeFloatElementContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(115);
@@ -1046,7 +1044,7 @@ public class MalSqlParserParser extends Parser {
 				}
 				break;
 			case STRING:
-				_localctx = new StringEleContext(_localctx);
+				_localctx = new StringElementContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(116);
@@ -1068,42 +1066,42 @@ public class MalSqlParserParser extends Parser {
 		return _localctx;
 	}
 
-	public static class TableRefContext extends ParserRuleContext {
-		public Token tableName;
+	public static class TableNameContext extends ParserRuleContext {
+		public Token actualTableName;
 		public Token alias;
-		public List<TerminalNode> ID() { return getTokens(MalSqlParserParser.ID); }
-		public TerminalNode ID(int i) {
-			return getToken(MalSqlParserParser.ID, i);
+		public List<TerminalNode> LetterOrDigit() { return getTokens(MalSqlParserParser.LetterOrDigit); }
+		public TerminalNode LetterOrDigit(int i) {
+			return getToken(MalSqlParserParser.LetterOrDigit, i);
 		}
 		public TerminalNode AS() { return getToken(MalSqlParserParser.AS, 0); }
-		public TableRefContext(ParserRuleContext parent, int invokingState) {
+		public TableNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_tableRef; }
+		@Override public int getRuleIndex() { return RULE_tableName; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterTableRef(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterTableName(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitTableRef(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitTableName(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitTableRef(this);
+			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitTableName(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final TableRefContext tableRef() throws RecognitionException {
-		TableRefContext _localctx = new TableRefContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_tableRef);
+	public final TableNameContext tableName() throws RecognitionException {
+		TableNameContext _localctx = new TableNameContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_tableName);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(119);
-			((TableRefContext)_localctx).tableName = match(ID);
+			((TableNameContext)_localctx).actualTableName = match(LetterOrDigit);
 			setState(122);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -1112,7 +1110,7 @@ public class MalSqlParserParser extends Parser {
 				setState(120);
 				match(AS);
 				setState(121);
-				((TableRefContext)_localctx).alias = match(ID);
+				((TableNameContext)_localctx).alias = match(LetterOrDigit);
 				}
 			}
 
@@ -1132,7 +1130,7 @@ public class MalSqlParserParser extends Parser {
 	public static class ExportExprContext extends ParserRuleContext {
 		public Token fileName;
 		public TerminalNode EXPORT() { return getToken(MalSqlParserParser.EXPORT, 0); }
-		public TerminalNode ID() { return getToken(MalSqlParserParser.ID, 0); }
+		public TerminalNode LetterOrDigit() { return getToken(MalSqlParserParser.LetterOrDigit, 0); }
 		public ExportExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1161,7 +1159,7 @@ public class MalSqlParserParser extends Parser {
 			setState(124);
 			match(EXPORT);
 			setState(125);
-			((ExportExprContext)_localctx).fileName = match(ID);
+			((ExportExprContext)_localctx).fileName = match(LetterOrDigit);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1279,28 +1277,7 @@ public class MalSqlParserParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class LrExprContext extends BoolExprContext {
-		public TerminalNode LPAREN() { return getToken(MalSqlParserParser.LPAREN, 0); }
-		public BoolExprContext boolExpr() {
-			return getRuleContext(BoolExprContext.class,0);
-		}
-		public TerminalNode RPAREN() { return getToken(MalSqlParserParser.RPAREN, 0); }
-		public LrExprContext(BoolExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterLrExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitLrExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitLrExpr(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class AndOprContext extends BoolExprContext {
+	public static class AndOperationContext extends BoolExprContext {
 		public BoolExprContext left;
 		public BoolExprContext right;
 		public TerminalNode AND() { return getToken(MalSqlParserParser.AND, 0); }
@@ -1310,22 +1287,43 @@ public class MalSqlParserParser extends Parser {
 		public BoolExprContext boolExpr(int i) {
 			return getRuleContext(BoolExprContext.class,i);
 		}
-		public AndOprContext(BoolExprContext ctx) { copyFrom(ctx); }
+		public AndOperationContext(BoolExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterAndOpr(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterAndOperation(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitAndOpr(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitAndOperation(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitAndOpr(this);
+			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitAndOperation(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class OrOprContext extends BoolExprContext {
+	public static class InsideExpressionContext extends BoolExprContext {
+		public TerminalNode LPAREN() { return getToken(MalSqlParserParser.LPAREN, 0); }
+		public BoolExprContext boolExpr() {
+			return getRuleContext(BoolExprContext.class,0);
+		}
+		public TerminalNode RPAREN() { return getToken(MalSqlParserParser.RPAREN, 0); }
+		public InsideExpressionContext(BoolExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterInsideExpression(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitInsideExpression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitInsideExpression(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class OrOperationContext extends BoolExprContext {
 		public BoolExprContext left;
 		public BoolExprContext right;
 		public TerminalNode OR() { return getToken(MalSqlParserParser.OR, 0); }
@@ -1335,18 +1333,18 @@ public class MalSqlParserParser extends Parser {
 		public BoolExprContext boolExpr(int i) {
 			return getRuleContext(BoolExprContext.class,i);
 		}
-		public OrOprContext(BoolExprContext ctx) { copyFrom(ctx); }
+		public OrOperationContext(BoolExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterOrOpr(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterOrOperation(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitOrOpr(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitOrOperation(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitOrOpr(this);
+			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitOrOperation(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1371,7 +1369,7 @@ public class MalSqlParserParser extends Parser {
 			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
 			case 1:
 				{
-				_localctx = new LrExprContext(_localctx);
+				_localctx = new InsideExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
@@ -1407,28 +1405,28 @@ public class MalSqlParserParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
 					case 1:
 						{
-						_localctx = new AndOprContext(new BoolExprContext(_parentctx, _parentState));
-						((AndOprContext)_localctx).left = _prevctx;
+						_localctx = new AndOperationContext(new BoolExprContext(_parentctx, _parentState));
+						((AndOperationContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_boolExpr);
 						setState(143);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 						setState(144);
 						match(AND);
 						setState(145);
-						((AndOprContext)_localctx).right = boolExpr(4);
+						((AndOperationContext)_localctx).right = boolExpr(4);
 						}
 						break;
 					case 2:
 						{
-						_localctx = new OrOprContext(new BoolExprContext(_parentctx, _parentState));
-						((OrOprContext)_localctx).left = _prevctx;
+						_localctx = new OrOperationContext(new BoolExprContext(_parentctx, _parentState));
+						((OrOperationContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_boolExpr);
 						setState(146);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 						setState(147);
 						match(OR);
 						setState(148);
-						((OrOprContext)_localctx).right = boolExpr(3);
+						((OrOperationContext)_localctx).right = boolExpr(3);
 						}
 						break;
 					}
@@ -1462,7 +1460,7 @@ public class MalSqlParserParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class InExprContext extends BasicBoolExprContext {
+	public static class InExpressionContext extends BasicBoolExprContext {
 		public NameContext left;
 		public Token option;
 		public CollectionContext right;
@@ -1473,18 +1471,18 @@ public class MalSqlParserParser extends Parser {
 		public CollectionContext collection() {
 			return getRuleContext(CollectionContext.class,0);
 		}
-		public InExprContext(BasicBoolExprContext ctx) { copyFrom(ctx); }
+		public InExpressionContext(BasicBoolExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterInExpr(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).enterInExpression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitInExpr(this);
+			if ( listener instanceof MalSqlParserListener ) ((MalSqlParserListener)listener).exitInExpression(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitInExpr(this);
+			if ( visitor instanceof MalSqlParserVisitor ) return ((MalSqlParserVisitor<? extends T>)visitor).visitInExpression(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1550,15 +1548,15 @@ public class MalSqlParserParser extends Parser {
 				}
 				break;
 			case 2:
-				_localctx = new InExprContext(_localctx);
+				_localctx = new InExpressionContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(158);
-				((InExprContext)_localctx).left = name(0);
+				((InExpressionContext)_localctx).left = name(0);
 				setState(159);
-				((InExprContext)_localctx).option = match(IN);
+				((InExpressionContext)_localctx).option = match(IN);
 				setState(160);
-				((InExprContext)_localctx).right = collection();
+				((InExpressionContext)_localctx).right = collection();
 				}
 				break;
 			}
@@ -1776,9 +1774,9 @@ public class MalSqlParserParser extends Parser {
 	public static class FilterByExprContext extends ParserRuleContext {
 		public TerminalNode FILTER() { return getToken(MalSqlParserParser.FILTER, 0); }
 		public TerminalNode BY() { return getToken(MalSqlParserParser.BY, 0); }
-		public List<TerminalNode> ID() { return getTokens(MalSqlParserParser.ID); }
-		public TerminalNode ID(int i) {
-			return getToken(MalSqlParserParser.ID, i);
+		public List<TerminalNode> LetterOrDigit() { return getTokens(MalSqlParserParser.LetterOrDigit); }
+		public TerminalNode LetterOrDigit(int i) {
+			return getToken(MalSqlParserParser.LetterOrDigit, i);
 		}
 		public List<TerminalNode> COMMA() { return getTokens(MalSqlParserParser.COMMA); }
 		public TerminalNode COMMA(int i) {
@@ -1815,7 +1813,7 @@ public class MalSqlParserParser extends Parser {
 			setState(184);
 			match(BY);
 			setState(185);
-			match(ID);
+			match(LetterOrDigit);
 			setState(190);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -1825,7 +1823,7 @@ public class MalSqlParserParser extends Parser {
 				setState(186);
 				match(COMMA);
 				setState(187);
-				match(ID);
+				match(LetterOrDigit);
 				}
 				}
 				setState(192);
