@@ -30,7 +30,7 @@ nameOprand
 :
 	(
 		actualTableName = LetterOrDigit DOT
-	)? columnName = name
+	)? name
 	(
 		AS alias = LetterOrDigit
 	)?
@@ -58,8 +58,8 @@ name
         | LTLT
         | GTGT
     ) right = name # BitwiseName
-	| LetterOrDigit LPAREN columnName = name RPAREN # AggregationName
-	| LetterOrDigit LPAREN columnName = name COMMA predicate = boolExpr RPAREN # AggregationName
+	| LetterOrDigit LPAREN  name RPAREN # AggregationName
+	| LetterOrDigit LPAREN  name COMMA predicate = boolExpr RPAREN # AggregationName
 	| LetterOrDigit LPAREN predicate = boolExpr RPAREN # AggregationName
 	| identity # columnName
 	| parenthesis # parenthesisName

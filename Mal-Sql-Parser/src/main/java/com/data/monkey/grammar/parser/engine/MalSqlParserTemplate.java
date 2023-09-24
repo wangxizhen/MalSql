@@ -1,5 +1,4 @@
 package com.data.monkey.grammar.parser.engine;
-
 import com.data.monkey.common.entity.Event;
 import com.data.monkey.grammar.parser.engine.booleanExprs.IBooleanExpression;
 import com.data.monkey.grammar.parser.engine.boundingBox.BoundingBox;
@@ -10,7 +9,6 @@ import com.data.monkey.grammar.parser.engine.operands.NameOperand;
 import com.data.monkey.grammar.parser.engine.operands.Operand;
 import com.data.monkey.grammar.parser.engine.operands.aggregations.AbstractAggregationOperand;
 import com.data.monkey.grammar.parser.engine.operands.aggregations.PeriodOperand;
-import com.data.monkey.grammar.parser.engine.util.TimeUtil;
 import com.google.common.collect.Lists;
 
 import lombok.AllArgsConstructor;
@@ -58,6 +56,19 @@ public class MalSqlParserTemplate {
         }
     }
 
+    public Map<String, String> getContext(Event currEvent, List<Event> events, Map<String, String> params) {
+        Set<String> names = new HashSet<>();
+        return this.columns.stream().filter(op -> names.add(filedName(op))).collect(Collectors.toMap(op -> filedName(op)
+                , op -> {
+                    try {
+                        return op.getValue(currEvent, filterByKeys(currEvent, events), params).toString();
+                    } catch (NotFoundException e) {
+                        // dsl使用不存在的字段做select查询条件的时候, 返回空值.
+                        return "";
+                    }
+                }));
+    }
+
 
     private List<Event> findEventsWithProvider(Event currEvent, IEventsProvider provider, Map<String, String> params) throws IllegalArgumentException {
         List<Event> events = null;
@@ -74,7 +85,6 @@ public class MalSqlParserTemplate {
         try {
             return this.getWhereClause().getResult(currEvent, filterByKeys(currEvent, events), params);
         } catch (NotFoundException e) {
-            // dsl使用不存在的字段做触发告警条件的时候, 记录异常同时不触发告警
             logger.error(e.getMessage(), e);
             return false;
         }
@@ -98,6 +108,15 @@ public class MalSqlParserTemplate {
 
 
 
+    private String filedName(Operand op) {
+        if (NameOperand.class.isInstance(op)) {
+            return ((NameOperand) op).getFieldName();
+        } else if (AliasOperand.class.isInstance(op)) {
+            return ((AliasOperand) op).getAlias();
+        }
+
+        throw new RuntimeException("use an aggregation function as a column should specify an alias: " + op);
+    }
 
     @Override
     public String toString() {

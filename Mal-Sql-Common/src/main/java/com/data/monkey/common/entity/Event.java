@@ -1,15 +1,12 @@
 package com.data.monkey.common.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
 
 import java.io.Serializable;
 import java.util.Map;
 
 
 @Data
-@EqualsAndHashCode
 public class Event implements Serializable {
     private static final long serialVersionUID = -963998283053552683L;
     private static final int HOUR = 1000 * 60 * 60;
@@ -25,6 +22,10 @@ public class Event implements Serializable {
     private String RuleId;
 
 
-
+    public Event(String key, Map<String, String> metrics) {
+        this.key = key;
+        this.metrics = metrics;
+        timestamp = System.currentTimeMillis();
+    }
 
 }

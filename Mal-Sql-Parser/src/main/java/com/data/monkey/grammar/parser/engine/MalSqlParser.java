@@ -45,7 +45,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     private List<PeriodOperand> periodOperands = Lists.newArrayList();
     private MalSqlParserTemplate.MalSqlParserTemplateBuilder builder = MalSqlParserTemplate.builder();
 
-    private String defaultTableName;
+    private String tableName;
 
     @Override
     public Boolean visit(ParseTree parseTree) {
@@ -130,16 +130,16 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     @Override
     public Boolean visitNameOprand(NameOprandContext ctx) {
         // 每次都将默认的表名压入栈中
-        stack.push(defaultTableName);
+        stack.push(tableName);
         if (ctx.actualTableName != null) {
-            defaultTableName = ctx.actualTableName.getText();
+            tableName = ctx.actualTableName.getText();
         }
-        if (visitName(ctx.columnName)) {
+        if (visitName(ctx.name())) {
             // 选择的列
             Operand inOprand = (Operand) stack.pop();
 
             // 选择热数据源
-            defaultTableName = String.valueOf(stack.pop());
+            tableName = String.valueOf(stack.pop());
 
             if (ctx.alias != null) {
                 stack.push(new AliasOperand(inOprand, ctx.alias.getText()));
@@ -153,9 +153,9 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
 
     @Override
     public Boolean visitTableName(TableNameContext ctx) {
-        this.defaultTableName = ctx.actualTableName.getText();
+        this.tableName = ctx.actualTableName.getText();
         //多数据源时进行扩展
-        stack.push(Collections.singletonList(defaultTableName));
+        stack.push(Collections.singletonList(tableName));
         return true;
     }
 
@@ -344,7 +344,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
 
     @Override
     public Boolean visitLetterOrDigitElement(LetterOrDigitElementContext ctx) {
-        stack.push(new NameOperand(defaultTableName, ctx.LetterOrDigit().getText()));
+        stack.push(new NameOperand(tableName, ctx.LetterOrDigit().getText()));
         return true;
     }
 
@@ -391,7 +391,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
         Function fun = FunctionManager.getFunction(aggFun);
         if (fun == null) {
             throw new RuleParseException(String.format("aggregate function: [%s] not exists.", aggFun));
-        } else if (visitName(ctx.columnName)) {
+        } else if (visitName(ctx.name())) {
             // inner operand
             Operand innerOperand = (Operand) stack.pop();
             Operand aggregationOperand = null;
@@ -520,7 +520,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     @Override
     public Boolean visitFilterByExpr(FilterByExprContext ctx) {
         if (ctx != null) {
-            List<NameOperand> operands = ctx.LetterOrDigit().stream().map(letterOrDigit -> new NameOperand(defaultTableName, letterOrDigit.getText())).collect(toList());
+            List<NameOperand> operands = ctx.LetterOrDigit().stream().map(letterOrDigit -> new NameOperand(tableName, letterOrDigit.getText())).collect(toList());
             builder.filterKeys(operands);
         }
         return true;
