@@ -57,11 +57,15 @@ public class MalSqlParserTemplate {
     }
 
     public Map<String, String> getContext(Event currEvent, List<Event> events, Map<String, String> params) {
+        if(eventsFinder != null&&events.size()>0){
+            events = findEventsWithProvider(events.get(0),new DefaultEventsProvider(events),params);
+        }
         Set<String> names = new HashSet<>();
+        List<Event> finalEvents = events;
         return this.columns.stream().filter(op -> names.add(filedName(op))).collect(Collectors.toMap(op -> filedName(op)
                 , op -> {
                     try {
-                        return op.getValue(currEvent, filterByKeys(currEvent, events), params).toString();
+                        return op.getValue(currEvent, filterByKeys(currEvent, finalEvents), params).toString();
                     } catch (NotFoundException e) {
                         // dsl使用不存在的字段做select查询条件的时候, 返回空值.
                         return "";

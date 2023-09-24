@@ -1,8 +1,7 @@
 package com.data.monkey.test.parser.engine;
 
 import com.data.monkey.common.entity.Event;
-import com.data.monkey.grammar.parser.engine.DefaultEventsProvider;
-import com.data.monkey.grammar.parser.engine.IEventsProvider;
+import com.data.monkey.grammar.parser.engine.*;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
@@ -61,4 +60,5 @@ public class DefaultEventsProviderTest {
         result = provider.getEventsByTimeWindow(key, endTime - 4001, endTime);
         assertEquals(4, result.size());
     }
+
 }

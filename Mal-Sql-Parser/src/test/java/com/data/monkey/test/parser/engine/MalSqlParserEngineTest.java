@@ -27,6 +27,8 @@ public class MalSqlParserEngineTest {
     @Test
     public void testParserSqlByColumns(){
         String sql="select sum(age / scope) as devRes,age from parserSql where (name=1 or age=1) or type=one and hobby=eat";
+         sql = "select sum(val1) as sum_val1 from test where sum(val1) > 4  for last 3 min";
+
         MalSqlParserTemplate template = engine.parse(sql);
         System.out.println(template.getColumns());
 
@@ -84,6 +86,7 @@ public class MalSqlParserEngineTest {
         // 最近一条数据即为event4  val2 对应的值b  val3 对应的值为 a   则相同的字段值为 event3  则两条数据相加即为5
 
         String sql = "select sum(val1) as sum_val1 from test where sum(val1) > 4 filter by val2, val3 for last 3 min";
+       // sql = "select sum(val1) as sum_val1 from test where sum(val1) < 4  for last 3 min";
 
         MalSqlParserTemplate template = engine.parse(sql);
         Assert.assertNotNull(template);
