@@ -429,13 +429,14 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
         if (ctx.durationExpr() != null) {
             return visitBoolExpr(ctx.boolExpr())
                     && visitFilterByExpr(ctx.filterByExpr())
-                    && visitDurationExpr(ctx.durationExpr());
+                    && visitDurationExpr(ctx.durationExpr())
+                    && visitContainByExpr(ctx.containByExpr());
         } else {
             //没有during,则获取所有事件
             builder.eventsFinder(AllEventsFinder.newInstance());
 
             if (visitBoolExpr(ctx.boolExpr())) {
-                return visitFilterByExpr(ctx.filterByExpr());
+                return visitFilterByExpr(ctx.filterByExpr())&&visitContainByExpr(ctx.containByExpr());
             }
         }
         return false;
@@ -526,7 +527,14 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
         return true;
     }
 
-
+    @Override
+    public Boolean visitContainByExpr(ContainByExprContext ctx) {
+        if (ctx != null) {
+            List<NameOperand> operands = ctx.LetterOrDigit().stream().map(letterOrDigit -> new NameOperand(tableName, letterOrDigit.getText())).collect(toList());
+            builder.containKeys(operands);
+        }
+        return true;
+    }
 
 
     @Override

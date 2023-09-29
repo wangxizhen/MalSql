@@ -4,6 +4,7 @@ import com.data.monkey.grammar.parser.engine.booleanExprs.IBooleanExpression;
 import com.data.monkey.grammar.parser.engine.boundingBox.BoundingBox;
 import com.data.monkey.grammar.parser.engine.datasource.EventsFinder;
 import com.data.monkey.grammar.parser.engine.exception.NotFoundException;
+import com.data.monkey.grammar.parser.engine.function.FilterMatchFunction;
 import com.data.monkey.grammar.parser.engine.operands.AliasOperand;
 import com.data.monkey.grammar.parser.engine.operands.NameOperand;
 import com.data.monkey.grammar.parser.engine.operands.Operand;
@@ -30,8 +31,9 @@ public class MalSqlParserTemplate {
     private final List<Operand> columns;
     private final String allColumn;
     private final List<NameOperand> filterKeys;
-
+    private final List<NameOperand> containKeys;
     private final BoundingBox boundingBox;
+    private static final boolean isFilter=true;
 
     /**
      * @deprecated use {@link #boundingBox}
@@ -94,20 +96,33 @@ public class MalSqlParserTemplate {
         }
     }
 
-    private List<Event> filterByKeys(Event currEvent, List<Event> events) {
-        if (filterKeys != null) {
+    public List<Event> getMatchResult(List<Event> events, List<NameOperand> matchKeys, FilterMatchFunction function) {
+        if (matchKeys != null) {
             return events.stream().filter(e -> {
                 boolean filter = true;
-                for (Operand operand : filterKeys) {
-                    filter = filter
-                        && (operand.getValue(e, Collections.singletonList(e), null).
-                        equals(operand.getValue(currEvent, Collections.singletonList(
-                            events.get(events.size() - 1)), null)));
+                for (Operand operand : matchKeys) {
+                    filter = filter && function.match((NameOperand) operand,e);
                 }
                 return filter;
             }).collect(Collectors.toList());
         }
         return events;
+
+    }
+
+    private List<Event> filterByKeys(Event currEvent, List<Event> events) {
+        List<Event> matchResult=events;
+        //优先匹配contain
+        if(containKeys!=null){
+            matchResult = getMatchResult(matchResult,containKeys,(operand,event)->(operand.getValue(currEvent, Collections.singletonList(
+                    events.get(events.size() - 1)), null).toString().contains(operand.getValue(event, Collections.singletonList(event), null).toString())));
+        }
+        if(filterKeys!=null){
+            matchResult = getMatchResult(matchResult,filterKeys,(operand,event)->operand.getValue(event, Collections.singletonList(event), null).
+                    equals(operand.getValue(currEvent, Collections.singletonList(
+                            events.get(events.size() - 1)), null)));
+        }
+        return matchResult;
     }
 
 

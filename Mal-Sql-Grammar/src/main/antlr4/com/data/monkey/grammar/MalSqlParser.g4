@@ -98,6 +98,7 @@ whereCluaster
 	boolExpr
 	(filterByExpr)?
 	(durationExpr)?
+	(containByExpr)?
 ;
 
 boolExpr
@@ -141,5 +142,11 @@ filterByExpr
 :
     FILTER BY LetterOrDigit (COMMA LetterOrDigit)*
 ;
+
+containByExpr
+:
+    CONTAIN IN LetterOrDigit (COMMA LetterOrDigit)*
+;
+
 
 
