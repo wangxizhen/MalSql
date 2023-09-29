@@ -17,7 +17,7 @@ public class BooleanExprORTest {
         IBooleanExpression left = new BooleanExprEQ(new FloatOperand(4.5), new FloatOperand(4.5));
         IBooleanExpression right = new BooleanExprEQ(new FloatOperand(4.1), new FloatOperand(4.5));
         BooleanExprOR and = new BooleanExprOR(left, right);
-        Assert.assertTrue("OR expression test error", and.getResult(null, null, null));
+        Assert.assertTrue("OR expression test error", and.getResult(null, null));
     }
 
     @Test

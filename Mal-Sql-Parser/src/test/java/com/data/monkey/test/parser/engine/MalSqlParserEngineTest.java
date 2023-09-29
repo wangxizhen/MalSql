@@ -74,7 +74,7 @@ public class MalSqlParserEngineTest {
         MalSqlParserTemplate template = engine.parse(sql);
         Assert.assertNotNull(template);
         List<Event> events = getEvents();
-        Map<String, String> context = template.getContext(null, events, null);
+        Map<String, String> context = template.getContext(events, null);
         assertEquals(1, Double.parseDouble(context.get("num")), 0.01);
     }
 
@@ -121,8 +121,8 @@ public class MalSqlParserEngineTest {
         Event event4 = new Event("test", raw);
         events.add(event4);
 
-        assertEquals("5.0", template.getContext(null, events, null).get("sum_val1"));
-        Assert.assertTrue(template.getResult(null, events, null));
+        assertEquals("5.0", template.getContext( events, null).get("sum_val1"));
+        Assert.assertTrue(template.getResult(events, null));
     }
 
 

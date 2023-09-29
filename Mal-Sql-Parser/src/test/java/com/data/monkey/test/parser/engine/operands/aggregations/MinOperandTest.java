@@ -51,13 +51,13 @@ public class MinOperandTest {
         Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
         MinOperand min = new MinOperand(name);
-        Assert.assertEquals(0.1, min.getValue(null, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(0.1, min.getValue(Arrays.asList(e1, e2, e3), null));
 
         min = new MinOperand(name2);
-        Assert.assertEquals(0.2, min.getValue(null, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(0.2, min.getValue(Arrays.asList(e1, e2, e3), null));
 
         min = new MinOperand(name3);
-        Assert.assertEquals(0.0, min.getValue(null, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(0.0, min.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class MinOperandTest {
         Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
         MinOperand min = new MinOperand(name);
-        Assert.assertEquals(0.0, min.getValue(null, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(0.0, min.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class MinOperandTest {
 
         MinOperand min = new MinOperand(booleanExprBase);
 
-        Assert.assertEquals(1.20, min.getValue(null, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(1.20, min.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class MinOperandTest {
 
         MinOperand min = new MinOperand(booleanExprBase);
 
-        Assert.assertEquals(0.0, min.getValue(null, Arrays.asList(e1, e2), null));
+        Assert.assertEquals(0.0, min.getValue(Arrays.asList(e1, e2), null));
     }
 
     @Test
@@ -142,11 +142,11 @@ public class MinOperandTest {
 
         MinOperand minOperand = new MinOperand(new NameOperand("table", "test"), andExpr);
 
-        Assert.assertEquals(2.0, minOperand.getValue(null, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(2.0, minOperand.getValue(Arrays.asList(e1, e2, e3), null));
 
         minOperand = new MinOperand(new NameOperand("table", "test2"), andExpr);
 
-        Assert.assertEquals(4.0, minOperand.getValue(null, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(4.0, minOperand.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
 

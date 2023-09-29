@@ -52,13 +52,13 @@ public class MalSqlParserTemplate {
             if (events.isEmpty()) {
                 return false;
             }
-            return getResult(currEvent, events, params);
+            return getResult(events, params);
         } catch (IllegalArgumentException e) {
             return false;
         }
     }
 
-    public Map<String, String> getContext(Event currEvent, List<Event> events, Map<String, String> params) {
+    public Map<String, String> getContext(List<Event> events, Map<String, String> params) {
         if(eventsFinder != null&&events.size()>0){
             events = findEventsWithProvider(events.get(0),new DefaultEventsProvider(events),params);
         }
@@ -67,7 +67,7 @@ public class MalSqlParserTemplate {
         return this.columns.stream().filter(op -> names.add(filedName(op))).collect(Collectors.toMap(op -> filedName(op)
                 , op -> {
                     try {
-                        return op.getValue(currEvent, filterByKeys(currEvent, finalEvents), params).toString();
+                        return op.getValue(filterByKeys(finalEvents), params).toString();
                     } catch (NotFoundException e) {
                         // dsl使用不存在的字段做select查询条件的时候, 返回空值.
                         return "";
@@ -87,9 +87,9 @@ public class MalSqlParserTemplate {
         return events;
     }
 
-    public boolean getResult(Event currEvent, List<Event> events, Map<String, String> params) {
+    public boolean getResult(List<Event> events, Map<String, String> params) {
         try {
-            return this.getWhereClause().getResult(currEvent, filterByKeys(currEvent, events), params);
+            return this.getWhereClause().getResult(filterByKeys(events), params);
         } catch (NotFoundException e) {
             logger.error(e.getMessage(), e);
             return false;
@@ -110,16 +110,16 @@ public class MalSqlParserTemplate {
 
     }
 
-    private List<Event> filterByKeys(Event currEvent, List<Event> events) {
+    private List<Event> filterByKeys(List<Event> events) {
         List<Event> matchResult=events;
         //优先匹配contain
         if(containKeys!=null){
-            matchResult = getMatchResult(matchResult,containKeys,(operand,event)->(operand.getValue(currEvent, Collections.singletonList(
-                    events.get(events.size() - 1)), null).toString().contains(operand.getValue(event, Collections.singletonList(event), null).toString())));
+            matchResult = getMatchResult(matchResult,containKeys,(operand,event)->(operand.getValue(Collections.singletonList(
+                    events.get(events.size() - 1)), null).toString().contains(operand.getValue(Collections.singletonList(event), null).toString())));
         }
         if(filterKeys!=null){
-            matchResult = getMatchResult(matchResult,filterKeys,(operand,event)->operand.getValue(event, Collections.singletonList(event), null).
-                    equals(operand.getValue(currEvent, Collections.singletonList(
+            matchResult = getMatchResult(matchResult,filterKeys,(operand,event)->operand.getValue(Collections.singletonList(event), null).
+                    equals(operand.getValue(Collections.singletonList(
                             events.get(events.size() - 1)), null)));
         }
         return matchResult;

@@ -25,13 +25,13 @@ public class BitwiseOperandTest {
         raw.put("key2", "3");
         Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
-        Assert.assertEquals(3.0, andOperand.getValue(null, Arrays.asList(e1), null));
+        Assert.assertEquals(3.0, andOperand.getValue( Arrays.asList(e1), null));
 
         raw = new HashMap<String, String>();
         raw.put("key1", "19");
         raw.put("key2", "17");
         e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
-        Assert.assertEquals(17.0, andOperand.getValue(null, Arrays.asList(e1), null));
+        Assert.assertEquals(17.0, andOperand.getValue(Arrays.asList(e1), null));
 
     }
 
@@ -47,7 +47,7 @@ public class BitwiseOperandTest {
         raw.put("key2", "6");
         Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
-        Assert.assertEquals(14.0, orOperand.getValue(null, Arrays.asList(e1), null));
+        Assert.assertEquals(14.0, orOperand.getValue(Arrays.asList(e1), null));
     }
 
     @Test
@@ -62,7 +62,7 @@ public class BitwiseOperandTest {
         raw.put("key2", "6");
         Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
-        Assert.assertEquals(10.0, xorOperand.getValue(null, Arrays.asList(e1), null));
+        Assert.assertEquals(10.0, xorOperand.getValue( Arrays.asList(e1), null));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class BitwiseOperandTest {
         raw.put("key2", "1");
         Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
-        Assert.assertEquals(24.0, shlOperand.getValue(null, Arrays.asList(e1), null));
+        Assert.assertEquals(24.0, shlOperand.getValue( Arrays.asList(e1), null));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class BitwiseOperandTest {
         raw.put("key2", "2");
         Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
-        Assert.assertEquals(3.0, and.getValue(null, Arrays.asList(e1), null));
+        Assert.assertEquals(3.0, and.getValue(Arrays.asList(e1), null));
     }
 
 

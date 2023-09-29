@@ -40,15 +40,15 @@ public class AvgOperandTest {
 
         AvgOperand avg = new AvgOperand(name);
 
-        double actual = Double.parseDouble(avg.getValue(e3, Arrays.asList(e1, e2, e3), null).toString());
+        double actual = Double.parseDouble(avg.getValue(Arrays.asList(e1, e2, e3), null).toString());
         Assert.assertEquals(0.137, actual, 0.001);
 
         avg = new AvgOperand(name2);
-        actual = Double.parseDouble(avg.getValue(e3, Arrays.asList(e1, e2, e3), null).toString());
+        actual = Double.parseDouble(avg.getValue(Arrays.asList(e1, e2, e3), null).toString());
         Assert.assertEquals(0.20, actual, 0.001);
 
         avg = new AvgOperand(name3);
-        actual = Double.parseDouble(avg.getValue(e3, Arrays.asList(e1, e2, e3), null).toString());
+        actual = Double.parseDouble(avg.getValue(Arrays.asList(e1, e2, e3), null).toString());
         Assert.assertEquals(0.0, actual, 0.001);
     }
 
@@ -70,7 +70,7 @@ public class AvgOperandTest {
 
         AvgOperand avg = new AvgOperand(name);
 
-        double actual = Double.parseDouble(avg.getValue(e3, Arrays.asList(e1, e2, e3), null).toString());
+        double actual = Double.parseDouble(avg.getValue(Arrays.asList(e1, e2, e3), null).toString());
         Assert.assertEquals(1.0, actual, 0.001);
     }
 
@@ -92,7 +92,7 @@ public class AvgOperandTest {
 
         AvgOperand avg = new AvgOperand(booleanExprBase);
 
-        Assert.assertEquals(2.5, avg.getValue(e3, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(2.5, avg.getValue( Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -114,7 +114,7 @@ public class AvgOperandTest {
 
         AvgOperand avg = new AvgOperand(booleanExprBase);
 
-        Assert.assertEquals(0.0, avg.getValue(e3, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(0.0, avg.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -141,7 +141,7 @@ public class AvgOperandTest {
 
         AvgOperand avg = new AvgOperand(andExpr);
 
-        Assert.assertEquals(2.5, avg.getValue(e3, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(2.5, avg.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -168,11 +168,11 @@ public class AvgOperandTest {
 
         AvgOperand avgOperand = new AvgOperand(new NameOperand("table", "test"), andExpr);
 
-        Assert.assertEquals(2.5, avgOperand.getValue(e3, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(2.5, avgOperand.getValue(Arrays.asList(e1, e2, e3), null));
 
         avgOperand = new AvgOperand(new NameOperand("table", "test2"), andExpr);
 
-        Assert.assertEquals(4.5, avgOperand.getValue(e3, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(4.5, avgOperand.getValue( Arrays.asList(e1, e2, e3), null));
     }
 
 }

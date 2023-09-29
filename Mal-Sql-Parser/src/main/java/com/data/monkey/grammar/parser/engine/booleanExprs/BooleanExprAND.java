@@ -22,8 +22,8 @@ public class BooleanExprAND implements IBooleanExpression {
     private final IBooleanExpression right;
 
     @Override
-    public boolean getResult(Event currEvent, List<Event> events, Map<String, String> parameters) {
-        return left.getResult(currEvent, events, parameters) && right.getResult(currEvent, events, parameters);
+    public boolean getResult( List<Event> events, Map<String, String> parameters) {
+        return left.getResult(events, parameters) && right.getResult(events, parameters);
     }
 
     @Override

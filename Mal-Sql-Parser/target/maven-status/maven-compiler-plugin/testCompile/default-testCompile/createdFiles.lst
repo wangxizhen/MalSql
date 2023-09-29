@@ -11,6 +11,7 @@ com\data\monkey\test\parser\engine\datasource\TimeWindowEventsFinderTest.class
 com\data\monkey\test\parser\engine\datasource\FixedCountEventsFinderTest.class
 com\data\monkey\test\parser\engine\operands\aggregations\CountOperandTest.class
 com\data\monkey\test\parser\engine\operands\arithmetics\MinusOperandTest.class
+com\data\monkey\test\parser\engine\operands\BaseTestUtils.class
 com\data\monkey\test\parser\engine\operands\IntegerOperandTest.class
 com\data\monkey\test\parser\engine\operands\SetOperandTest.class
 com\data\monkey\test\parser\engine\operands\aggregations\PreviousOperandTest.class
@@ -24,6 +25,7 @@ com\data\monkey\test\parser\engine\booleanExprs\numerical\BooleanExprLTTest.clas
 com\data\monkey\test\parser\engine\booleanExprs\BooleanExprANDTest.class
 com\data\monkey\test\parser\engine\booleanExprs\numerical\BooleanExprGTEQTest.class
 com\data\monkey\test\parser\engine\function\FunctionManagerTest.class
+com\data\monkey\test\parser\engine\operands\ContainExprTest.class
 com\data\monkey\test\parser\engine\operands\aggregations\MaxOperandTest.class
 com\data\monkey\test\parser\engine\booleanExprs\BooleanExprINTest.class
 com\data\monkey\test\parser\engine\booleanExprs\BooleanExprORTest.class

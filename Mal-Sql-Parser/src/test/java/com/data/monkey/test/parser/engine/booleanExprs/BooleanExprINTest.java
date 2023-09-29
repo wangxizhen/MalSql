@@ -25,7 +25,7 @@ public class BooleanExprINTest {
         set.add(10.0);
         set.add(11.0);
         BooleanExprIN eq = new BooleanExprIN(new FloatOperand(10.0), new SetOperand(set));
-        Assert.assertTrue(eq.getResult(null, null, null));
+        Assert.assertTrue(eq.getResult(null, null));
     }
 
     @Test

@@ -20,24 +20,24 @@ public class BooleanExprEQTest {
     @Test
     public void test() {
         BooleanExprEQ eq = new BooleanExprEQ(new FloatOperand(10L), new FloatOperand(10.0));
-        assertTrue(eq.getResult(null, null, null));
+        assertTrue(eq.getResult(null, null));
         eq = new BooleanExprEQ(new FloatOperand(10L), new FloatOperand(9.0));
-        assertFalse(eq.getResult(null, null, null));
+        assertFalse(eq.getResult(null, null));
     }
 
     @Test
     public void testEqBetweenStringValues() {
         BooleanExprEQ eq = new BooleanExprEQ(new StringOperand("a"), new StringOperand("a"));
-        assertTrue(eq.getResult(null, null, null));
+        assertTrue(eq.getResult(null, null));
 
         eq = new BooleanExprEQ(new StringOperand("a"), new StringOperand("b"));
-        assertFalse(eq.getResult(null, null, null));
+        assertFalse(eq.getResult( null, null));
     }
 
     @Test
     public void testEqBetweenDifferentTypeValues() {
         BooleanExprEQ eq = new BooleanExprEQ(new FloatOperand(10L), new StringOperand("10"));
-        assertFalse(eq.getResult(null, null, null));
+        assertFalse(eq.getResult(null, null));
     }
 
     @Test

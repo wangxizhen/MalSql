@@ -51,13 +51,13 @@ public class MaxOperandTest {
         Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
         MaxOperand max = new MaxOperand(name);
-        assertEquals(0.20, max.getValue(null, Arrays.asList(e1, e2, e3), null));
+        assertEquals(0.20, max.getValue( Arrays.asList(e1, e2, e3), null));
 
         max = new MaxOperand(name2);
-        assertEquals(0.20, max.getValue(null, Arrays.asList(e1, e2, e3), null));
+        assertEquals(0.20, max.getValue( Arrays.asList(e1, e2, e3), null));
 
         max = new MaxOperand(name3);
-        assertEquals(0.0, max.getValue(null, Arrays.asList(e1, e2, e3), null));
+        assertEquals(0.0, max.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class MaxOperandTest {
         Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
         MaxOperand max = new MaxOperand(name);
-        assertEquals(0.0, max.getValue(null, Arrays.asList(e1, e2, e3), null));
+        assertEquals(0.0, max.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class MaxOperandTest {
 
         MaxOperand max = new MaxOperand(booleanExprBase);
 
-        assertEquals(0.20, max.getValue(null, Arrays.asList(e1, e2, e3), null));
+        assertEquals(0.20, max.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class MaxOperandTest {
 
         MaxOperand max = new MaxOperand(booleanExprBase);
 
-        assertEquals(0.0, max.getValue(null, Arrays.asList(e1, e2), null));
+        assertEquals(0.0, max.getValue(Arrays.asList(e1, e2), null));
     }
 
     @Test
@@ -142,11 +142,11 @@ public class MaxOperandTest {
 
         MaxOperand maxOperand = new MaxOperand(new NameOperand("table", "test"), andExpr);
 
-        assertEquals(3.0, maxOperand.getValue(null, Arrays.asList(e1, e2, e3), null));
+        assertEquals(3.0, maxOperand.getValue(Arrays.asList(e1, e2, e3), null));
 
         maxOperand = new MaxOperand(new NameOperand("table", "test2"), andExpr);
 
-        assertEquals(5.0, maxOperand.getValue(null, Arrays.asList(e1, e2, e3), null));
+        assertEquals(5.0, maxOperand.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test

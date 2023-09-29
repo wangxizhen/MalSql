@@ -19,9 +19,9 @@ public class BooleanExprGT extends AbstractNumericalBooleanExpr
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    public boolean getResult(Event currEvent, List<Event> events, Map<String, String> parameters) {
-        Object left = leftValue(currEvent, events, parameters);
-        Object right = rightValue(currEvent, events, parameters);
+    public boolean getResult(List<Event> events, Map<String, String> parameters) {
+        Object left = leftValue(events, parameters);
+        Object right = rightValue(events, parameters);
         return sameType(left, right)
                 && compare((Comparable) left, (Comparable) right) > 0;
     }

@@ -20,8 +20,8 @@ public class BooleanExprEQ extends BooleanExprBase {
     }
 
     @Override
-    public boolean getResult(Event currEvent, List<Event> events, Map<String, String> parameters) {
-        return Objects.equals(this.getLeft().getValue(currEvent, events, parameters), this.getRight().getValue(currEvent, events, parameters));
+    public boolean getResult(List<Event> events, Map<String, String> parameters) {
+        return Objects.equals(this.getLeft().getValue(events, parameters), this.getRight().getValue(events, parameters));
     }
 
     @Override

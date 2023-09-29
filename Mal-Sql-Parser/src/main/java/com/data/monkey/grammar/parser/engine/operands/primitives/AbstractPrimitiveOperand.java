@@ -27,7 +27,7 @@ public abstract class AbstractPrimitiveOperand<T> implements Operand
     }
 
     @Override
-    public Object getValue(Event currEvent, List<Event> eventRaws, Map<String, String> parameters)
+    public Object getValue(List<Event> eventRaws, Map<String, String> parameters)
     {
         return value;
     }

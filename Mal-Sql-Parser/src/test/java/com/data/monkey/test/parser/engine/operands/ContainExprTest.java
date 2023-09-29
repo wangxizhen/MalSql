@@ -56,8 +56,45 @@ public class ContainExprTest extends BaseTestUtils{
         Event event4 = new Event("test", raw);
         events.add(event4);
 
-        assertEquals("5.0", template.getContext(null, events, null).get("sum_val1"));
-        Assert.assertTrue(template.getResult(null, events, null));
+        assertEquals("5.0", template.getContext( events, null).get("sum_val1"));
+        Assert.assertTrue(template.getResult( events, null));
     }
+
+
+    @Test
+    public void testSimpleSql() {
+
+        String sql = "select sum(metric1) as sumMetric1,sum(metric2) as sumMetric2 from keyStr";
+        // sql = "select sum(val1) as sum_val1 from test where sum(val1) < 4  for last 3 min";
+
+        MalSqlParserTemplate template = engine.parse(sql);
+        Assert.assertNotNull(template);
+
+        List<Event> events = new ArrayList<>();
+
+        Map<String, String> curMetric = new HashMap<>();
+        curMetric.put("metric1", "-4");
+        curMetric.put("metric2", "5");
+        Event curEvent = new Event("keyStr", curMetric);
+
+
+        Map<String, String> metric = new HashMap<>();
+        metric.put("metric1", "-4");
+        metric.put("metric2", "5");
+        Event event = new Event("keyStr", metric);
+        events.add(event);
+        Map<String, String> metric2 = new HashMap<>();
+        metric2.put("metric1", "3");
+        metric2.put("metric2", "8");
+        Event  event2 = new Event("keyStr", metric2);
+        events.add(event2);
+
+        Map<String, String> res = template.getContext( events, null);
+        System.out.println(res);
+
+
+        //  Assert.assertTrue(template.getResult(null, events, null));
+    }
+
 
 }

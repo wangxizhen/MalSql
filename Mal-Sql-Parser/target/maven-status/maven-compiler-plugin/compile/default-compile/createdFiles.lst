@@ -50,6 +50,7 @@ com\data\monkey\grammar\parser\engine\operands\arithmetics\PlusOperand.class
 com\data\monkey\grammar\parser\engine\MalSqlParserTemplate$MalSqlParserTemplateBuilder.class
 com\data\monkey\grammar\parser\engine\operands\arithmetics\DivideOperand.class
 com\data\monkey\grammar\parser\engine\booleanExprs\BooleanExprEXISTS.class
+com\data\monkey\grammar\parser\engine\function\FilterMatchFunction.class
 com\data\monkey\grammar\parser\engine\booleanExprs\BooleanExprEQ.class
 com\data\monkey\grammar\parser\engine\operands\AliasOperand.class
 com\data\monkey\grammar\parser\engine\operands\primitives\FloatOperand.class

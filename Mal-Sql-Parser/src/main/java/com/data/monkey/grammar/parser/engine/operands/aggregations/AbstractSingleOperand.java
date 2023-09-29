@@ -80,7 +80,7 @@ public abstract class AbstractSingleOperand implements Operand {
 
         Stream<Event> stream = events.stream().filter(e -> {
             try {
-                getNameOperand().getValue(e, Collections.singletonList(e), parameters).toString();
+                getNameOperand().getValue(Collections.singletonList(e), parameters).toString();
                 return true;
             } catch (NotFoundException ex) {
                 // 聚合函数需要过滤不存在指定metric的event
@@ -89,7 +89,7 @@ public abstract class AbstractSingleOperand implements Operand {
         });
 
         if (getPredicate() != null) {
-            stream = stream.filter(e -> getPredicate().getResult(e, Collections.singletonList(e), parameters));
+            stream = stream.filter(e -> getPredicate().getResult(Collections.singletonList(e), parameters));
         }
 
         return stream;
@@ -100,7 +100,7 @@ public abstract class AbstractSingleOperand implements Operand {
         return stream
                 .filter(e -> {
                     try {
-                        Double.parseDouble(getNameOperand().getValue(e, Collections.singletonList(e), parameters).toString());
+                        Double.parseDouble(getNameOperand().getValue(Collections.singletonList(e), parameters).toString());
                         return true;
                     } catch (NumberFormatException ex) {
                         // 需要做数值计算的的聚合函数需要过滤metric值为字符串的event

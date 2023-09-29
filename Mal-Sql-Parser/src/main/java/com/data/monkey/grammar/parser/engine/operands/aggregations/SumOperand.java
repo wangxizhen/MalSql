@@ -38,12 +38,12 @@ public class SumOperand extends AbstractAggregationOperand {
     }
 
     @Override
-    public Object getValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
+    public Object getValue(List<Event> events, Map<String, String> parameters) {
 
         final Operand innerOpt = this.getNameOperand();
         return filterForCalculus(filter(events, parameters), parameters).reduce(
                 0D,
-                (d, r) -> d + (Double) innerOpt.getValue(r, Arrays.asList(r), parameters),
+                (d, r) -> d + (Double) innerOpt.getValue(Arrays.asList(r), parameters),
                 (d1, d2) -> d1 + d2);
     }
 

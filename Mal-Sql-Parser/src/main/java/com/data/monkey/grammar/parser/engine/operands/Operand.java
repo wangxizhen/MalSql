@@ -19,7 +19,7 @@ public interface Operand {
      * @return
      */
     @Deprecated
-    Object getValue(Event currEvent, List<Event> events, Map<String, String> parameters);
+    Object getValue(List<Event> events, Map<String, String> parameters);
 
     /**
      * @param context

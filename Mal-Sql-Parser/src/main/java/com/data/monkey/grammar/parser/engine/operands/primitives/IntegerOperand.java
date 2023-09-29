@@ -19,7 +19,7 @@ public class IntegerOperand extends AbstractPrimitiveOperand<Long>
     }
 
     @Override
-    public Object getValue(Event currEvent, List<Event> eventRaws, Map<String, String> parameters)
+    public Object getValue( List<Event> eventRaws, Map<String, String> parameters)
     {
         return new Double(value);
     }

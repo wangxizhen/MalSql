@@ -19,7 +19,7 @@ public class BooleanExprEXISTS implements IBooleanExpression {
     private final Operand operand;
 
     @Override
-    public boolean getResult(Event currEvent, List<Event> events, Map<String, String> parameters) {
+    public boolean getResult(List<Event> events, Map<String, String> parameters) {
         throw new NotImplementedException("EXISTS operator not supported.");
     }
 

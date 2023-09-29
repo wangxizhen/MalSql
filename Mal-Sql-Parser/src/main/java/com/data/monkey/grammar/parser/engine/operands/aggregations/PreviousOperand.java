@@ -29,9 +29,9 @@ public class PreviousOperand extends AbstractSingleOperand {
 
 
     @Override
-    public Object getValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
+    public Object getValue(List<Event> events, Map<String, String> parameters) {
 
-        Class metricValueClazz = getNameOperand().getValue(currEvent, events, parameters).getClass();
+        Class metricValueClazz = getNameOperand().getValue(events, parameters).getClass();
 
         Stream<Event> stream = events.stream();
 
@@ -39,7 +39,7 @@ public class PreviousOperand extends AbstractSingleOperand {
         stream = stream.filter(e -> !e.equals(events.get(events.size() - 1)));
 
         if(getPredicate() != null) {
-            stream = stream.filter(e -> getPredicate().getResult(e, Arrays.asList(e), null));
+            stream = stream.filter(e -> getPredicate().getResult(Arrays.asList(e), null));
         }
 
         List<Event> filtered = stream.collect(Collectors.toList());
@@ -51,7 +51,7 @@ public class PreviousOperand extends AbstractSingleOperand {
             else
                 return 0.0;
         }
-        return getNameOperand().getValue(filtered.get(filtered.size() - 1), filtered, parameters);
+        return getNameOperand().getValue(filtered, parameters);
 
     }
 

@@ -11,7 +11,7 @@ public class FloatOperandTest {
     @Test
     public void testGetValueListOfEventMapOfStringObject() {
         FloatOperand op = new FloatOperand(3D);
-        assertEquals(3D, op.getValue(null, null, null));
+        assertEquals(3D, op.getValue(null, null));
     }
 
     @Test

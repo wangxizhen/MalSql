@@ -14,27 +14,27 @@ public class BooleanExprGTEQTest {
     @Test
     public void testGetResult() {
         BooleanExprGTEQ gteq = new BooleanExprGTEQ(new FloatOperand(4.5), new FloatOperand(4.5));
-        assertTrue(gteq.getResult(null, null, null));
+        assertTrue(gteq.getResult( null, null));
         gteq = new BooleanExprGTEQ(new FloatOperand(4.6), new FloatOperand(4.5));
-        assertTrue(gteq.getResult(null, null, null));
+        assertTrue(gteq.getResult(null, null));
         gteq = new BooleanExprGTEQ(new FloatOperand(4.4), new FloatOperand(4.5));
-        assertFalse(gteq.getResult(null, null, null));
+        assertFalse(gteq.getResult(null, null));
     }
 
     @Test
     public void testGTEQBetweenStringValues() {
         BooleanExprGTEQ gteq = new BooleanExprGTEQ(new StringOperand("a"), new StringOperand("a"));
-        assertTrue(gteq.getResult(null, null, null));
+        assertTrue(gteq.getResult( null, null));
         gteq = new BooleanExprGTEQ(new StringOperand("b"), new StringOperand("a"));
-        assertTrue(gteq.getResult(null, null, null));
+        assertTrue(gteq.getResult(null, null));
         gteq = new BooleanExprGTEQ(new StringOperand("a"), new StringOperand("b"));
-        assertFalse(gteq.getResult(null, null, null));
+        assertFalse(gteq.getResult(null, null));
     }
 
     @Test
     public void testGTEQBetweenDifferentTypeValues() {
         BooleanExprGTEQ gteq = new BooleanExprGTEQ(new FloatOperand(10L), new StringOperand("5"));
-        assertFalse(gteq.getResult(null, null, null));
+        assertFalse(gteq.getResult(null, null));
     }
 
     @Test

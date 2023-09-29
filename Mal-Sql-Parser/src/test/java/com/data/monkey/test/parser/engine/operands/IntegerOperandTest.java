@@ -12,7 +12,7 @@ public class IntegerOperandTest {
     @Test
     public void testGetValueListOfEventMapOfStringObject() {
         IntegerOperand op = new IntegerOperand(2L);
-        assertEquals(2.0D, op.getValue(null, null, null));
+        assertEquals(2.0D, op.getValue(null, null));
     }
 
     @Test

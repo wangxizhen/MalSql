@@ -34,9 +34,8 @@ public class NameOperand implements Operand {
     }
 
     @Override
-    public Object getValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
-        String valueStr = currEvent != null ? currEvent.getMetrics().get(fieldName) :
-                events.get(events.size() - 1).getMetrics().get(fieldName);
+    public Object getValue(List<Event> events, Map<String, String> parameters) {
+        String valueStr = events.get(events.size() - 1).getMetrics().get(fieldName);
 
         if (valueStr == null) {
             throw new NotFoundException("field:[" + fieldName +

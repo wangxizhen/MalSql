@@ -51,17 +51,17 @@ public class CountOperandTest {
 
         CountOperand countOperand = new CountOperand(name);
 
-        double actual = Double.parseDouble(countOperand.getValue(e3, Arrays.asList(e1, e2, e3), null).toString());
+        double actual = Double.parseDouble(countOperand.getValue( Arrays.asList(e1, e2, e3), null).toString());
         Assert.assertEquals(3, actual, 0.001);
 
         countOperand = new CountOperand(name2);
 
-        actual = Double.parseDouble(countOperand.getValue(e3, Arrays.asList(e1, e2, e3), null).toString());
+        actual = Double.parseDouble(countOperand.getValue(Arrays.asList(e1, e2, e3), null).toString());
         Assert.assertEquals(1, actual, 0.001);
 
         countOperand = new CountOperand(name3);
 
-        actual = Double.parseDouble(countOperand.getValue(e3, Arrays.asList(e1, e2, e3), null).toString());
+        actual = Double.parseDouble(countOperand.getValue(Arrays.asList(e1, e2, e3), null).toString());
         Assert.assertEquals(0, actual, 0.001);
     }
 
@@ -83,7 +83,7 @@ public class CountOperandTest {
 
         CountOperand countOperand = new CountOperand(name);
 
-        double actual = Double.parseDouble(countOperand.getValue(e3, Arrays.asList(e1, e2, e3), null).toString());
+        double actual = Double.parseDouble(countOperand.getValue(Arrays.asList(e1, e2, e3), null).toString());
         Assert.assertEquals(3.0, actual, 0.001);
     }
 
@@ -105,7 +105,7 @@ public class CountOperandTest {
 
         CountOperand countOperand = new CountOperand(booleanExprBase);
 
-        Assert.assertEquals(2.0, countOperand.getValue(e3, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(2.0, countOperand.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -126,7 +126,7 @@ public class CountOperandTest {
 
         CountOperand countOperand = new CountOperand(booleanExprBase);
 
-        Assert.assertEquals(0.0, countOperand.getValue(e3, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(0.0, countOperand.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -153,7 +153,7 @@ public class CountOperandTest {
 
         CountOperand countOperand = new CountOperand(new NameOperand("table", "test"), andExpr);
 
-        Assert.assertEquals(2.0, countOperand.getValue(e3, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(2.0, countOperand.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
 

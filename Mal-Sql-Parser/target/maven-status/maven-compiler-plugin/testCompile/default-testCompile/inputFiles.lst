@@ -9,6 +9,7 @@ F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\e
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\datasource\TimeWindowEventsFinderTest.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\MalSqlParserEngineTest.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\booleanExprs\numerical\BooleanExprGTTest.java
+F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\operands\ContainExprTest.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\operands\outlier\EventDataParserTest.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\operands\aggregations\AvgOperandTest.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\operands\arithmetics\BitwiseOperandTest.java
@@ -16,6 +17,7 @@ F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\e
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\operands\IntegerOperandTest.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\operands\NameOperandTest.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\operands\outlier\DataPreProcessorTest.java
+F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\operands\BaseTestUtils.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\booleanExprs\BooleanExprANDTest.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\operands\outlier\dataflow\ClearDataFlowControllerTest.java
 F:\ideaProject\MalSql\Mal-Sql-Parser\src\test\java\com\data\monkey\test\parser\engine\booleanExprs\numerical\BooleanExprLTTest.java

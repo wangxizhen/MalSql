@@ -22,7 +22,7 @@ public class NameOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0.098");
         Event e = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
-        assertEquals(0.098, name.getValue(null, Arrays.asList(e), null));
+        assertEquals(0.098, name.getValue( Arrays.asList(e), null));
     }
 
     @Test

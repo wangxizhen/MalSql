@@ -14,27 +14,27 @@ public class BooleanExprLTTest {
     @Test
     public void testGetResult() {
         BooleanExprLT lt = new BooleanExprLT(new FloatOperand(4.5), new FloatOperand(4.5));
-        assertFalse(lt.getResult(null, null, null));
+        assertFalse(lt.getResult( null, null));
         lt = new BooleanExprLT(new FloatOperand(4.4), new FloatOperand(4.5));
-        assertTrue(lt.getResult(null, null, null));
+        assertTrue(lt.getResult( null, null));
         lt = new BooleanExprLT(new FloatOperand(4.5), new FloatOperand(4.4));
-        assertFalse(lt.getResult(null, null, null));
+        assertFalse(lt.getResult( null, null));
     }
 
     @Test
     public void testLTBetweenStringValues() {
         BooleanExprLT lt = new BooleanExprLT(new StringOperand("a"), new StringOperand("a"));
-        assertFalse(lt.getResult(null, null, null));
+        assertFalse(lt.getResult(null, null));
         lt = new BooleanExprLT(new StringOperand("b"), new StringOperand("a"));
-        assertFalse(lt.getResult(null, null, null));
+        assertFalse(lt.getResult(null, null));
         lt = new BooleanExprLT(new StringOperand("a"), new StringOperand("b"));
-        assertTrue(lt.getResult(null, null, null));
+        assertTrue(lt.getResult( null, null));
     }
 
     @Test
     public void testLTBetweenDifferentTypeValues() {
         BooleanExprLT lt = new BooleanExprLT(new FloatOperand(10L), new StringOperand("5"));
-        assertFalse(lt.getResult(null, null, null));
+        assertFalse(lt.getResult(null, null));
     }
 
     @Test

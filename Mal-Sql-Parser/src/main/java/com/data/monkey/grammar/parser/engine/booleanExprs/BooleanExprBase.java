@@ -21,12 +21,12 @@ public abstract class BooleanExprBase implements IBooleanExpression {
     private final Operand left;
     private final Operand right;
 
-    protected Object leftValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
-        return   getLeft().getValue(currEvent, events, parameters);
+    protected Object leftValue(List<Event> events, Map<String, String> parameters) {
+        return   getLeft().getValue(events, parameters);
     }
 
-    protected Object rightValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
-        return getRight().getValue(currEvent, events, parameters);
+    protected Object rightValue(List<Event> events, Map<String, String> parameters) {
+        return getRight().getValue(events, parameters);
     }
 
     protected boolean sameType(Object leftValue, Object rightValue) {

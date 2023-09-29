@@ -14,23 +14,23 @@ public class BooleanExprGTTest {
     @Test
     public void test() {
         BooleanExprGT eq = new BooleanExprGT(new FloatOperand(11L), new FloatOperand(10.0));
-        assertTrue(eq.getResult(null, null, null));
+        assertTrue(eq.getResult( null, null));
     }
 
     @Test
     public void testGTBetweenStringValues() {
         BooleanExprGT gteq = new BooleanExprGT(new StringOperand("a"), new StringOperand("a"));
-        assertFalse(gteq.getResult(null, null, null));
+        assertFalse(gteq.getResult( null, null));
         gteq = new BooleanExprGT(new StringOperand("b"), new StringOperand("a"));
-        assertTrue(gteq.getResult(null, null, null));
+        assertTrue(gteq.getResult(null, null));
         gteq = new BooleanExprGT(new StringOperand("a"), new StringOperand("b"));
-        assertFalse(gteq.getResult(null, null, null));
+        assertFalse(gteq.getResult(null, null));
     }
 
     @Test
     public void testGTBetweenDifferentTypeValues() {
         BooleanExprGT gt = new BooleanExprGT(new FloatOperand(10L), new StringOperand("5"));
-        assertFalse(gt.getResult(null, null, null));
+        assertFalse(gt.getResult( null, null));
     }
 
     @Test

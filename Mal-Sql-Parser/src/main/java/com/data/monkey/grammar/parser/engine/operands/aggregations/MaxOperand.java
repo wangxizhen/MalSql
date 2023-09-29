@@ -32,19 +32,19 @@ public class MaxOperand extends AbstractAggregationOperand {
     }
 
     @Override
-    public Object getValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
+    public Object getValue(List<Event> events, Map<String, String> parameters) {
 
         final Operand innerOpt = this.getNameOperand();
         Event value = filterForCalculus(filter(events, parameters), parameters).min((event, t1) -> {
-            BigDecimal b1 = new BigDecimal(innerOpt.getValue(event, Arrays.asList(event), parameters).toString());
-            BigDecimal b2 = new BigDecimal(innerOpt.getValue(t1, Arrays.asList(t1), parameters).toString());
+            BigDecimal b1 = new BigDecimal(innerOpt.getValue( Arrays.asList(event), parameters).toString());
+            BigDecimal b2 = new BigDecimal(innerOpt.getValue(Arrays.asList(t1), parameters).toString());
             return b2.compareTo(b1);
         }).orElse(null);
 
         if (value == null)
             return 0.0;
 
-        return innerOpt.getValue(value, Arrays.asList(value), parameters);
+        return innerOpt.getValue(Arrays.asList(value), parameters);
     }
 
     @Override

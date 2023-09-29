@@ -15,6 +15,6 @@ public class ParenthesisOperandTest {
         ParenthesisOperand operand = new ParenthesisOperand("?test");
         Map<String, String> params = new HashMap<String, String>();
         params.put("test", "1");
-        Assert.assertEquals(1.0, operand.getValue(null, null, params));
+        Assert.assertEquals(1.0, operand.getValue(null, params));
     }
 }

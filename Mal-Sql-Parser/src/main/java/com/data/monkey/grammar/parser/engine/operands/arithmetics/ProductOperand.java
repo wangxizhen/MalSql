@@ -16,10 +16,10 @@ public class ProductOperand extends AbstractArithmeticOperand
     }
 
     @Override
-    public Object getValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
-        Double right = (Double) this.getRight().getValue(currEvent, events, parameters);
+    public Object getValue(List<Event> events, Map<String, String> parameters) {
+        Double right = (Double) this.getRight().getValue(events, parameters);
         if (right != null && right != 0.0) {
-            Double left = (Double) this.getLeft().getValue(currEvent, events, parameters);
+            Double left = (Double) this.getLeft().getValue(events, parameters);
             if (left != null) {
                 return left * right;
             }

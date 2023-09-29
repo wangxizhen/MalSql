@@ -41,7 +41,7 @@ public class PreviousOperandTest {
 
         PreviousOperand previousOperand = new PreviousOperand(name);
 
-        double actual = Double.parseDouble(previousOperand.getValue(e3, Arrays.asList(e1, e2, e3), null).toString());
+        double actual = Double.parseDouble(previousOperand.getValue(Arrays.asList(e1, e2, e3), null).toString());
         Assert.assertEquals(0.11, actual, 0.001);
 
     }
@@ -64,7 +64,7 @@ public class PreviousOperandTest {
 
         PreviousOperand avg = new PreviousOperand(name);
 
-        Object actual = avg.getValue(e3, Arrays.asList(e1, e2, e3), null).toString();
+        Object actual = avg.getValue( Arrays.asList(e1, e2, e3), null).toString();
         Assert.assertEquals("b", actual);
     }
 
@@ -87,7 +87,7 @@ public class PreviousOperandTest {
 
         PreviousOperand previousOperand = new PreviousOperand(booleanExprBase);
 
-        Assert.assertEquals(0.0, previousOperand.getValue(e3, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals(0.0, previousOperand.getValue(Arrays.asList(e1, e2, e3), null));
 
 
         // previous(test = "a")
@@ -103,7 +103,7 @@ public class PreviousOperandTest {
         Event e5 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
         previousOperand = new PreviousOperand(booleanExprBase);
 
-        Assert.assertEquals("", previousOperand.getValue(e5, Arrays.asList(e4, e5), null));
+        Assert.assertEquals("", previousOperand.getValue( Arrays.asList(e4, e5), null));
 
     }
 
@@ -126,7 +126,7 @@ public class PreviousOperandTest {
 
         PreviousOperand previousOperand = new PreviousOperand(booleanExprBase);
 
-        Assert.assertEquals("NORMAL", previousOperand.getValue(e3, Arrays.asList(e1, e2, e3), null));
+        Assert.assertEquals("NORMAL", previousOperand.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -158,11 +158,11 @@ public class PreviousOperandTest {
 
         PreviousOperand previousOperand = new PreviousOperand(new NameOperand("table", "test"), andExpr);
 
-        Assert.assertEquals(2.0, previousOperand.getValue(e4, Arrays.asList(e1, e2, e3, e4), null));
+        Assert.assertEquals(2.0, previousOperand.getValue( Arrays.asList(e1, e2, e3, e4), null));
 
         previousOperand = new PreviousOperand(new NameOperand("table", "test2"), andExpr);
 
-        Assert.assertEquals(4.0, previousOperand.getValue(e4, Arrays.asList(e1, e2, e3, e4), null));
+        Assert.assertEquals(4.0, previousOperand.getValue( Arrays.asList(e1, e2, e3, e4), null));
     }
 
 }

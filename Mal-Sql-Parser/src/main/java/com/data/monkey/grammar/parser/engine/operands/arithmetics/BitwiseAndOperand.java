@@ -16,9 +16,9 @@ public class BitwiseAndOperand extends AbstractBitwiseOperand
     }
 
     @Override
-    public Object getValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
-        Double left = (Double) this.getLeft().getValue(currEvent, events, parameters);
-        Double right = (Double) this.getRight().getValue(currEvent, events, parameters);
+    public Object getValue(List<Event> events, Map<String, String> parameters) {
+        Double left = (Double) this.getLeft().getValue( events, parameters);
+        Double right = (Double) this.getRight().getValue(events, parameters);
 
         int value = (left == null ? 0 : left.intValue()) & (right == null ? 0 : right.intValue());
         return Double.parseDouble(value + "");

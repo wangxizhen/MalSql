@@ -26,7 +26,7 @@ public class PeriodOperand implements Operand {
     }
 
     @Override
-    public Object getValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
+    public Object getValue(List<Event> events, Map<String, String> parameters) {
         return null;
     }
 

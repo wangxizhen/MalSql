@@ -23,9 +23,9 @@ public class BooleanExprIN extends BooleanExprBase {
     }
 
     @Override
-    public boolean getResult(Event currEvent, List<Event> events, Map<String, String> parameters) {
-        Object val =  this.getLeft().getValue(currEvent, events, parameters);
-        Set<Object> elements = (Set<Object>)this.getRight().getValue(currEvent, events, parameters);
+    public boolean getResult(List<Event> events, Map<String, String> parameters) {
+        Object val =  this.getLeft().getValue(events, parameters);
+        Set<Object> elements = (Set<Object>)this.getRight().getValue(events, parameters);
         return elements != null && !elements.isEmpty() && elements.contains(val);
     }
 

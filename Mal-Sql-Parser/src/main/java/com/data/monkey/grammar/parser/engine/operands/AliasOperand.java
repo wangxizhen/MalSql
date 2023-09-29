@@ -21,8 +21,8 @@ public class AliasOperand implements Operand {
     private final String alias;
 
     @Override
-    public Object getValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
-        return operand.getValue(currEvent, events, parameters);
+    public Object getValue(List<Event> events, Map<String, String> parameters) {
+        return operand.getValue(events, parameters);
     }
 
     @Override

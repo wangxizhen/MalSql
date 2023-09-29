@@ -611,7 +611,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
         for (IdentityContext o : ctx.identity()) {
             visitIdentity(o);
             Operand operand = (Operand) stack.pop();
-            elements.add(operand.getValue(null, null, null));
+            elements.add(operand.getValue(null, null));
         }
         stack.push(new SetOperand(elements));
         return true;

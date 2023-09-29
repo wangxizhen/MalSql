@@ -36,8 +36,8 @@ public class CassTimeWindowEventsFinder extends EventsFinder {
         List<Event> events = null;
         try {
 
-            Double delayNum = Double.parseDouble(delayNumberOperand.getValue(event, null, params).toString());
-            Double durationNum = Double.parseDouble(durationNumberOperand.getValue(event, null, params).toString());
+            Double delayNum = Double.parseDouble(delayNumberOperand.getValue(null, params).toString());
+            Double durationNum = Double.parseDouble(durationNumberOperand.getValue(null, params).toString());
 
             if(durationNum <= 0)
                 throw new IllegalArgumentException("duration must be a positive number.");

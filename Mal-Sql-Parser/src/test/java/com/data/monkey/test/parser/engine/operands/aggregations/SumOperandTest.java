@@ -47,13 +47,13 @@ public class SumOperandTest {
         Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
         SumOperand sum = new SumOperand(name);
-        assertEquals(0.098 * 2, sum.getValue(null, Arrays.asList(e1, e2), null));
+        assertEquals(0.098 * 2, sum.getValue(Arrays.asList(e1, e2), null));
 
         sum = new SumOperand(name2);
-        assertEquals(0.098, sum.getValue(null, Arrays.asList(e1, e2), null));
+        assertEquals(0.098, sum.getValue(Arrays.asList(e1, e2), null));
 
         sum = new SumOperand(name3);
-        assertEquals(0.0, sum.getValue(null, Arrays.asList(e1, e2), null));
+        assertEquals(0.0, sum.getValue(Arrays.asList(e1, e2), null));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class SumOperandTest {
         Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
         SumOperand sum = new SumOperand(name);
-        assertEquals(1.0, sum.getValue(null, Arrays.asList(e1, e2), null));
+        assertEquals(1.0, sum.getValue( Arrays.asList(e1, e2), null));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class SumOperandTest {
         Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
         SumOperand sum = new SumOperand(booleanExprBase);
-        assertEquals(0.5, sum.getValue(null, Arrays.asList(e1, e2, e3), null));
+        assertEquals(0.5, sum.getValue(Arrays.asList(e1, e2, e3), null));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class SumOperandTest {
         Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
         SumOperand sum = new SumOperand(booleanExprBase);
-        assertEquals(0.0, sum.getValue(null, Arrays.asList(e1, e2), null));
+        assertEquals(0.0, sum.getValue(Arrays.asList(e1, e2), null));
     }
 
     @Test
@@ -131,11 +131,11 @@ public class SumOperandTest {
 
         SumOperand sumOperand = new SumOperand(new NameOperand("table", "test2"), andExpr);
 
-        assertEquals(9.0, sumOperand.getValue(null, Arrays.asList(e1, e2, e3), null));
+        assertEquals(9.0, sumOperand.getValue( Arrays.asList(e1, e2, e3), null));
 
         sumOperand = new SumOperand(new NameOperand("table", "test"), andExpr);
 
-        assertEquals(5.0, sumOperand.getValue(null, Arrays.asList(e1, e2, e3), null));
+        assertEquals(5.0, sumOperand.getValue( Arrays.asList(e1, e2, e3), null));
     }
 
     @Test

@@ -31,11 +31,11 @@ public class AvgOperand extends AbstractSingleOperand {
     }
 
     @Override
-    public Object getValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
+    public Object getValue(List<Event> events, Map<String, String> parameters) {
 
         Double value = filterForCalculus(filter(events, parameters), parameters).mapToDouble(e ->
                         Double.parseDouble(
-                                getNameOperand().getValue(e, Arrays.asList(e), parameters).toString()))
+                                getNameOperand().getValue(Arrays.asList(e), parameters).toString()))
                 .average().orElse(0);
 
         return value;

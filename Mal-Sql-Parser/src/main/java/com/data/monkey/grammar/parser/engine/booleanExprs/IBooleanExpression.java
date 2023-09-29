@@ -12,12 +12,11 @@ import java.util.Set;
 
 public interface IBooleanExpression {
     /**
-     * @param currEvent  current event data
      * @param events     raw event data
      * @param parameters rule parameters
      * @return
      */
-    boolean getResult(Event currEvent, List<Event> events, Map<String, String> parameters);
+    boolean getResult( List<Event> events, Map<String, String> parameters);
 
 
     Boolean getResult(ProcessingContext context);

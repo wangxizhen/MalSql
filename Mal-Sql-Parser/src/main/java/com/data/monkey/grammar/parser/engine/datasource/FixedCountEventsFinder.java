@@ -33,7 +33,7 @@ public class FixedCountEventsFinder extends EventsFinder {
             throw new  NullPointerException("EventsProvider instance not found.");
 
         try {
-            Double fixedCount = Double.parseDouble(fixedCountOperand.getValue(event, null, params).toString());
+            Double fixedCount = Double.parseDouble(fixedCountOperand.getValue(null, params).toString());
 
             if(fixedCount <= 0) {
                 throw new IllegalArgumentException("events count must be a positive integer.");

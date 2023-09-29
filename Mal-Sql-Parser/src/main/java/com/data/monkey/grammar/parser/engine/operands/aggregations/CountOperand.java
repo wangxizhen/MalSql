@@ -30,7 +30,7 @@ public class CountOperand extends AbstractAggregationOperand {
     }
 
     @Override
-    public Object getValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
+    public Object getValue(List<Event> events, Map<String, String> parameters) {
 
         Long value = filter(events, parameters).count();
 

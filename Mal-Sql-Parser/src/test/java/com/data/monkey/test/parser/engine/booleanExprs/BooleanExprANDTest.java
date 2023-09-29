@@ -18,7 +18,7 @@ public class BooleanExprANDTest
         IBooleanExpression left = new BooleanExprEQ(new FloatOperand(4.5), new FloatOperand(4.5));
         IBooleanExpression right = new BooleanExprEQ(new FloatOperand(4.5), new FloatOperand(4.5));
         BooleanExprAND and = new BooleanExprAND(left, right);
-        Assert.assertTrue("AND expression test error", and.getResult(null, null, null));
+        Assert.assertTrue("AND expression test error", and.getResult( null, null));
     }
 
     @Test

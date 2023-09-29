@@ -32,7 +32,7 @@ public class DivideOperandTest {
         Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
 
-        assertEquals(2.0D, div.getValue(null, Arrays.asList(e1), null));
+        assertEquals(2.0D, div.getValue(Arrays.asList(e1), null));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class DivideOperandTest {
         raw.put("key2", "0");
         Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
-        assertEquals(0.0D, div.getValue(null, Arrays.asList(e1), null));
+        assertEquals(0.0D, div.getValue(Arrays.asList(e1), null));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class DivideOperandTest {
         Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
 
 
-        assertEquals(4.0D, div.getValue(null, Arrays.asList(e1, e2), null));
+        assertEquals(4.0D, div.getValue(Arrays.asList(e1, e2), null));
     }
 
     @Test

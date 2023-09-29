@@ -37,7 +37,7 @@ public class ParenthesisOperand implements Operand {
     }
 
     @Override
-    public Object getValue(Event currEvent, List<Event> events, Map<String, String> parameters) {
+    public Object getValue(List<Event> events, Map<String, String> parameters) {
         fieldName = fieldName.replace("?", "");
         if (parameters == null || parameters.size() == 0 || !parameters.containsKey(fieldName)) {
             throw new NotFoundException("field:[" + fieldName +

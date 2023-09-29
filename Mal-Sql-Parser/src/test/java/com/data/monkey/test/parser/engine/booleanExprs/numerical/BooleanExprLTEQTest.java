@@ -14,27 +14,27 @@ public class BooleanExprLTEQTest {
     @Test
     public void testGetResult() {
         BooleanExprLTEQ lteq = new BooleanExprLTEQ(new FloatOperand(4.5), new FloatOperand(4.5));
-        assertTrue(lteq.getResult(null, null, null));
+        assertTrue(lteq.getResult(null, null));
         lteq = new BooleanExprLTEQ(new FloatOperand(4.4), new FloatOperand(4.5));
-        assertTrue(lteq.getResult(null, null, null));
+        assertTrue(lteq.getResult( null, null));
         lteq = new BooleanExprLTEQ(new FloatOperand(4.5), new FloatOperand(4.4));
-        assertFalse(lteq.getResult(null, null, null));
+        assertFalse(lteq.getResult( null, null));
     }
 
     @Test
     public void testLTEQBetweenStringValues() {
         BooleanExprLTEQ lteq = new BooleanExprLTEQ(new StringOperand("a"), new StringOperand("a"));
-        assertTrue(lteq.getResult(null, null, null));
+        assertTrue(lteq.getResult(null, null));
         lteq = new BooleanExprLTEQ(new StringOperand("b"), new StringOperand("a"));
-        assertFalse(lteq.getResult(null, null, null));
+        assertFalse(lteq.getResult(null, null));
         lteq = new BooleanExprLTEQ(new StringOperand("a"), new StringOperand("b"));
-        assertTrue(lteq.getResult(null, null, null));
+        assertTrue(lteq.getResult(null, null));
     }
 
     @Test
     public void testLTEQBetweenDifferentTypeValues() {
         BooleanExprLTEQ lteq = new BooleanExprLTEQ(new FloatOperand(10L), new StringOperand("5"));
-        assertFalse(lteq.getResult(null, null, null));
+        assertFalse(lteq.getResult(null, null));
     }
 
     @Test

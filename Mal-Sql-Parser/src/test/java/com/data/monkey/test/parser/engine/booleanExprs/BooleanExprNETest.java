@@ -19,27 +19,27 @@ public class BooleanExprNETest {
     @Test
     public void testGetResult() {
         BooleanExprNE ne = new BooleanExprNE(new FloatOperand(4.5), new FloatOperand(4.5));
-        assertFalse(ne.getResult(null, null, null));
+        assertFalse(ne.getResult(null, null));
         ne = new BooleanExprNE(new FloatOperand(4.4), new FloatOperand(4.5));
-        assertTrue(ne.getResult(null, null, null));
+        assertTrue(ne.getResult( null, null));
         ne = new BooleanExprNE(new FloatOperand(4.5), new FloatOperand(4.4));
-        assertTrue(ne.getResult(null, null, null));
+        assertTrue(ne.getResult(null, null));
     }
 
     @Test
     public void testNEBetweenStringValues() {
         BooleanExprNE ne = new BooleanExprNE(new StringOperand("a"), new StringOperand("a"));
-        assertFalse(ne.getResult(null, null, null));
+        assertFalse(ne.getResult(null, null));
         ne = new BooleanExprNE(new StringOperand("b"), new StringOperand("a"));
-        assertTrue(ne.getResult(null, null, null));
+        assertTrue(ne.getResult(null, null));
         ne = new BooleanExprNE(new StringOperand("a"), new StringOperand("b"));
-        assertTrue(ne.getResult(null, null, null));
+        assertTrue(ne.getResult( null, null));
     }
 
     @Test
     public void testNEBetweenDifferentTypeValues() {
         BooleanExprNE ne = new BooleanExprNE(new FloatOperand(10L), new StringOperand("5"));
-        assertTrue(ne.getResult(null, null, null));
+        assertTrue(ne.getResult( null, null));
     }
 
 

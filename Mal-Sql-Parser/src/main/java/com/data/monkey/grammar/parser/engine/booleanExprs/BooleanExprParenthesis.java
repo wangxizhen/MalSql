@@ -17,8 +17,8 @@ public class BooleanExprParenthesis implements IBooleanExpression {
     private IBooleanExpression inner;
 
     @Override
-    public boolean getResult(Event currEvent, List<Event> events, Map<String, String> parameters) {
-        return inner.getResult(currEvent, events, parameters);
+    public boolean getResult(List<Event> events, Map<String, String> parameters) {
+        return inner.getResult(events, parameters);
     }
 
     @Override

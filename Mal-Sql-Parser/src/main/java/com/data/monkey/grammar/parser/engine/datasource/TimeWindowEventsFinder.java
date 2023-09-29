@@ -45,7 +45,7 @@ public class TimeWindowEventsFinder extends EventsFinder {
         }
 
         try {
-            Double timeWindow = Double.parseDouble(timeWindowOperand.getValue(event, null, params).toString());
+            Double timeWindow = Double.parseDouble(timeWindowOperand.getValue( null, params).toString());
 
             if(timeWindow <= 0) {
                 throw new IllegalArgumentException("time window value must be a positive number.");
