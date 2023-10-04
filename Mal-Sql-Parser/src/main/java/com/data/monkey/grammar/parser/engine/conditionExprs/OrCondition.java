@@ -1,4 +1,4 @@
-package com.data.monkey.grammar.parser.engine.booleanExprs;
+package com.data.monkey.grammar.parser.engine.conditionExprs;
 
 
 import com.data.monkey.common.entity.Event;
@@ -18,7 +18,7 @@ import java.util.Set;
  */
 @Data
 @AllArgsConstructor
-public class BooleanExprOR implements IBooleanExpression {
+public class OrCondition implements IBooleanExpression {
     private final IBooleanExpression left;
     private final IBooleanExpression right;
 

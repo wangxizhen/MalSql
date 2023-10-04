@@ -1,7 +1,7 @@
 package com.data.monkey.grammar.parser.engine.function;
 
 
-import com.data.monkey.grammar.parser.engine.booleanExprs.IBooleanExpression;
+import com.data.monkey.grammar.parser.engine.conditionExprs.IBooleanExpression;
 import com.data.monkey.grammar.parser.engine.operands.Operand;
 import com.data.monkey.grammar.parser.engine.operands.outlier.AnomListConfig;
 import com.data.monkey.grammar.parser.engine.params.MoMDuration;

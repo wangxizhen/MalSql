@@ -1,9 +1,9 @@
 package com.data.monkey.test.parser.engine.operands.aggregations;
 
 import com.data.monkey.common.entity.Event;
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprAND;
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprBase;
-import com.data.monkey.grammar.parser.engine.booleanExprs.numerical.BooleanExprGT;
+import com.data.monkey.grammar.parser.engine.conditionExprs.AndCondition;
+import com.data.monkey.grammar.parser.engine.conditionExprs.BooleanExprBase;
+import com.data.monkey.grammar.parser.engine.conditionExprs.numerical.GreatCondition;
 import com.data.monkey.grammar.parser.engine.operands.NameOperand;
 import com.data.monkey.grammar.parser.engine.operands.Operand;
 import com.data.monkey.grammar.parser.engine.operands.aggregations.AbstractAggregationOperand;
@@ -82,7 +82,7 @@ public class MinOperandTest {
 
     @Test
     public void testMinAfterFilter() {
-        BooleanExprBase booleanExprBase = new BooleanExprGT(new NameOperand("table", "test"), new FloatOperand(1.0));
+        BooleanExprBase booleanExprBase = new GreatCondition(new NameOperand("table", "test"), new FloatOperand(1.0));
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "1.20");
@@ -103,7 +103,7 @@ public class MinOperandTest {
 
     @Test
     public void testMinAfterFilterAllElements() {
-        BooleanExprBase booleanExprBase = new BooleanExprGT(new NameOperand("table", "test"), new FloatOperand(1.0));
+        BooleanExprBase booleanExprBase = new GreatCondition(new NameOperand("table", "test"), new FloatOperand(1.0));
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0.20");
@@ -121,9 +121,9 @@ public class MinOperandTest {
     @Test
     public void testMinWithSpecificNameAndInnerPredicates() {
         // avg(val > 1)
-        BooleanExprBase left = new BooleanExprGT(new NameOperand("table", "test"), new IntegerOperand(1));
-        BooleanExprBase right = new BooleanExprGT(new NameOperand("table", "test2"), new IntegerOperand(3));
-        BooleanExprAND andExpr = new BooleanExprAND(left, right);
+        BooleanExprBase left = new GreatCondition(new NameOperand("table", "test"), new IntegerOperand(1));
+        BooleanExprBase right = new GreatCondition(new NameOperand("table", "test2"), new IntegerOperand(3));
+        AndCondition andExpr = new AndCondition(left, right);
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "2");

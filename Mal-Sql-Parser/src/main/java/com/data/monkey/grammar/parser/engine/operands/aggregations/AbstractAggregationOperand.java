@@ -1,6 +1,6 @@
 package com.data.monkey.grammar.parser.engine.operands.aggregations;
 
-import com.data.monkey.grammar.parser.engine.booleanExprs.IBooleanExpression;
+import com.data.monkey.grammar.parser.engine.conditionExprs.IBooleanExpression;
 import com.data.monkey.grammar.parser.engine.operands.Operand;
 import com.data.monkey.grammar.parser.engine.processing.ProcessingContext;
 import com.data.monkey.grammar.parser.engine.processing.ProcessingException;

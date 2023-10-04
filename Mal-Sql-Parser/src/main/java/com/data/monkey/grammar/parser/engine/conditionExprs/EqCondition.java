@@ -1,4 +1,4 @@
-package com.data.monkey.grammar.parser.engine.booleanExprs;
+package com.data.monkey.grammar.parser.engine.conditionExprs;
 
 
 import com.data.monkey.common.entity.Event;
@@ -13,9 +13,9 @@ import java.util.Objects;
  * boolean operation equals.
  *
  */
-public class BooleanExprEQ extends BooleanExprBase {
+public class EqCondition extends BooleanExprBase {
 
-    public BooleanExprEQ(Operand left, Operand right) {
+    public EqCondition(Operand left, Operand right) {
         super(left, right);
     }
 

@@ -1,7 +1,7 @@
 package com.data.monkey.test.parser.engine.function;
 
 
-import com.data.monkey.grammar.parser.engine.booleanExprs.IBooleanExpression;
+import com.data.monkey.grammar.parser.engine.conditionExprs.IBooleanExpression;
 import com.data.monkey.grammar.parser.engine.function.FunctionManager;
 import com.data.monkey.grammar.parser.engine.operands.NameOperand;
 import com.data.monkey.grammar.parser.engine.operands.aggregations.*;

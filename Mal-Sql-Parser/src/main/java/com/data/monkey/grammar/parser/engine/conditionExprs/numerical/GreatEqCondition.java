@@ -1,4 +1,4 @@
-package com.data.monkey.grammar.parser.engine.booleanExprs.numerical;
+package com.data.monkey.grammar.parser.engine.conditionExprs.numerical;
 
 
 
@@ -9,35 +9,35 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * boolean expression less than.
- *
+ * boolean expression greater than
+ * 
  *
  */
-public class BooleanExprLTEQ extends AbstractNumericalBooleanExpr
+public class GreatEqCondition extends AbstractNumericalBooleanExpr
 {
 
-    public BooleanExprLTEQ(Operand left, Operand right) {
+    public GreatEqCondition(Operand left, Operand right) {
         super(left, right);
     }
 
     @Override
     protected boolean predication(double leftNumber, double rightNumber)
     {
-        return isEqualWithinPrecision(leftNumber, rightNumber) || leftNumber <= rightNumber;
+        return isEqualWithinPrecision(leftNumber, rightNumber) || leftNumber >= rightNumber;
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public boolean getResult(List<Event> events, Map<String, String> parameters) {
-        Object left = leftValue( events, parameters);
+        Object left = leftValue(events, parameters);
         Object right = rightValue(events, parameters);
         return sameType(left, right)
-                && compare((Comparable) left, (Comparable) right) <= 0;
+                && compare((Comparable) left, (Comparable) right) >= 0;
     }
 
     @Override
     public String getExpressionName()
     {
-        return "<=";
+        return ">=";
     }
 }

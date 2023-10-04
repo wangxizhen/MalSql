@@ -1,7 +1,7 @@
-package com.data.monkey.grammar.parser.engine.booleanExprs.numerical;
+package com.data.monkey.grammar.parser.engine.conditionExprs.numerical;
 
 
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprBase;
+import com.data.monkey.grammar.parser.engine.conditionExprs.BooleanExprBase;
 import com.data.monkey.grammar.parser.engine.operands.Operand;
 import com.data.monkey.grammar.parser.engine.processing.ProcessingContext;
 import com.google.common.base.Preconditions;

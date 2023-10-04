@@ -2,9 +2,9 @@ package com.data.monkey.test.parser.engine.operands.aggregations;
 
 
 import com.data.monkey.common.entity.Event;
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprAND;
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprBase;
-import com.data.monkey.grammar.parser.engine.booleanExprs.numerical.BooleanExprGT;
+import com.data.monkey.grammar.parser.engine.conditionExprs.AndCondition;
+import com.data.monkey.grammar.parser.engine.conditionExprs.BooleanExprBase;
+import com.data.monkey.grammar.parser.engine.conditionExprs.numerical.GreatCondition;
 import com.data.monkey.grammar.parser.engine.operands.NameOperand;
 import com.data.monkey.grammar.parser.engine.operands.aggregations.AvgOperand;
 import com.data.monkey.grammar.parser.engine.operands.primitives.IntegerOperand;
@@ -76,7 +76,7 @@ public class AvgOperandTest {
 
     @Test
     public void testAvgWithInnerPredicate() {
-        BooleanExprBase booleanExprBase = new BooleanExprGT(new NameOperand("table", "test"), new IntegerOperand(1));
+        BooleanExprBase booleanExprBase = new GreatCondition(new NameOperand("table", "test"), new IntegerOperand(1));
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "2");
@@ -98,7 +98,7 @@ public class AvgOperandTest {
     @Test
     public void testAvgAfterAllElements() {
         // avg(val > 1)
-        BooleanExprBase booleanExprBase = new BooleanExprGT(new NameOperand("table", "test"), new IntegerOperand(1));
+        BooleanExprBase booleanExprBase = new GreatCondition(new NameOperand("table", "test"), new IntegerOperand(1));
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0");
@@ -120,9 +120,9 @@ public class AvgOperandTest {
     @Test
     public void testAvgWithInnerPredicates() {
         // avg(val > 1)
-        BooleanExprBase left = new BooleanExprGT(new NameOperand("table", "test"), new IntegerOperand(1));
-        BooleanExprBase right = new BooleanExprGT(new NameOperand("table", "test2"), new IntegerOperand(3));
-        BooleanExprAND andExpr = new BooleanExprAND(left, right);
+        BooleanExprBase left = new GreatCondition(new NameOperand("table", "test"), new IntegerOperand(1));
+        BooleanExprBase right = new GreatCondition(new NameOperand("table", "test2"), new IntegerOperand(3));
+        AndCondition andExpr = new AndCondition(left, right);
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "2");
@@ -147,9 +147,9 @@ public class AvgOperandTest {
     @Test
     public void testAvgWithSpecificNameAndInnerPredicates() {
         // avg(val > 1)
-        BooleanExprBase left = new BooleanExprGT(new NameOperand("table", "test"), new IntegerOperand(1));
-        BooleanExprBase right = new BooleanExprGT(new NameOperand("table", "test2"), new IntegerOperand(3));
-        BooleanExprAND andExpr = new BooleanExprAND(left, right);
+        BooleanExprBase left = new GreatCondition(new NameOperand("table", "test"), new IntegerOperand(1));
+        BooleanExprBase right = new GreatCondition(new NameOperand("table", "test2"), new IntegerOperand(3));
+        AndCondition andExpr = new AndCondition(left, right);
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "2");

@@ -1,7 +1,7 @@
 package com.data.monkey.test.parser.engine.booleanExprs;
 
 
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprNE;
+import com.data.monkey.grammar.parser.engine.conditionExprs.NotEqCondition;
 import com.data.monkey.grammar.parser.engine.operands.NameOperand;
 import com.data.monkey.grammar.parser.engine.operands.primitives.FloatOperand;
 import com.data.monkey.grammar.parser.engine.operands.primitives.IntegerOperand;
@@ -14,31 +14,31 @@ import org.mockito.Mockito;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
-public class BooleanExprNETest {
+public class NotEqConditionTest {
 
     @Test
     public void testGetResult() {
-        BooleanExprNE ne = new BooleanExprNE(new FloatOperand(4.5), new FloatOperand(4.5));
+        NotEqCondition ne = new NotEqCondition(new FloatOperand(4.5), new FloatOperand(4.5));
         assertFalse(ne.getResult(null, null));
-        ne = new BooleanExprNE(new FloatOperand(4.4), new FloatOperand(4.5));
+        ne = new NotEqCondition(new FloatOperand(4.4), new FloatOperand(4.5));
         assertTrue(ne.getResult( null, null));
-        ne = new BooleanExprNE(new FloatOperand(4.5), new FloatOperand(4.4));
+        ne = new NotEqCondition(new FloatOperand(4.5), new FloatOperand(4.4));
         assertTrue(ne.getResult(null, null));
     }
 
     @Test
     public void testNEBetweenStringValues() {
-        BooleanExprNE ne = new BooleanExprNE(new StringOperand("a"), new StringOperand("a"));
+        NotEqCondition ne = new NotEqCondition(new StringOperand("a"), new StringOperand("a"));
         assertFalse(ne.getResult(null, null));
-        ne = new BooleanExprNE(new StringOperand("b"), new StringOperand("a"));
+        ne = new NotEqCondition(new StringOperand("b"), new StringOperand("a"));
         assertTrue(ne.getResult(null, null));
-        ne = new BooleanExprNE(new StringOperand("a"), new StringOperand("b"));
+        ne = new NotEqCondition(new StringOperand("a"), new StringOperand("b"));
         assertTrue(ne.getResult( null, null));
     }
 
     @Test
     public void testNEBetweenDifferentTypeValues() {
-        BooleanExprNE ne = new BooleanExprNE(new FloatOperand(10L), new StringOperand("5"));
+        NotEqCondition ne = new NotEqCondition(new FloatOperand(10L), new StringOperand("5"));
         assertTrue(ne.getResult( null, null));
     }
 
@@ -46,23 +46,23 @@ public class BooleanExprNETest {
     @Test
     public void test_not_equal_for_string_primitives()
     {
-        final BooleanExprNE booleanExprNE = new BooleanExprNE(new StringOperand("asdf"), new StringOperand("ASDF"));
-        final Boolean result = booleanExprNE.getResult(new ProcessingContext(null, null));
+        final NotEqCondition notEqCondition = new NotEqCondition(new StringOperand("asdf"), new StringOperand("ASDF"));
+        final Boolean result = notEqCondition.getResult(new ProcessingContext(null, null));
         assertTrue(result);
     }
 
     @Test
     public void test_not_equal_for_number_primitives()
     {
-        final BooleanExprNE booleanExprNE = new BooleanExprNE(new IntegerOperand(1), new IntegerOperand(1));
-        final Boolean result = booleanExprNE.getResult(new ProcessingContext(null, null));
+        final NotEqCondition notEqCondition = new NotEqCondition(new IntegerOperand(1), new IntegerOperand(1));
+        final Boolean result = notEqCondition.getResult(new ProcessingContext(null, null));
         assertFalse(result);
     }
 
     @Test
     public void test_not_equal_for_name_operands()
     {
-        final BooleanExprNE booleanExprNE = new BooleanExprNE(
+        final NotEqCondition notEqCondition = new NotEqCondition(
             new NameOperand("stream1", "num1"),
             new IntegerOperand(1)
         );
@@ -70,7 +70,7 @@ public class BooleanExprNETest {
         ReadableEvent readableEvents = Mockito.mock(ReadableEvent.class);
         Mockito.when(readableEvents.readValue("num1")).thenReturn(java.util.Optional.of(1L));
 
-        final Boolean result = booleanExprNE.getResult(new ProcessingContext(null, readableEvents));
+        final Boolean result = notEqCondition.getResult(new ProcessingContext(null, readableEvents));
         assertFalse(result);
     }
 
@@ -80,9 +80,9 @@ public class BooleanExprNETest {
         final FloatOperand operand1 = new FloatOperand(1.0);
         final FloatOperand operand2 = new FloatOperand(1.0);
         final FloatOperand operand3 = new FloatOperand(2.0);
-        final BooleanExprNE expr1 = new BooleanExprNE(operand1, operand2);
-        final BooleanExprNE expr2 = new BooleanExprNE(operand2, operand1);
-        final BooleanExprNE expr3 = new BooleanExprNE(operand1, operand3);
+        final NotEqCondition expr1 = new NotEqCondition(operand1, operand2);
+        final NotEqCondition expr2 = new NotEqCondition(operand2, operand1);
+        final NotEqCondition expr3 = new NotEqCondition(operand1, operand3);
 
         assertEquals(expr1, expr2);
         assertEquals(expr1.hashCode(), expr2.hashCode());
@@ -96,8 +96,8 @@ public class BooleanExprNETest {
     {
         final FloatOperand operand1 = new FloatOperand(1.0);
         final FloatOperand operand2 = new FloatOperand(2.0);
-        final BooleanExprNE expr1 = new BooleanExprNE(operand1, operand2);
-        assertEquals("BooleanExprNE(left=FloatOperand(1.0), right=FloatOperand(2.0))", expr1.toString());
+        final NotEqCondition expr1 = new NotEqCondition(operand1, operand2);
+        assertEquals("NotEqCondition(left=FloatOperand(1.0), right=FloatOperand(2.0))", expr1.toString());
     }
 
     @Test
@@ -105,7 +105,7 @@ public class BooleanExprNETest {
     {
         final FloatOperand operand1 = new FloatOperand(1.0);
         final FloatOperand operand2 = new FloatOperand(2.0);
-        final BooleanExprNE expr1 = new BooleanExprNE(operand1, operand2);
+        final NotEqCondition expr1 = new NotEqCondition(operand1, operand2);
         assertEquals("1.0 != 2.0", expr1.toReadableString());
     }
 }

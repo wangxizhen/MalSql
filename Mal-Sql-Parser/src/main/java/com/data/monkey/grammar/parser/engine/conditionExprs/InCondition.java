@@ -1,4 +1,4 @@
-package com.data.monkey.grammar.parser.engine.booleanExprs;
+package com.data.monkey.grammar.parser.engine.conditionExprs;
 
 
 
@@ -16,9 +16,9 @@ import java.util.Set;
  * in clause
  *
  */
-public class BooleanExprIN extends BooleanExprBase {
+public class InCondition extends BooleanExprBase {
 
-    public BooleanExprIN(Operand left, Operand right) {
+    public InCondition(Operand left, Operand right) {
         super(left, right);
     }
 

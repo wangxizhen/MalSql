@@ -1,4 +1,4 @@
-package com.data.monkey.grammar.parser.engine.booleanExprs.numerical;
+package com.data.monkey.grammar.parser.engine.conditionExprs.numerical;
 
 
 
@@ -11,9 +11,9 @@ import java.util.Map;
 /**
  * boolean expression greater than
  */
-public class BooleanExprGT extends AbstractNumericalBooleanExpr
+public class GreatCondition extends AbstractNumericalBooleanExpr
 {
-    public BooleanExprGT(Operand left, Operand right) {
+    public GreatCondition(Operand left, Operand right) {
         super(left, right);
     }
 

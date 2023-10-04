@@ -1,6 +1,6 @@
 package com.data.monkey.grammar.parser.engine;
 import com.data.monkey.common.entity.Event;
-import com.data.monkey.grammar.parser.engine.booleanExprs.IBooleanExpression;
+import com.data.monkey.grammar.parser.engine.conditionExprs.IBooleanExpression;
 import com.data.monkey.grammar.parser.engine.boundingBox.BoundingBox;
 import com.data.monkey.grammar.parser.engine.datasource.EventsFinder;
 import com.data.monkey.grammar.parser.engine.exception.NotFoundException;

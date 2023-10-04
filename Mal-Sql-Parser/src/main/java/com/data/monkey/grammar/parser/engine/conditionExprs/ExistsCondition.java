@@ -1,4 +1,4 @@
-package com.data.monkey.grammar.parser.engine.booleanExprs;
+package com.data.monkey.grammar.parser.engine.conditionExprs;
 
 
 import com.data.monkey.common.entity.Event;
@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Data
 @AllArgsConstructor
-public class BooleanExprEXISTS implements IBooleanExpression {
+public class ExistsCondition implements IBooleanExpression {
     private final Operand operand;
 
     @Override

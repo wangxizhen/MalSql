@@ -2,10 +2,10 @@ package com.data.monkey.grammar.parser.engine.operands.aggregations;
 
 
 import com.data.monkey.common.entity.Event;
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprAND;
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprBase;
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprOR;
-import com.data.monkey.grammar.parser.engine.booleanExprs.IBooleanExpression;
+import com.data.monkey.grammar.parser.engine.conditionExprs.AndCondition;
+import com.data.monkey.grammar.parser.engine.conditionExprs.BooleanExprBase;
+import com.data.monkey.grammar.parser.engine.conditionExprs.OrCondition;
+import com.data.monkey.grammar.parser.engine.conditionExprs.IBooleanExpression;
 import com.data.monkey.grammar.parser.engine.exception.NotFoundException;
 import com.data.monkey.grammar.parser.engine.operands.NameOperand;
 import com.data.monkey.grammar.parser.engine.operands.Operand;
@@ -48,11 +48,11 @@ public abstract class AbstractSingleOperand implements Operand {
                 return getNameOperandFromBooleanExprBase(predicate);
             } else {
                 IBooleanExpression p = predicate;
-                while (p instanceof BooleanExprAND || p instanceof BooleanExprOR) {
-                    if (p instanceof BooleanExprAND)
-                        p = ((BooleanExprAND) p).getLeft();
-                    if (p instanceof BooleanExprOR)
-                        p = ((BooleanExprOR) p).getLeft();
+                while (p instanceof AndCondition || p instanceof OrCondition) {
+                    if (p instanceof AndCondition)
+                        p = ((AndCondition) p).getLeft();
+                    if (p instanceof OrCondition)
+                        p = ((OrCondition) p).getLeft();
                 }
                 return getNameOperandFromBooleanExprBase(p);
             }

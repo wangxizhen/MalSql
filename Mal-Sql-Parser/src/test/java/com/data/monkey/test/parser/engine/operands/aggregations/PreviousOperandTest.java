@@ -2,11 +2,11 @@ package com.data.monkey.test.parser.engine.operands.aggregations;
 
 
 import com.data.monkey.common.entity.Event;
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprAND;
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprBase;
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprEQ;
-import com.data.monkey.grammar.parser.engine.booleanExprs.BooleanExprNE;
-import com.data.monkey.grammar.parser.engine.booleanExprs.numerical.BooleanExprGT;
+import com.data.monkey.grammar.parser.engine.conditionExprs.AndCondition;
+import com.data.monkey.grammar.parser.engine.conditionExprs.BooleanExprBase;
+import com.data.monkey.grammar.parser.engine.conditionExprs.EqCondition;
+import com.data.monkey.grammar.parser.engine.conditionExprs.NotEqCondition;
+import com.data.monkey.grammar.parser.engine.conditionExprs.numerical.GreatCondition;
 import com.data.monkey.grammar.parser.engine.operands.NameOperand;
 import com.data.monkey.grammar.parser.engine.operands.aggregations.PreviousOperand;
 import com.data.monkey.grammar.parser.engine.operands.primitives.IntegerOperand;
@@ -71,7 +71,7 @@ public class PreviousOperandTest {
     @Test
     public void testPreviousOperandAfterFilterAllElements() {
         // previous(test > 1)
-        BooleanExprBase booleanExprBase = new BooleanExprGT(new NameOperand("table", "test"), new IntegerOperand(1));
+        BooleanExprBase booleanExprBase = new GreatCondition(new NameOperand("table", "test"), new IntegerOperand(1));
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0");
@@ -91,7 +91,7 @@ public class PreviousOperandTest {
 
 
         // previous(test = "a")
-        booleanExprBase = new BooleanExprEQ(new NameOperand("table", "test"), new StringOperand("a"));
+        booleanExprBase = new EqCondition(new NameOperand("table", "test"), new StringOperand("a"));
 
         raw = new HashMap<String, String>();
         raw.put("test", "b");
@@ -110,7 +110,7 @@ public class PreviousOperandTest {
     @Test
     public void testPreviousOperandWithInnerPredicate() {
         // previous(test != "WARNING")
-        BooleanExprBase booleanExprBase = new BooleanExprNE(new NameOperand("table", "test"), new StringOperand("WARNING"));
+        BooleanExprBase booleanExprBase = new NotEqCondition(new NameOperand("table", "test"), new StringOperand("WARNING"));
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "NORMAL");
@@ -132,9 +132,9 @@ public class PreviousOperandTest {
     @Test
     public void testPreviousOperandWithSpecificNameAndInnerPredicates() {
         // previous(test, test > 1 and test2 > 3)
-        BooleanExprBase left = new BooleanExprGT(new NameOperand("table", "test"), new IntegerOperand(1));
-        BooleanExprBase right = new BooleanExprGT(new NameOperand("table", "test2"), new IntegerOperand(3));
-        BooleanExprAND andExpr = new BooleanExprAND(left, right);
+        BooleanExprBase left = new GreatCondition(new NameOperand("table", "test"), new IntegerOperand(1));
+        BooleanExprBase right = new GreatCondition(new NameOperand("table", "test2"), new IntegerOperand(3));
+        AndCondition andExpr = new AndCondition(left, right);
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "2");

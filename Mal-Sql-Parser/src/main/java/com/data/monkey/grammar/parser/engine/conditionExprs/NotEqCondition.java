@@ -1,4 +1,4 @@
-package com.data.monkey.grammar.parser.engine.booleanExprs;
+package com.data.monkey.grammar.parser.engine.conditionExprs;
 
 
 
@@ -13,9 +13,9 @@ import java.util.Objects;
 /**
  * boolean expression not equals.
  **/
-public class BooleanExprNE extends BooleanExprBase {
+public class NotEqCondition extends BooleanExprBase {
 
-    public BooleanExprNE(Operand left, Operand right) {
+    public NotEqCondition(Operand left, Operand right) {
         super(left, right);
     }
 

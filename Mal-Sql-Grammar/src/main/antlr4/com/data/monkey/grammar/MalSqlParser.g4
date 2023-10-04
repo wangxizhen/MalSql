@@ -5,28 +5,28 @@ options { tokenVocab=MalSqlLexer; }
 
 root
 :
-	SELECT columList FROM tableName
-	(whereCluaster)?
-	(durationExpr)?
-	(exportExpr)?
+	SELECT fields FROM tableName
+	(whereStatement)?
+	(timeRangeStatement)?
+	(exportStatement)?
 	EOF
 ;
 
-columList
+fields
 :
-	nameOprand
+	field
 	(
-		COMMA nameOprand
+		COMMA field
 	)*
-	|allColumn
+	|allFields
 ;
 
-allColumn
+allFields
 :
     STAR
 ;
 
-nameOprand
+field
 :
 	(
 		actualTableName = LetterOrDigit DOT
@@ -59,8 +59,8 @@ name
         | GTGT
     ) right = name # BitwiseName
 	| LetterOrDigit LPAREN  name RPAREN # AggregationName
-	| LetterOrDigit LPAREN  name COMMA predicate = boolExpr RPAREN # AggregationName
-	| LetterOrDigit LPAREN predicate = boolExpr RPAREN # AggregationName
+	| LetterOrDigit LPAREN  name COMMA predicate = conditionStatement RPAREN # AggregationName
+	| LetterOrDigit LPAREN predicate = conditionStatement RPAREN # AggregationName
 	| identity # columnName
 	| parenthesis # parenthesisName
 ;
@@ -87,26 +87,27 @@ tableName
 	)?
 ;
 
-exportExpr
+exportStatement
 :
     EXPORT fileName = LetterOrDigit
 ;
 
-whereCluaster
+whereStatement
 :
 	WHERE
-	boolExpr
-	(filterByExpr)?
-	(durationExpr)?
-	(containByExpr)?
+	conditionStatement
+	(filterStatement)?
+	(timeRangeStatement)?
 ;
 
-boolExpr
+conditionStatement
 :
-	LPAREN boolExpr RPAREN # insideExpression
-	| left = boolExpr AND right = boolExpr # andOperation
-	| left = boolExpr OR right = boolExpr # orOperation
+	LPAREN conditionStatement RPAREN # insideExpression
+	| left = conditionStatement AND right = conditionStatement # andOperation
+	| left = conditionStatement OR right = conditionStatement # orOperation
 	| basicBoolExpr # basicExpr
+
+
 ;
 
 basicBoolExpr
@@ -121,6 +122,7 @@ left = name option =
 		| NEQ
 	) right = name # compareExpr
 	| left = name option = IN right = collection # inExpression
+	| likeStatement # likeExpr
 ;
 
 collection
@@ -128,24 +130,26 @@ collection
     LPAREN identity (COMMA identity)* RPAREN
 ;
 
-durationExpr
+timeRangeStatement
 :
 	 FOR LAST number = name unit = (MINUTE | EVENTS)
 ;
 
-duration
+timeRange
 :
     number = INT unit = (MINUTE | HOUR | DAY)
 ;
 
-filterByExpr
+filterStatement
 :
     FILTER BY LetterOrDigit (COMMA LetterOrDigit)*
 ;
 
-containByExpr
+likeStatement
 :
-    CONTAIN IN LetterOrDigit (COMMA LetterOrDigit)*
+   LetterOrDigit (COMMA LetterOrDigit)*  LIKE PERCENT  LetterOrDigit  # leftMatch |
+   LetterOrDigit (COMMA LetterOrDigit)*  LIKE LetterOrDigit PERCENT  # rightMatch |
+   LetterOrDigit (COMMA LetterOrDigit)*  LIKE PERCENT LetterOrDigit PERCENT  # containMatch
 ;
 
 

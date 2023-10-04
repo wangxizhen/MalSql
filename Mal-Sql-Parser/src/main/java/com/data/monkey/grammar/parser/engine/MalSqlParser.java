@@ -3,11 +3,11 @@ package com.data.monkey.grammar.parser.engine;
 
 import com.data.monkey.grammar.MalSqlLexer;
 import com.data.monkey.grammar.MalSqlParserVisitor;
-import com.data.monkey.grammar.parser.engine.booleanExprs.*;
-import com.data.monkey.grammar.parser.engine.booleanExprs.numerical.BooleanExprGT;
-import com.data.monkey.grammar.parser.engine.booleanExprs.numerical.BooleanExprGTEQ;
-import com.data.monkey.grammar.parser.engine.booleanExprs.numerical.BooleanExprLT;
-import com.data.monkey.grammar.parser.engine.booleanExprs.numerical.BooleanExprLTEQ;
+import com.data.monkey.grammar.parser.engine.conditionExprs.*;
+import com.data.monkey.grammar.parser.engine.conditionExprs.numerical.GreatCondition;
+import com.data.monkey.grammar.parser.engine.conditionExprs.numerical.GreatEqCondition;
+import com.data.monkey.grammar.parser.engine.conditionExprs.numerical.LessCondition;
+import com.data.monkey.grammar.parser.engine.conditionExprs.numerical.LessThanEqCondition;
 import com.data.monkey.grammar.parser.engine.boundingBox.SizeBoundingBox;
 import com.data.monkey.grammar.parser.engine.boundingBox.TimeBoundingBox;
 import com.data.monkey.grammar.parser.engine.datasource.AllEventsFinder;
@@ -75,15 +75,15 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
                 return false;
             builder.tables((List<String>) stack.pop());
         }
-        if (ctx.columList() != null) {
-            if (!visitColumList(ctx.columList())) {
+        if (ctx.fields() != null) {
+            if (!visitFields(ctx.fields())) {
                 return false;
             }
             builder.columns((List<Operand>) stack.pop());
         }
 
-        if (ctx.whereCluaster() != null) {
-            if (!visitWhereCluaster(ctx.whereCluaster())) {
+        if (ctx.whereStatement() != null) {
+            if (!visitWhereStatement(ctx.whereStatement())) {
                 return false;
             }
             builder.whereClause((IBooleanExpression) stack.pop());
@@ -91,8 +91,8 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
             //没有where,则获取所有事件
             builder.eventsFinder(AllEventsFinder.newInstance());
         }
-        if (ctx.exportExpr() != null) {
-            if (!(visitExportExpr(ctx.exportExpr()))) {
+        if (ctx.exportStatement() != null) {
+            if (!(visitExportStatement(ctx.exportStatement()))) {
                 return false;
             }
         }
@@ -100,11 +100,11 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitColumList(ColumListContext ctx) {
+    public Boolean visitFields(FieldsContext ctx) {
         List<Operand> oprands = new ArrayList<>();
-        List<NameOprandContext> list = ctx.nameOprand();
-        for (NameOprandContext nameOprandContext : list) {
-            if (!visitNameOprand(nameOprandContext)) {
+        List<FieldContext> list = ctx.field();
+        for (FieldContext fieldContext : list) {
+            if (!visitField(fieldContext)) {
                 return false;
             }
             Operand oprand = (Operand) stack.pop();
@@ -112,8 +112,8 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
         }
         stack.push(oprands);
 
-        if (ctx.allColumn() != null) {
-            if (!visitAllColumn(ctx.allColumn())) {
+        if (ctx.allFields() != null) {
+            if (!visitAllFields(ctx.allFields())) {
                 return false;
             }
         }
@@ -121,14 +121,14 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitAllColumn(AllColumnContext ctx) {
+    public Boolean visitAllFields(AllFieldsContext ctx) {
         builder.allColumn(ctx.getText());
 
         return true;
     }
 
     @Override
-    public Boolean visitNameOprand(NameOprandContext ctx) {
+    public Boolean visitField(FieldContext ctx) {
         // 每次都将默认的表名压入栈中
         stack.push(tableName);
         if (ctx.actualTableName != null) {
@@ -160,7 +160,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitExportExpr(ExportExprContext ctx) {
+    public Boolean visitExportStatement(ExportStatementContext ctx) {
         try {
             if (StringUtils.isNotBlank(ctx.fileName.getText())) {
                 builder.exportFileName(ctx.fileName.getText());
@@ -173,7 +173,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
         }
     }
 
-    private Boolean visitBoolExpr(BoolExprContext ctx) {
+    private Boolean visitBoolExpr(ConditionStatementContext ctx) {
         if (ctx instanceof InsideExpressionContext) {
             return visitInsideExpression((InsideExpressionContext) ctx);
         } else if (ctx instanceof AndOperationContext) {
@@ -188,7 +188,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
 
     @Override
     public Boolean visitInsideExpression(InsideExpressionContext ctx) {
-        return visitBoolExpr(ctx.boolExpr());
+        return visitBoolExpr(ctx.conditionStatement());
     }
 
     @Override
@@ -197,7 +197,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
             IBooleanExpression left = (IBooleanExpression) stack.pop();
             if (visitBoolExpr(ctx.right)) {
                 IBooleanExpression right = (IBooleanExpression) stack.pop();
-                stack.push(new BooleanExprAND(left, right));
+                stack.push(new AndCondition(left, right));
                 return true;
             }
         }
@@ -210,7 +210,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
             IBooleanExpression left = (IBooleanExpression) stack.pop();
             if (visitBoolExpr(ctx.right)) {
                 IBooleanExpression right = (IBooleanExpression) stack.pop();
-                stack.push(new BooleanExprOR(left, right));
+                stack.push(new OrCondition(left, right));
                 return true;
             }
         }
@@ -218,7 +218,6 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     private Boolean visitName(NameContext ctx) {
-
         if (ctx instanceof LRNameContext) {
             return visitLRName((LRNameContext) ctx);
         } else if (ctx instanceof MulNameContext) {
@@ -261,7 +260,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
                         stack.push(new DivideOperand(left, right));
                         return true;
                     case MalSqlLexer.MOD:
-                        throw new RuleParseException("不支支持%");
+                        throw new RuleParseException("不支持%");
                     default:
                         return false;
                 }
@@ -425,25 +424,24 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
 
 
     @Override
-    public Boolean visitWhereCluaster(WhereCluasterContext ctx) {
-        if (ctx.durationExpr() != null) {
-            return visitBoolExpr(ctx.boolExpr())
-                    && visitFilterByExpr(ctx.filterByExpr())
-                    && visitDurationExpr(ctx.durationExpr())
-                    && visitContainByExpr(ctx.containByExpr());
+    public Boolean visitWhereStatement(WhereStatementContext ctx) {
+        if (ctx.timeRangeStatement() != null) {
+            return visitBoolExpr(ctx.conditionStatement())
+                    && visitFilterStatement(ctx.filterStatement())
+                    && visitTimeRangeStatement(ctx.timeRangeStatement());
         } else {
             //没有during,则获取所有事件
             builder.eventsFinder(AllEventsFinder.newInstance());
 
-            if (visitBoolExpr(ctx.boolExpr())) {
-                return visitFilterByExpr(ctx.filterByExpr())&&visitContainByExpr(ctx.containByExpr());
+            if (visitBoolExpr(ctx.conditionStatement())) {
+                return visitFilterStatement(ctx.filterStatement());
             }
         }
         return false;
     }
 
     @Override
-    public Boolean visitDurationExpr(DurationExprContext ctx) {
+    public Boolean visitTimeRangeStatement(TimeRangeStatementContext ctx) {
 
         if (visitName(ctx.number)) {
 
@@ -483,7 +481,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitDuration(DurationContext ctx) {
+    public Boolean visitTimeRange(TimeRangeContext ctx) {
         if (ctx != null) {
             Integer number = Integer.parseInt(ctx.number.getText());
             switch (ctx.unit.getType()) {
@@ -519,7 +517,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitFilterByExpr(FilterByExprContext ctx) {
+    public Boolean visitFilterStatement(FilterStatementContext ctx) {
         if (ctx != null) {
             List<NameOperand> operands = ctx.LetterOrDigit().stream().map(letterOrDigit -> new NameOperand(tableName, letterOrDigit.getText())).collect(toList());
             builder.filterKeys(operands);
@@ -528,11 +526,32 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitContainByExpr(ContainByExprContext ctx) {
-        if (ctx != null) {
-            List<NameOperand> operands = ctx.LetterOrDigit().stream().map(letterOrDigit -> new NameOperand(tableName, letterOrDigit.getText())).collect(toList());
-            builder.containKeys(operands);
+    public Boolean visitLeftMatch(LeftMatchContext ctx) {
+/*
+
+        if (visitName(ctx.left)) {
+            Operand left = (Operand) stack.pop();
+            if (visitName(ctx.right)) {
+                Operand right = (Operand) stack.pop();
+                stack.push(new BooleanExprLike(left, right));
+                return true;
+            }
         }
+        return false;
+*/
+
+        return true;
+    }
+
+    @Override
+    public Boolean visitRightMatch(RightMatchContext ctx) {
+
+        return true;
+    }
+
+
+    @Override
+    public Boolean visitContainMatch(ContainMatchContext ctx) {
         return true;
     }
 
@@ -542,12 +561,31 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
         return visitBasicBoolExpr(ctx.basicBoolExpr());
     }
 
+    @Override
+    public Boolean visitLikeExpr(LikeExprContext ctx){
+        if(ctx.likeStatement() instanceof LeftMatchContext){
+            return visitLeftMatch((LeftMatchContext) ctx.likeStatement());
+        }
+        if(ctx.likeStatement() instanceof RightMatchContext){
+            return visitRightMatch((RightMatchContext) ctx.likeStatement());
+        }
+        if(ctx.likeStatement() instanceof ContainMatchContext){
+            return visitContainMatch((ContainMatchContext) ctx.likeStatement());
+        }
+        throw new RuleParseException("Parse like statement error.");
+    }
+
+
+
+
 
     private Boolean visitBasicBoolExpr(BasicBoolExprContext ctx) {
         if (ctx instanceof CompareExprContext) {
             return visitCompareExpr((CompareExprContext) ctx);
         } else if (ctx instanceof InExpressionContext) {
             return visitInExpression((InExpressionContext) ctx);
+        }else if (ctx instanceof LikeExprContext) {
+             return   visitLikeExpr((LikeExprContext) ctx);
         }
         throw new RuleParseException("Parse basic boolean expression error.");
     }
@@ -563,22 +601,22 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
                 int type = ctx.option.getType();
                 switch (type) {
                     case MalSqlLexer.GT:
-                        stack.push(new BooleanExprGT(left, right));
+                        stack.push(new GreatCondition(left, right));
                         break;
                     case MalSqlLexer.GTEQ:
-                        stack.push(new BooleanExprGTEQ(left, right));
+                        stack.push(new GreatEqCondition(left, right));
                         break;
                     case MalSqlLexer.EQ:
-                        stack.push(new BooleanExprEQ(left, right));
+                        stack.push(new EqCondition(left, right));
                         break;
                     case MalSqlLexer.LT:
-                        stack.push(new BooleanExprLT(left, right));
+                        stack.push(new LessCondition(left, right));
                         break;
                     case MalSqlLexer.LTEQ:
-                        stack.push(new BooleanExprLTEQ(left, right));
+                        stack.push(new LessThanEqCondition(left, right));
                         break;
                     case MalSqlLexer.NEQ:
-                        stack.push(new BooleanExprNE(left, right));
+                        stack.push(new NotEqCondition(left, right));
                         break;
 
                     default:
@@ -597,7 +635,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
             Operand left = (Operand) stack.pop();
             if (visitCollection(ctx.collection())) {
                 SetOperand right = (SetOperand) stack.pop();
-                stack.push(new BooleanExprIN(left, right));
+                stack.push(new InCondition(left, right));
                 return true;
             }
         }
