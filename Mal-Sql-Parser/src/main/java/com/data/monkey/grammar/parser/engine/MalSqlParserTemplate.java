@@ -30,8 +30,8 @@ public class MalSqlParserTemplate {
     private final IBooleanExpression whereClause;
     private final List<Operand> columns;
     private final String allColumn;
-    private final List<NameOperand> filterKeys;
-    private final List<NameOperand> containKeys;
+    private final List<Operand> valueFilterCondition;
+    private final List<Operand> likeFilterCondition;
     private final BoundingBox boundingBox;
     private static final boolean isFilter=true;
 
@@ -96,12 +96,12 @@ public class MalSqlParserTemplate {
         }
     }
 
-    public List<Event> getMatchResult(List<Event> events, List<NameOperand> matchKeys, FilterMatchFunction function) {
+    public List<Event> getMatchResult(List<Event> events, List<Operand> matchKeys, FilterMatchFunction function) {
         if (matchKeys != null) {
             return events.stream().filter(e -> {
                 boolean filter = true;
                 for (Operand operand : matchKeys) {
-                    filter = filter && function.match((NameOperand) operand,e);
+                    filter = filter && function.match(operand,e);
                 }
                 return filter;
             }).collect(Collectors.toList());
@@ -112,13 +112,12 @@ public class MalSqlParserTemplate {
 
     private List<Event> filterByKeys(List<Event> events) {
         List<Event> matchResult=events;
-        //优先匹配contain
-        if(containKeys!=null){
-            matchResult = getMatchResult(matchResult,containKeys,(operand,event)->(operand.getValue(Collections.singletonList(
-                    events.get(events.size() - 1)), null).toString().contains(operand.getValue(Collections.singletonList(event), null).toString())));
+        //like %% 的格式
+        if(likeFilterCondition!=null){
+            matchResult = getMatchResult(matchResult,likeFilterCondition,(operand,event)->(operand.getValue(Collections.singletonList(event), null))!=null);
         }
-        if(filterKeys!=null){
-            matchResult = getMatchResult(matchResult,filterKeys,(operand,event)->operand.getValue(Collections.singletonList(event), null).
+        if(valueFilterCondition!=null){
+            matchResult = getMatchResult(matchResult,valueFilterCondition,(operand,event)->operand.getValue(Collections.singletonList(event), null).
                     equals(operand.getValue(Collections.singletonList(
                             events.get(events.size() - 1)), null)));
         }

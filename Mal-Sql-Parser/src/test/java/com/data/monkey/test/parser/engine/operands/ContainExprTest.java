@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,15 +20,15 @@ public class ContainExprTest extends BaseTestUtils{
 
     @Test
     public void testContainByExpr() {
-
-/*        String sql = "select sum(val1) as sum_val1 from test where sum(val1) > 4 and val2 like b% for last 3 min";
-        sql = "select sum(val1) as sum_val1 from test where sum(val1) > 4 and val2 like %b for last 3 min";
+        String sql = "select sum(val1) as sum_val1 from test where sum(val1) > 4 and val2 like b% for last 3 min";
+        sql = "select sum(val1) as sum_val1 from test where sum(val1) < 4 filter by  val2 like %b%  for last 3 min";
         // sql = "select sum(val1) as sum_val1 from test where sum(val1) < 4  for last 3 min";
 
         MalSqlParserTemplate template = engine.parse(sql);
-        Assert.assertNotNull(template);*/
+        Assert.assertNotNull(template);
 
-/*        List<Event> events = new ArrayList<>();
+
+        List<Event> events = new ArrayList<>();
 
         Map<String, String> raw = new HashMap<>();
         raw.put("val1", "-4");
@@ -57,8 +58,8 @@ public class ContainExprTest extends BaseTestUtils{
         Event event4 = new Event("test", raw);
         events.add(event4);
 
-        assertEquals("5.0", template.getContext( events, null).get("sum_val1"));
-        Assert.assertTrue(template.getResult( events, null));*/
+        assertEquals("3.0", template.getContext( events, null).get("sum_val1"));
+        Assert.assertTrue(template.getResult( events, null));
     }
 
 

@@ -19,6 +19,9 @@ import com.data.monkey.grammar.parser.engine.function.FunctionManager;
 import com.data.monkey.grammar.parser.engine.operands.*;
 import com.data.monkey.grammar.parser.engine.operands.aggregations.PeriodOperand;
 import com.data.monkey.grammar.parser.engine.operands.arithmetics.*;
+import com.data.monkey.grammar.parser.engine.operands.like.ContainLikeOperand;
+import com.data.monkey.grammar.parser.engine.operands.like.LeftLikeOperand;
+import com.data.monkey.grammar.parser.engine.operands.like.RightLikeOperand;
 import com.data.monkey.grammar.parser.engine.operands.primitives.FloatOperand;
 import com.data.monkey.grammar.parser.engine.operands.primitives.IntegerOperand;
 import com.data.monkey.grammar.parser.engine.operands.primitives.StringOperand;
@@ -423,18 +426,39 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     }
 
 
+
+    public boolean visitFilterLikeStatement(FilterStatementContext ctx){
+        if(ctx!=null){
+            if(ctx instanceof MatchByFieldValueContext){
+                return visitMatchByFieldValue((MatchByFieldValueContext) ctx);
+            }
+            if(ctx instanceof LeftMatchContext){
+                return visitLeftMatch((LeftMatchContext) ctx);
+            }
+            if (ctx instanceof RightMatchContext){
+                return visitRightMatch((RightMatchContext) ctx);
+            }
+            if(ctx instanceof ContainMatchContext){
+                return visitContainMatch((ContainMatchContext) ctx);
+            }
+        }
+        return true;
+    }
+
+
+
     @Override
     public Boolean visitWhereStatement(WhereStatementContext ctx) {
         if (ctx.timeRangeStatement() != null) {
             return visitBoolExpr(ctx.conditionStatement())
-                    && visitFilterStatement(ctx.filterStatement())
+                    && visitFilterLikeStatement(ctx.filterStatement())
                     && visitTimeRangeStatement(ctx.timeRangeStatement());
         } else {
             //没有during,则获取所有事件
             builder.eventsFinder(AllEventsFinder.newInstance());
 
             if (visitBoolExpr(ctx.conditionStatement())) {
-                return visitFilterStatement(ctx.filterStatement());
+                return visitFilterLikeStatement(ctx.filterStatement());
             }
         }
         return false;
@@ -516,76 +540,66 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
         }
     }
 
+
+
     @Override
-    public Boolean visitFilterStatement(FilterStatementContext ctx) {
+    public Boolean visitMatchByFieldValue(MatchByFieldValueContext ctx){
         if (ctx != null) {
-            List<NameOperand> operands = ctx.LetterOrDigit().stream().map(letterOrDigit -> new NameOperand(tableName, letterOrDigit.getText())).collect(toList());
-            builder.filterKeys(operands);
+            List<Operand> operands = ctx.LetterOrDigit().stream().map(letterOrDigit -> new NameOperand(tableName, letterOrDigit.getText())).collect(toList());
+            builder.valueFilterCondition(operands);
         }
         return true;
     }
-
     @Override
     public Boolean visitLeftMatch(LeftMatchContext ctx) {
-/*
 
-        if (visitName(ctx.left)) {
-            Operand left = (Operand) stack.pop();
-            if (visitName(ctx.right)) {
-                Operand right = (Operand) stack.pop();
-                stack.push(new BooleanExprLike(left, right));
-                return true;
-            }
+        if (ctx != null) {
+            List<Operand> operands = new ArrayList<>();
+            operands.add(new LeftLikeOperand(tableName, ctx.left.getText(), ctx.right.getText()));
+            builder.likeFilterCondition(operands);
         }
-        return false;
-*/
-
         return true;
     }
 
     @Override
     public Boolean visitRightMatch(RightMatchContext ctx) {
 
+        if (ctx != null) {
+            List<Operand> operands = new ArrayList<>();
+            operands.add(new RightLikeOperand(tableName, ctx.left.getText(), ctx.right.getText()));
+            builder.likeFilterCondition(operands);
+        }
         return true;
     }
 
 
     @Override
     public Boolean visitContainMatch(ContainMatchContext ctx) {
+        if (ctx != null) {
+            List<Operand> operands = new ArrayList<>();
+            operands.add(new ContainLikeOperand(tableName, ctx.left.getText(), ctx.right.getText()));
+            builder.likeFilterCondition(operands);
+        }
         return true;
     }
 
 
     @Override
     public Boolean visitBasicExpr(BasicExprContext ctx) {
-        return visitBasicBoolExpr(ctx.basicBoolExpr());
-    }
-
-    @Override
-    public Boolean visitLikeExpr(LikeExprContext ctx){
-        if(ctx.likeStatement() instanceof LeftMatchContext){
-            return visitLeftMatch((LeftMatchContext) ctx.likeStatement());
-        }
-        if(ctx.likeStatement() instanceof RightMatchContext){
-            return visitRightMatch((RightMatchContext) ctx.likeStatement());
-        }
-        if(ctx.likeStatement() instanceof ContainMatchContext){
-            return visitContainMatch((ContainMatchContext) ctx.likeStatement());
-        }
-        throw new RuleParseException("Parse like statement error.");
+        return visitBasicConditionExpr(ctx.basicConditionExpr());
     }
 
 
 
 
 
-    private Boolean visitBasicBoolExpr(BasicBoolExprContext ctx) {
+
+
+    private Boolean visitBasicConditionExpr(BasicConditionExprContext ctx) {
         if (ctx instanceof CompareExprContext) {
             return visitCompareExpr((CompareExprContext) ctx);
         } else if (ctx instanceof InExpressionContext) {
             return visitInExpression((InExpressionContext) ctx);
-        }else if (ctx instanceof LikeExprContext) {
-             return   visitLikeExpr((LikeExprContext) ctx);
         }
         throw new RuleParseException("Parse basic boolean expression error.");
     }

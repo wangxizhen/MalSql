@@ -105,12 +105,12 @@ conditionStatement
 	LPAREN conditionStatement RPAREN # insideExpression
 	| left = conditionStatement AND right = conditionStatement # andOperation
 	| left = conditionStatement OR right = conditionStatement # orOperation
-	| basicBoolExpr # basicExpr
+	| basicConditionExpr # basicExpr
 
 
 ;
 
-basicBoolExpr
+basicConditionExpr
 :
 left = name option =
 	(
@@ -122,7 +122,6 @@ left = name option =
 		| NEQ
 	) right = name # compareExpr
 	| left = name option = IN right = collection # inExpression
-	| likeStatement # likeExpr
 ;
 
 collection
@@ -142,15 +141,14 @@ timeRange
 
 filterStatement
 :
-    FILTER BY LetterOrDigit (COMMA LetterOrDigit)*
+    FILTER BY LetterOrDigit (COMMA LetterOrDigit)* #matchByFieldValue |
+    FILTER BY left = LetterOrDigit LIKE PERCENT right = LetterOrDigit  # leftMatch |
+    FILTER BY left = LetterOrDigit LIKE right = LetterOrDigit PERCENT  # rightMatch |
+    FILTER BY left = LetterOrDigit LIKE PERCENT right = LetterOrDigit PERCENT # containMatch
 ;
 
-likeStatement
-:
-   LetterOrDigit (COMMA LetterOrDigit)*  LIKE PERCENT  LetterOrDigit  # leftMatch |
-   LetterOrDigit (COMMA LetterOrDigit)*  LIKE LetterOrDigit PERCENT  # rightMatch |
-   LetterOrDigit (COMMA LetterOrDigit)*  LIKE PERCENT LetterOrDigit PERCENT  # containMatch
-;
+
+
 
 
 
