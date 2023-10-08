@@ -137,7 +137,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
         if (ctx.actualTableName != null) {
             tableName = ctx.actualTableName.getText();
         }
-        if (visitName(ctx.name())) {
+        if (visitName(ctx.fieldName())) {
             // 选择的列
             Operand inOprand = (Operand) stack.pop();
 
@@ -220,7 +220,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
         return false;
     }
 
-    private Boolean visitName(NameContext ctx) {
+    private Boolean visitName(FieldNameContext ctx) {
         if (ctx instanceof LRNameContext) {
             return visitLRName((LRNameContext) ctx);
         } else if (ctx instanceof MulNameContext) {
@@ -243,7 +243,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
 
     @Override
     public Boolean visitLRName(LRNameContext ctx) {
-        return visitName(ctx.name());
+        return visitName(ctx.fieldName());
     }
 
 
@@ -393,7 +393,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
         Function fun = FunctionManager.getFunction(aggFun);
         if (fun == null) {
             throw new RuleParseException(String.format("aggregate function: [%s] not exists.", aggFun));
-        } else if (visitName(ctx.name())) {
+        } else if (visitName(ctx.fieldName())) {
             // inner operand
             Operand innerOperand = (Operand) stack.pop();
             Operand aggregationOperand = null;

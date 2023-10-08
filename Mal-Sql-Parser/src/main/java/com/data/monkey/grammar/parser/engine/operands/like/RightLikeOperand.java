@@ -41,24 +41,5 @@ public class RightLikeOperand extends BaseLikeOperand {
         return null;
     }
 
-    @Override
-    public Object getValue(ProcessingContext context) {
-        final ReadableEvent event = context.getEvent();
-        Optional<Object> result = event.readValue(this.fieldName);
-        if (!result.isPresent()) {
-            result = event.readValue(toReadableString());
-        }
-        return result.orElse(null);
-    }
-
-    @Override
-    public Set<AbstractAggregationOperand> getAggregationOperands() {
-        return Sets.newHashSet();
-    }
-
-    @Override
-    public String toReadableString() {
-        return StringUtils.isEmpty(tableName) ? fieldName : String.format("%s.%s.%s", tableName, fieldName,matchValue);
-    }
 
 }

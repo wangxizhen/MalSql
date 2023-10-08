@@ -30,36 +30,36 @@ field
 :
 	(
 		actualTableName = LetterOrDigit DOT
-	)? name
+	)? fieldName
 	(
 		AS alias = LetterOrDigit
 	)?
 ;
 
-name
+fieldName
 :
-	LPAREN name RPAREN # LRName
-	| left = name op =
+	LPAREN fieldName RPAREN # LRName
+	| left = fieldName op =
 	(
 		STAR
 		| SLASH
 		| MOD
-	) right = name # MulName
-	| left = name op =
+	) right = fieldName # MulName
+	| left = fieldName op =
 	(
 		PLUS
 		| SUB
-	) right = name # AddName
-	| left = name op =
+	) right = fieldName # AddName
+	| left = fieldName op =
     (
     	AMP
         | BAR
         | CARET
         | LTLT
         | GTGT
-    ) right = name # BitwiseName
-	| LetterOrDigit LPAREN  name RPAREN # AggregationName
-	| LetterOrDigit LPAREN  name COMMA predicate = conditionStatement RPAREN # AggregationName
+    ) right = fieldName # BitwiseName
+	| LetterOrDigit LPAREN  fieldName RPAREN # AggregationName
+	| LetterOrDigit LPAREN  fieldName COMMA predicate = conditionStatement RPAREN # AggregationName
 	| LetterOrDigit LPAREN predicate = conditionStatement RPAREN # AggregationName
 	| identity # columnName
 	| parenthesis # parenthesisName
@@ -112,7 +112,7 @@ conditionStatement
 
 basicConditionExpr
 :
-left = name option =
+left = fieldName option =
 	(
 		EQ
 		| GT
@@ -120,8 +120,8 @@ left = name option =
 		| GTEQ
 		| LTEQ
 		| NEQ
-	) right = name # compareExpr
-	| left = name option = IN right = collection # inExpression
+	) right = fieldName # compareExpr
+	| left = fieldName option = IN right = collection # inExpression
 ;
 
 collection
@@ -131,7 +131,7 @@ collection
 
 timeRangeStatement
 :
-	 FOR LAST number = name unit = (MINUTE | EVENTS)
+	 FOR LAST number = fieldName unit = (MINUTE | EVENTS)
 ;
 
 timeRange
@@ -141,7 +141,7 @@ timeRange
 
 filterStatement
 :
-    FILTER BY LetterOrDigit (COMMA LetterOrDigit)* #matchByFieldValue |
+    FILTER BY LetterOrDigit (COMMA LetterOrDigit)* # matchByFieldValue |
     FILTER BY left = LetterOrDigit LIKE PERCENT right = LetterOrDigit  # leftMatch |
     FILTER BY left = LetterOrDigit LIKE right = LetterOrDigit PERCENT  # rightMatch |
     FILTER BY left = LetterOrDigit LIKE PERCENT right = LetterOrDigit PERCENT # containMatch
