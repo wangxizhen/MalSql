@@ -30,19 +30,18 @@ public class FixedCountEventsFinderTest {
 
         List<Event> result = new ArrayList<>();
 
-        Event e = new Event(key, raw, UUID.randomUUID(), endTime, 0, 0);
+        Event e = new Event(key, raw, endTime);
 
         result.add(e);
 
-        result.add(new Event(key, raw, UUID.randomUUID(), endTime - 1000, 0, 0));
-        result.add(new Event(key, raw, UUID.randomUUID(), endTime - 2000, 1, 0));
-        result.add(new Event(key, raw, UUID.randomUUID(), endTime - 2000, 2, 0));
-        result.add(new Event(key, raw, UUID.randomUUID(), endTime - 2000, 3, 0));
-        result.add(new Event(key, raw, UUID.randomUUID(), endTime - 2000, 4, 0));
-        result.add(new Event(key, raw, UUID.randomUUID(), endTime - 2000, 5, 0));
-        result.add(new Event(key, raw, UUID.randomUUID(), endTime - 2000, 6, 0));
-        result.add(new Event(key, raw, UUID.randomUUID(), endTime - 3000, 7, 0));
-
+        result.add(new Event(key, raw ,endTime - 1000));
+        result.add(new Event(key, raw, endTime - 2000));
+        result.add(new Event(key, raw,  endTime - 2000));
+        result.add(new Event(key, raw, endTime - 2000));
+        result.add(new Event(key, raw,  endTime - 2000));
+        result.add(new Event(key, raw,  endTime - 2000));
+        result.add(new Event(key, raw, endTime - 2000));
+        result.add(new Event(key, raw,  endTime - 3000));
         IEventsProvider provider = new DefaultEventsProvider(result);
 
         finder = FixedCountEventsFinder.newInstance(new IntegerOperand(fixedCount));
@@ -64,13 +63,13 @@ public class FixedCountEventsFinderTest {
 
         IEventsProvider provider = Mockito.mock(IEventsProvider.class);
         List<Event> result = new ArrayList<>();
-        result.add(new Event(key, raw, UUID.randomUUID(), endTime - 1000, 0, 0));
+        result.add(new Event(key, raw,endTime - 1000));
         Mockito.when(provider.getEventsByFixedCount(fixedCount)).thenReturn(result);
 
         finder = FixedCountEventsFinder.newInstance(new IntegerOperand(fixedCount));
         finder.setProvider(provider);
 
-        Event e = new Event(key, raw, UUID.randomUUID(), endTime, 0, 0);
+        Event e = new Event(key, raw, endTime);
 
         List<Event> events = finder.backwardFrom(e, null);
 
@@ -93,7 +92,7 @@ public class FixedCountEventsFinderTest {
         finder = FixedCountEventsFinder.newInstance(new IntegerOperand(fixedCount));
         finder.setProvider(provider);
 
-        Event e = new Event(key, raw, UUID.randomUUID(), endTime, 0, 0);
+        Event e = new Event(key, raw, endTime);
 
         List<Event> events = finder.backwardFrom(e, null);
 

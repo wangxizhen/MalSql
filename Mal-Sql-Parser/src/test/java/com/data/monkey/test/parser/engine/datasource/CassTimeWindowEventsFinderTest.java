@@ -39,9 +39,9 @@ public class CassTimeWindowEventsFinderTest {
         IEventsProvider provider = Mockito.mock(IEventsProvider.class);
 
         List<Event> result = new ArrayList<>();
-        Event event1 = new Event(key, raw, UUID.randomUUID(), endTime - 1000, 0, 0);
+        Event event1 = new Event(key, raw, endTime - 1000);
         result.add(event1);
-        Event event2 = new Event(key, raw, UUID.randomUUID(), endTime - 2000, 0, 0);
+        Event event2 = new Event(key, raw, endTime - 2000);
         result.add(event2);
 
 
@@ -52,7 +52,7 @@ public class CassTimeWindowEventsFinderTest {
 
         finder.setProvider(provider);
 
-        Event e = new Event(key, raw, UUID.randomUUID(), currentTime, 0, 0);
+        Event e = new Event(key, raw, currentTime);
         List<Event> events = finder.backwardFrom(e, null);
 
         assertEquals(2, events.size());

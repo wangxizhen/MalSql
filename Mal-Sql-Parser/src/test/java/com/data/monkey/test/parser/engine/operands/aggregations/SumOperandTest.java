@@ -41,10 +41,10 @@ public class SumOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0.098");
         raw.put("test2", "0.098");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
         raw = new HashMap<String, String>();
         raw.put("test", "0.098");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         SumOperand sum = new SumOperand(name);
         assertEquals(0.098 * 2, sum.getValue(Arrays.asList(e1, e2), null));
@@ -62,10 +62,10 @@ public class SumOperandTest {
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "a");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
         raw = new HashMap<String, String>();
         raw.put("test", "1");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         SumOperand sum = new SumOperand(name);
         assertEquals(1.0, sum.getValue( Arrays.asList(e1, e2), null));
@@ -77,15 +77,15 @@ public class SumOperandTest {
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0.2");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "0.3");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "0.5");
-        Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e3 = new Event("key1", raw, System.currentTimeMillis());
 
         SumOperand sum = new SumOperand(booleanExprBase);
         assertEquals(0.5, sum.getValue(Arrays.asList(e1, e2, e3), null));
@@ -97,11 +97,11 @@ public class SumOperandTest {
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0.2");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "0.3");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         SumOperand sum = new SumOperand(booleanExprBase);
         assertEquals(0.0, sum.getValue(Arrays.asList(e1, e2), null));
@@ -117,17 +117,17 @@ public class SumOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "2");
         raw.put("test2", "4");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "2");
         raw.put("test2", "0");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "3");
         raw.put("test2", "5");
-        Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e3 = new Event("key1", raw, System.currentTimeMillis());
 
         SumOperand sumOperand = new SumOperand(new NameOperand("table", "test2"), andExpr);
 

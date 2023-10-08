@@ -40,15 +40,15 @@ public class MaxOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0.20");
         raw.put("test2", "0.20");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "0.11");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "0.1");
-        Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e3 = new Event("key1", raw, System.currentTimeMillis());
 
         MaxOperand max = new MaxOperand(name);
         assertEquals(0.20, max.getValue( Arrays.asList(e1, e2, e3), null));
@@ -66,15 +66,15 @@ public class MaxOperandTest {
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "a");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "b");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "c");
-        Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e3 = new Event("key1", raw, System.currentTimeMillis());
 
         MaxOperand max = new MaxOperand(name);
         assertEquals(0.0, max.getValue(Arrays.asList(e1, e2, e3), null));
@@ -86,15 +86,15 @@ public class MaxOperandTest {
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0.20");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "0.11");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "1");
-        Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e3 = new Event("key1", raw, System.currentTimeMillis());
 
         MaxOperand max = new MaxOperand(booleanExprBase);
 
@@ -107,11 +107,11 @@ public class MaxOperandTest {
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0.20");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "0.11");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         MaxOperand max = new MaxOperand(booleanExprBase);
 
@@ -128,17 +128,17 @@ public class MaxOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "2");
         raw.put("test2", "4");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "2");
         raw.put("test2", "0");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "3");
         raw.put("test2", "5");
-        Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e3 = new Event("key1", raw, System.currentTimeMillis());
 
         MaxOperand maxOperand = new MaxOperand(new NameOperand("table", "test"), andExpr);
 

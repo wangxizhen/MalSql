@@ -73,17 +73,5 @@ public class DefaultEventsProvider implements IEventsProvider {
         return null;
     }
 
-    @Override
-    public Event getEventBySourceEventId(String sourceEventId) {
 
-        for (Event event : events) {
-            if (event.getTags() != null) {
-                String eventId = event.getTags().get("sourceEventId");
-                if (sourceEventId != null && sourceEventId.equals(eventId)) {
-                    return event;
-                }
-            }
-        }
-        return null;
-    }
 }

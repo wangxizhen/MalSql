@@ -23,14 +23,14 @@ public class BitwiseOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("key1", "19");
         raw.put("key2", "3");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         Assert.assertEquals(3.0, andOperand.getValue( Arrays.asList(e1), null));
 
         raw = new HashMap<String, String>();
         raw.put("key1", "19");
         raw.put("key2", "17");
-        e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        e1 = new Event("key1", raw, System.currentTimeMillis());
         Assert.assertEquals(17.0, andOperand.getValue(Arrays.asList(e1), null));
 
     }
@@ -45,7 +45,7 @@ public class BitwiseOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("key1", "12");
         raw.put("key2", "6");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         Assert.assertEquals(14.0, orOperand.getValue(Arrays.asList(e1), null));
     }
@@ -60,7 +60,7 @@ public class BitwiseOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("key1", "12");
         raw.put("key2", "6");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         Assert.assertEquals(10.0, xorOperand.getValue( Arrays.asList(e1), null));
     }
@@ -75,7 +75,7 @@ public class BitwiseOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("key1", "12");
         raw.put("key2", "1");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         Assert.assertEquals(24.0, shlOperand.getValue( Arrays.asList(e1), null));
     }
@@ -90,7 +90,7 @@ public class BitwiseOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("key1", "12");
         raw.put("key2", "2");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         Assert.assertEquals(3.0, and.getValue(Arrays.asList(e1), null));
     }

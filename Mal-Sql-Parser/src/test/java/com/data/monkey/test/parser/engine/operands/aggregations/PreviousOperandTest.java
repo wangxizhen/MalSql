@@ -29,15 +29,15 @@ public class PreviousOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0.20");
         raw.put("test2", "0.20");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "0.11");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "0.1");
-        Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e3 = new Event("key1", raw, System.currentTimeMillis());
 
         PreviousOperand previousOperand = new PreviousOperand(name);
 
@@ -52,15 +52,15 @@ public class PreviousOperandTest {
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "a");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "b");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "1");
-        Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e3 = new Event("key1", raw, System.currentTimeMillis());
 
         PreviousOperand avg = new PreviousOperand(name);
 
@@ -75,15 +75,15 @@ public class PreviousOperandTest {
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "1");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "-1");
-        Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e3 = new Event("key1", raw, System.currentTimeMillis());
 
         PreviousOperand previousOperand = new PreviousOperand(booleanExprBase);
 
@@ -95,12 +95,12 @@ public class PreviousOperandTest {
 
         raw = new HashMap<String, String>();
         raw.put("test", "b");
-        Event e4 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e4 = new Event("key1", raw, System.currentTimeMillis());
         previousOperand = new PreviousOperand(booleanExprBase);
 
         raw = new HashMap<String, String>();
         raw.put("test", "b");
-        Event e5 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e5 = new Event("key1", raw, System.currentTimeMillis());
         previousOperand = new PreviousOperand(booleanExprBase);
 
         Assert.assertEquals("", previousOperand.getValue( Arrays.asList(e4, e5), null));
@@ -114,15 +114,15 @@ public class PreviousOperandTest {
 
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "NORMAL");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "WARNING");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "WARNING");
-        Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e3 = new Event("key1", raw, System.currentTimeMillis());
 
         PreviousOperand previousOperand = new PreviousOperand(booleanExprBase);
 
@@ -139,22 +139,22 @@ public class PreviousOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "2");
         raw.put("test2", "4");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "2");
         raw.put("test2", "0");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "0");
         raw.put("test2", "5");
-        Event e3 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e3 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("test", "3");
         raw.put("test2", "5");
-        Event e4 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e4 = new Event("key1", raw, System.currentTimeMillis());
 
         PreviousOperand previousOperand = new PreviousOperand(new NameOperand("table", "test"), andExpr);
 

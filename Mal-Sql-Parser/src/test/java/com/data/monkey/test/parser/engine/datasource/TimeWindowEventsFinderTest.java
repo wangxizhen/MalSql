@@ -29,10 +29,10 @@ public class TimeWindowEventsFinderTest {
 
         IEventsProvider provider = Mockito.mock(IEventsProvider.class);
         List<Event> result = new ArrayList<>();
-        result.add(new Event(key, raw, UUID.randomUUID(), endTime - 1000, 0, 0));
-        result.add(new Event(key, raw, UUID.randomUUID(), endTime - 2000, 0, 0));
+        result.add(new Event(key, raw, endTime - 1000));
+        result.add(new Event(key, raw, endTime - 2000));
 
-        Event e = new Event(key, raw, UUID.randomUUID(), endTime, 0, 0);
+        Event e = new Event(key, raw, endTime);
         result.add(e);
 
         Mockito.when(provider.getEventsByTimeWindow(key, endTime - TimeUnit.MINUTES.toMillis(timeWindow), endTime)).thenReturn(result);

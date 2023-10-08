@@ -21,7 +21,7 @@ public class NameOperandTest {
         NameOperand name = new NameOperand(null, "test");
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("test", "0.098");
-        Event e = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e = new Event("key1", raw, System.currentTimeMillis());
         assertEquals(0.098, name.getValue( Arrays.asList(e), null));
     }
 

@@ -34,8 +34,5 @@ public interface IEventsProvider {
      */
     Event getThePreviousEvent(Event event);
 
-    /**
-     * All the HealthStatusEvent Would have it's source event (RawMetricEvent) id in its tags
-     */
-    Event getEventBySourceEventId(String sourceEventId);
+
 }

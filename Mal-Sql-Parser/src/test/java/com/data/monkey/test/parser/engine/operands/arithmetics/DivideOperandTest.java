@@ -29,7 +29,7 @@ public class DivideOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("key1", "0.1");
         raw.put("key2", "0.05");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
 
         assertEquals(2.0D, div.getValue(Arrays.asList(e1), null));
@@ -45,7 +45,7 @@ public class DivideOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("key1", "0.1");
         raw.put("key2", "0");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         assertEquals(0.0D, div.getValue(Arrays.asList(e1), null));
     }
@@ -63,12 +63,12 @@ public class DivideOperandTest {
         Map<String, String> raw = new HashMap<String, String>();
         raw.put("key1", "0.1");
         raw.put("key2", "0.05");
-        Event e1 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e1 = new Event("key1", raw, System.currentTimeMillis());
 
         raw = new HashMap<String, String>();
         raw.put("key1", "0.3");
         raw.put("key2", "0.05");
-        Event e2 = new Event("key1", raw, UUID.randomUUID(), System.currentTimeMillis(), 1L, 2L);
+        Event e2 = new Event("key1", raw, System.currentTimeMillis());
 
 
         assertEquals(4.0D, div.getValue(Arrays.asList(e1, e2), null));
