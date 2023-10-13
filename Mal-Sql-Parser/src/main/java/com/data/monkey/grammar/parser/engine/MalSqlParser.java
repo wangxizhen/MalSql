@@ -176,7 +176,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
         }
     }
 
-    private Boolean visitBoolExpr(ConditionStatementContext ctx) {
+    private Boolean visitConditionStatementExpr(ConditionStatementContext ctx) {
         if (ctx instanceof InsideExpressionContext) {
             return visitInsideExpression((InsideExpressionContext) ctx);
         } else if (ctx instanceof AndOperationContext) {
@@ -191,14 +191,14 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
 
     @Override
     public Boolean visitInsideExpression(InsideExpressionContext ctx) {
-        return visitBoolExpr(ctx.conditionStatement());
+        return visitConditionStatementExpr(ctx.conditionStatement());
     }
 
     @Override
     public Boolean visitAndOperation(AndOperationContext ctx) {
-        if (visitBoolExpr(ctx.left)) {
+        if (visitConditionStatementExpr(ctx.left)) {
             IBooleanExpression left = (IBooleanExpression) stack.pop();
-            if (visitBoolExpr(ctx.right)) {
+            if (visitConditionStatementExpr(ctx.right)) {
                 IBooleanExpression right = (IBooleanExpression) stack.pop();
                 stack.push(new AndCondition(left, right));
                 return true;
@@ -209,9 +209,9 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
 
     @Override
     public Boolean visitOrOperation(OrOperationContext ctx) {
-        if (visitBoolExpr(ctx.left)) {
+        if (visitConditionStatementExpr(ctx.left)) {
             IBooleanExpression left = (IBooleanExpression) stack.pop();
-            if (visitBoolExpr(ctx.right)) {
+            if (visitConditionStatementExpr(ctx.right)) {
                 IBooleanExpression right = (IBooleanExpression) stack.pop();
                 stack.push(new OrCondition(left, right));
                 return true;
@@ -399,7 +399,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
             Operand aggregationOperand = null;
 
             if (ctx.COMMA() != null) {
-                if (visitBoolExpr(ctx.predicate)) {
+                if (visitConditionStatementExpr(ctx.predicate)) {
                     IBooleanExpression predicate = (IBooleanExpression) stack.pop();
                     aggregationOperand = (Operand) fun.call(innerOperand, predicate);
 
@@ -413,7 +413,7 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
             // 入栈
             stack.push(aggregationOperand);
             return true;
-        } else if (visitBoolExpr(ctx.predicate)) {
+        } else if (visitConditionStatementExpr(ctx.predicate)) {
             // 里面返回的operand
             IBooleanExpression predicate = (IBooleanExpression) stack.pop();
 
@@ -450,14 +450,15 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
     @Override
     public Boolean visitWhereStatement(WhereStatementContext ctx) {
         if (ctx.timeRangeStatement() != null) {
-            return visitBoolExpr(ctx.conditionStatement())
+            return visitConditionStatementExpr(ctx.conditionStatement())
                     && visitFilterLikeStatement(ctx.filterStatement())
-                    && visitTimeRangeStatement(ctx.timeRangeStatement());
+                    && visitTimeRangeStatement(ctx.timeRangeStatement())
+                    &&visitGroupStatement(ctx.groupStatement());
         } else {
-            //没有during,则获取所有事件
+            //not hava timeRangeStatement
             builder.eventsFinder(AllEventsFinder.newInstance());
 
-            if (visitBoolExpr(ctx.conditionStatement())) {
+            if (visitConditionStatementExpr(ctx.conditionStatement())) {
                 return visitFilterLikeStatement(ctx.filterStatement());
             }
         }
@@ -580,6 +581,11 @@ public class MalSqlParser implements MalSqlParserVisitor<Boolean> {
             operands.add(new ContainLikeOperand(tableName, ctx.left.getText(), ctx.right.getText()));
             builder.likeFilterCondition(operands);
         }
+        return true;
+    }
+
+    @Override
+    public Boolean visitGroupStatement(GroupStatementContext ctx) {
         return true;
     }
 

@@ -35,10 +35,6 @@ public class Event implements Serializable {
     }
 
 
-    public Event(String key, Map<String, String> metrics, UUID uuid, long timestamp, long timeScope, long time) {
-        this.key = key;
-        this.metrics = metrics;
-        this.timestamp = timestamp;
-    }
+
 
 }

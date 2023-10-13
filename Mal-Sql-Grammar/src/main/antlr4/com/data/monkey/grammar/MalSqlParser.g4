@@ -98,6 +98,7 @@ whereStatement
 	conditionStatement
 	(filterStatement)?
 	(timeRangeStatement)?
+	(groupStatement)?
 ;
 
 conditionStatement
@@ -146,6 +147,12 @@ filterStatement
     FILTER BY left = LetterOrDigit LIKE right = LetterOrDigit PERCENT  # rightMatch |
     FILTER BY left = LetterOrDigit LIKE PERCENT right = LetterOrDigit PERCENT # containMatch
 ;
+
+groupStatement
+:
+   GROUP BY LetterOrDigit ( COMMA LetterOrDigit )*
+;
+
 
 
 
